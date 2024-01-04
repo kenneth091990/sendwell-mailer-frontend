@@ -49,6 +49,11 @@ export default function App() {
               <ResetPassword />
             </HomePageLayout>
           </Route>
+          <Route exact path={'/recover_password'}>
+            <HomePageLayout>
+              <ResetPassword />
+            </HomePageLayout>
+          </Route>
 
           {/* Error Page 404 */}
           <Route path="*">
