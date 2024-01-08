@@ -6,10 +6,10 @@ function useLocalStorage(key, initialValue) {
             // Get value from localStorage by key
             const item = window.localStorage.getItem(key);
 
-            return item ? JSON.stringify(item) : initialValue;
+            return item ?? initialValue;
         } catch (error) {
             // If error
-            console.error("ERROR: [useLocalStorage]", error);
+            // console.error("ERROR: [useLocalStorage]", error);
             return initialValue;
         }
     });
@@ -21,10 +21,10 @@ function useLocalStorage(key, initialValue) {
                 storedValue(storedValue) : storedValue;
 
             // Save state
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+            window.localStorage.setItem(key, valueToStore);
         } catch (error) {
             // If error
-            console.error("ERROR: [useLocalStorage|useEffect]", error);
+            // console.error("ERROR: [useLocalStorage|useEffect]", error);
         }
     }, [key, storedValue])
 

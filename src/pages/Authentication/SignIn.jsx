@@ -1,6 +1,32 @@
+import { useRef } from 'react';
+import { useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { loginThunk } from '../../modules/authThunks';
 
 const SignIn = () => {
+  const form = useRef();
+  const dispatch = useDispatch();
+  const [loginForm, setLoginForm] = useReducer(
+    (prev, next) => ({ ...prev, ...next }),
+    {
+      emailOrUsername: "",
+      password: ""
+    }
+  )
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setLoginForm({
+      [name]: value
+    })
+  }
+
+  const submitLogin = (e) => {
+    e.preventDefault();
+    dispatch(loginThunk(loginForm))
+  }
+
   return (
     <div className='inline-flex w-full justify-center'>
       <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 ">
@@ -10,15 +36,18 @@ const SignIn = () => {
               LOGIN
             </h2>
           </div>
-          <form>
+          <form ref={form} onSubmit={submitLogin}>
             <div className="mb-4">
               <label className="mb-2.5 block  text-black dark:text-white">
                 Email
               </label>
               <div className="relative">
                 <input
-                  type="email"
-                  placeholder="Enter your email"
+                  type="text"
+                  name='emailOrUsername'
+                  value={loginForm?.emailOrUsername}
+                  onChange={handleInput}
+                  placeholder="Enter your email or username"
                   autoComplete="new-password"
                   className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
@@ -31,6 +60,9 @@ const SignIn = () => {
               <div className="relative">
                 <input
                   type="password"
+                  name='password'
+                  value={loginForm?.password}
+                  onChange={handleInput}
                   autoComplete="new-password"
                   placeholder="6+ Characters, 1 Capital letter"
                   className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
@@ -39,7 +71,7 @@ const SignIn = () => {
             </div>
             <div className="mt-15 text-center">
               <p>
-                <Link to="/reset_password" className="text-primary">
+                <Link to="/forgot_password" className="text-primary">
                   Forgot Password?
                 </Link>
               </p>

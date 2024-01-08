@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { SESSION_TOKEN, verifySession } from '../helpers/constants';
+import { SESSION_TOKEN, verifySession } from '../core/constants';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const AuthContext = createContext(null);
@@ -7,13 +7,13 @@ const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-    const [storedValue, setStoredValue] = useLocalStorage(SESSION_TOKEN);
-    const [user, setUser] = useState({ user_session: verifySession(localStorage.getItem(SESSION_TOKEN))?.user_session });
+    const [storedValue, setStoredValue] = useLocalStorage(SESSION_TOKEN, null);
+    const [user, setUser] = useState(verifySession(localStorage.getItem(SESSION_TOKEN)));
     const updateAuth = (auth) => {
         if (auth !== null) {
-            if (auth?.user) {
+            if (auth?.data) {
                 setStoredValue(auth?.token);
-                setUser(() => auth?.user);
+                setUser(() => auth?.data);
             } else {
                 setUser(() => auth);
             }

@@ -1,8 +1,11 @@
+import jwtDecode from 'jwt-decode';
+import * as jose from 'jose'
+import { format } from 'date-fns';
+import CryptoJS from "crypto-js";
 
 export const SESSION_TOKEN = "stk";
 
 export const validateEmail = (email) => {
-    console.log("Dumaan ka ba dito");
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return regex.test(email);
 }
@@ -12,6 +15,27 @@ export const verifySession = (token) => {
         let data = jwtDecode(token)
         return data;
     } catch (error) { return null; }
+}
+
+export const signToken = async (payload, customKey, customExpire) => {
+    try {
+        const secret = new TextEncoder().encode(
+            customKey,
+        )
+        const alg = 'HS256'
+
+        const jwt = await new jose.SignJWT({ 'urn:sendwell_mailer:claim': true, payload })
+            .setProtectedHeader({ alg })
+            .setIssuedAt()
+            .setIssuer('urn:sendwell_mailer:issuer')
+            .setAudience('urn:sendwell_mailer:audience')
+            .setExpirationTime(customExpire ?? '4m')
+            .sign(secret)
+
+        return jwt;
+    } catch (error) {
+        return null;
+    }
 }
 
 
@@ -85,4 +109,47 @@ export const elegantFormat = (str) => {
     const readableWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
     return readableWords;
+}
+
+export const graphqlMutationThunk = async (client, documentNode, variables, operationName, errorMessage) => {
+    try {
+        const response = await client.mutate({
+            mutation: documentNode,
+            variables: variables
+        });
+
+        if (response?.errors?.length) {
+            throw new Error(response.errors[0]?.message)
+        }
+
+        if (!response.data[operationName]) throw new Error(`Something went wrong ${errorMessage}. Please try again`);
+
+        return response.data[operationName];
+    } catch (error) {
+        return {
+            message: error?.message ?? "Something went wrong. Please try again",
+        }
+    }
+}
+
+export const graphqlQueryThunk = async (client, documentNode, variables, operationName, errorMessage, fetchPolicy) => {
+    try {
+        const response = await client.query({
+            query: documentNode,
+            variables: variables ?? {},
+            fetchPolicy: fetchPolicy ?? "cache-first"
+        }, fetch);
+
+        if (response?.errors?.length) {
+            throw new Error(response.errors[0]?.message)
+        }
+
+        if (!response.data[operationName]) throw new Error(`Something went wrong ${errorMessage}. Please try again`);
+
+        return response.data[operationName];
+    } catch (error) {
+        return {
+            message: error?.message ?? "Something went wrong. Please try again",
+        }
+    }
 }
