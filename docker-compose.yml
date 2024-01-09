@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+    mailer:
+      build:
+        context: .
+        dockerfile: .docker/Dockerfile
+      command: npm run dev
+      ports:
+        - "8080:8080"
+      image: mailer
+      restart: always
+      networks:
+        funnel_network:
+      labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailer.rule=Host(`mailer.newgenetesting.com`)"
+      - "traefik.http.routers.mailer.entrypoints=web"
+      - "traefik.http.routers.backend.priority=21"
+      
+      # global redirect to https
+      # - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      # - "traefik.http.routers.http-catchall.entrypoints=web"
+      # - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+
+      # middleware redirect
+      # - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    
+
+networks:
+  funnel_network:
+    external: true
