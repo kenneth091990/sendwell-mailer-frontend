@@ -38,6 +38,29 @@ export const signToken = async (payload, customKey, customExpire) => {
     }
 }
 
+export function validatePassword(password) {
+    const minLengthRegex = /.{6,}/; // Checks for minimum length of 6 characters
+    const uppercaseRegex = /[A-Z]/; // Checks for at least one uppercase letter
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/; // Checks for at least one special character
+    const twoDigitsRegex = /(\d.*\d)/; // Checks for at least two digits
+    var newPass = null;
+
+    if (!minLengthRegex.test(password)) {
+        newPass = "Password must be at least 6 characters long.";
+    }
+
+    if (!uppercaseRegex.test(password)) {
+        newPass = "Password must contain at least one uppercase letter.";
+    }
+
+    if (!specialCharRegex.test(password)) {
+        newPass = "Password must contain at least one special character.";
+    }
+
+
+    return newPass;
+}
+
 
 export const getUploadLink = (fileURL, altImage) => {
     if (!fileURL) return `https://placehold.co/90x90?text=${encodeURI(altImage ?? "File Link")}`;

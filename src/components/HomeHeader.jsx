@@ -13,7 +13,7 @@ const HomeHeader = () => {
                             </Link>
                         </li>
                         <li  className="inline p-2">
-                            <Link to="/register" className="font-semibold ">
+                            <Link to="/registration" className="font-semibold ">
                                 REGISTRATION
                             </Link>
                         </li>

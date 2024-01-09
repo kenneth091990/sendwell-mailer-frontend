@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useRef, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUserThunk } from '../../modules/authThunks';
+import { validatePassword } from '../../core/constants';
+import { toast } from 'react-toastify';
 
 const Registration = () => {
   const form = useRef();
@@ -13,9 +15,9 @@ const Registration = () => {
 
       if (`${newEvent?.password}`.trim() && `${newEvent?.confirm_password}`.trim()) {
         if (newEvent?.password !== newEvent?.confirm_password) {
-          newEvent.password_match = false;
+          newEvent.password_match = validatePassword(newEvent?.password) ?? "Password does not match";
         } else {
-          newEvent.password_match = true;
+          newEvent.password_match = validatePassword(newEvent?.password);
         }
       }
 
@@ -26,7 +28,7 @@ const Registration = () => {
       username: "",
       password: "",
       confirm_password: "",
-      password_match: true,
+      password_match: null,
     }
   )
 
@@ -39,7 +41,10 @@ const Registration = () => {
 
   const submitRegister = (e) => {
     e.preventDefault();
-    if (!registerForm.password_match) return;
+    if (registerForm.password_match !== null || !`${registerForm?.password}`.trim()) {
+      toast.error(registerForm?.password_match ?? `Password is required`);
+      return;
+    }
     dispatch(registerUserThunk(registerForm))
   }
 
@@ -61,6 +66,7 @@ const Registration = () => {
               <div className="relative">
                 <input
                   type="email"
+                  required
                   name='email'
                   value={registerForm?.email}
                   onChange={handleInput}
@@ -79,6 +85,7 @@ const Registration = () => {
                 <input
                   type="text"
                   name='username'
+                  required
                   value={registerForm?.username}
                   onChange={handleInput}
                   placeholder="Enter your username"
@@ -95,6 +102,7 @@ const Registration = () => {
               <div className="relative">
                 <input
                   type="password"
+                  required
                   name='password'
                   value={registerForm?.password}
                   onChange={handleInput}
@@ -111,13 +119,14 @@ const Registration = () => {
               <div className="relative">
                 <input
                   type="password"
+                  required
                   name='confirm_password'
                   value={registerForm?.confirm_password}
                   onChange={handleInput}
                   autoComplete="new-password"
                   className={`w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
                 />
-                {!registerForm.password_match && <small className='text-meta-1'>Password not match</small>}
+                {registerForm.password_match && <small className='text-meta-1'>{registerForm?.password_match}</small>}
               </div>
             </div>
 
