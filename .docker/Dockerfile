@@ -11,6 +11,6 @@ COPY sample.env .env
 
 COPY . .
 
-EXPOSE 5173
+EXPOSE 8080
 # start nginx
 CMD ["npm", "run", "dev"]
