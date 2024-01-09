@@ -6,7 +6,7 @@ services:
         dockerfile: .docker/Dockerfile
       command: npm run dev
       ports:
-        - "5173:5173"
+        - "5173:8080"
       image: mailer
       restart: always
       networks:
