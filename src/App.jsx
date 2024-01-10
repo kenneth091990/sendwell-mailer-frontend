@@ -205,11 +205,11 @@ export default function App() {
       {loading ? (<Loader />) : (
         <Switch>
           <Route exact path={'/'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+            if (!user) {
+              return (
+                <Redirect to={'/login'} />
+              )
+            }
 
             return (
               <DefaultLayout>
