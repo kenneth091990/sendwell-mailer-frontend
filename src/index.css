@@ -168,3 +168,27 @@ a {
 .header {
   border-bottom: 2px solid #dfe1e2;
 }
+
+.active-link{
+  color: #fff;
+
+}
+
+.bg-blue{
+  background: #3C72AB;
+  color: #fff;
+
+}
+
+.bg-green{
+  background: #50A450;
+  
+}
+
+.bg-orange{
+  background: #CC9132;
+}
+
+.bg-red{
+  background: #B92D2B;
+}
