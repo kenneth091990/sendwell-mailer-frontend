@@ -4,6 +4,7 @@ import DefaultLayout from './layout/DefaultLayout';
 import HomePageLayout from './layout/HomePageLayout';
 
 import Dashboard from './pages/dashboards/Dashboard';
+import Nodes from './pages/dashboards/Nodes';
 import Loader from './common/Loader';
 import ErrorPage from './pages/ErrorPage';
 import AnalyticsDashboard from './pages/dashboards/AnalyticsDashboard';
@@ -214,6 +215,20 @@ export default function App() {
             return (
               <DefaultLayout>
                 <Dashboard />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/nodes'} render={(props) => {
+            if (!user) {
+              return (
+                <Redirect to={'/login'} />
+              )
+            }
+
+            return (
+              <DefaultLayout>
+                <Nodes />
               </DefaultLayout>
             )
           }} />
