@@ -169,10 +169,42 @@ a {
   border-bottom: 2px solid #dfe1e2;
 }
 
+.border-line-blue{
+  border-color:  #3C72AB!important;
+}
+
+.border-line-gray{
+  border-color:  #E5E6E7!important;
+}
+
 .active-link{
   color: #fff;
   background: #3C72AB;
 
+}
+
+
+.text-gray{
+  color: #BBBDBF;
+}
+
+table tbody tr.even,
+.bg-gray{
+  background-color: #E5E6E7;
+}
+
+table tbody tr.odd{
+  background-color: transparent;
+}
+
+.checkbox{
+    -ms-transform: scale(1.6);
+    -moz-transform: scale(1.6);
+    -webkit-transform: scale(1.6);
+    -o-transform: scale(1.6);
+    transform: scale(1.6);
+    padding: 0px;
+    accent-color: #3C72AB;
 }
 
 .bg-blue{

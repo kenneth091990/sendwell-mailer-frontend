@@ -5,6 +5,8 @@ import HomePageLayout from './layout/HomePageLayout';
 
 import Dashboard from './pages/dashboards/Dashboard';
 import Nodes from './pages/dashboards/Nodes';
+import Lists from './pages/dashboards/Lists';
+import Suppresions from './pages/dashboards/Suppresions';
 import Loader from './common/Loader';
 import ErrorPage from './pages/ErrorPage';
 import AnalyticsDashboard from './pages/dashboards/AnalyticsDashboard';
@@ -206,11 +208,11 @@ export default function App() {
       {loading ? (<Loader />) : (
         <Switch>
           <Route exact path={'/'} render={(props) => {
-            if (!user) {
-              return (
-                <Redirect to={'/login'} />
-              )
-            }
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
 
             return (
               <DefaultLayout>
@@ -219,16 +221,44 @@ export default function App() {
             )
           }} />
 
+           <Route exact path={'/lists'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Lists />
+              </DefaultLayout>
+            )
+          }} />
+
           <Route exact path={'/nodes'} render={(props) => {
-            if (!user) {
-              return (
-                <Redirect to={'/login'} />
-              )
-            }
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
 
             return (
               <DefaultLayout>
                 <Nodes />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/suppresions'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Suppresions />
               </DefaultLayout>
             )
           }} />
