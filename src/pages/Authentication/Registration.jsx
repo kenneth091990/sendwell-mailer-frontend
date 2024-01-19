@@ -133,7 +133,7 @@ const Registration = () => {
             <div className="mb-5 text-center">
               <input
                 type="submit"
-                value="Login"
+                value="Register"
                 className="cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 px-20 py-3"
               />
             </div>
