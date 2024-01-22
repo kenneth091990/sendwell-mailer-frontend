@@ -58,17 +58,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         >
             {/* <!-- SIDEBAR HEADER --> */}
             <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-            <div className="hidden sm:block">
+                <div className="hidden sm:block">
                     <form action="https://formbold.com/s/unique_form_id" method="POST">
                         <div className="relative">
-                       
+
 
                             <input
                                 type="text"
                                 placeholder="Type to search..."
                                 className="w-full bg-transparent pr-4 pl-9 focus:outline-none"
                             />
-                                 <button className="absolute top-1/2 left-0 -translate-y-1/2">
+                            <button className="absolute top-1/2 left-0 -translate-y-1/2">
                                 <svg
                                     className="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary"
                                     width="20"
@@ -124,7 +124,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
                     {/* <!-- Menu Group --> */}
                     <div>
-                   
+
 
                         <ul className="mb-6 flex flex-col gap-1.5">
                             {/* <!-- Menu Item Dashboard --> */}
@@ -205,11 +205,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/nodes"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
-                                        'bg-graydark dark:bg-meta-4'
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('nodes') &&
+                                        'active-link'
                                         }`}
                                 >
-                                     <img  src="/src/images/nav/Nav_Nodes.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('nodes') ? 'NavWhite_Nodes.png' : 'Nav_Nodes.png'}`} height={18} width={18} />
                                     Nodes
                                 </NavLink>
                             </li>
@@ -219,22 +219,22 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/profile"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('profile') && 'bg-graydark dark:bg-meta-4'
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('domains') && 'active-link'
                                         }`}
                                 >
-                                    <img  src="/src/images/nav/Nav_Domains.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('profile') ? 'NavWhite_Domains.png' : 'Nav_Domains.png'}`} height={18} width={18} />
 
                                     Domains
                                 </NavLink>
                             </li>
-                       
+
                             <li>
                                 <NavLink
-                                    to="/tables"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('tables') && 'bg-graydark dark:bg-meta-4'
+                                    to="/integration"
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('integration') && 'active-link'
                                         }`}
                                 >
-                                    <img  src="/src/images/nav/Nav_Integrations.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('integration') ? 'NavWhite_Integrations.png' : 'Nav_Integrations.png'}`} height={18} width={18} />
 
                                     Integration
                                 </NavLink>
@@ -242,11 +242,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/lists"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
-                                        'bg-graydark dark:bg-meta-4'
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('lists') &&
+                                        'active-link'
                                         }`}
                                 >
-                                    <img  src="/src/images/nav/Nav_Lists.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('lists') ? 'NavWhite_Lists.png' : 'Nav_Lists.png'}`} height={18} width={18} />
 
                                     Lists
                                 </NavLink>
@@ -254,35 +254,33 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/suppresions"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
-                                        'bg-graydark dark:bg-meta-4'
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('suppresions') &&
+                                        'active-link'
                                         }`}
                                 >
-                                    <img  src="/src/images/nav/Nav_Suppression.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('suppresions') ? 'NavWhite_Supression.png' : 'Nav_Suppression.png'}`} height={18} width={18} />
 
                                     Suppresions
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
-                                    to="/settings"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
-                                        'bg-graydark dark:bg-meta-4'
+                                    to="/configurations"
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('configurations') &&
+                                        'active-link'
                                         }`}
                                 >
-                                    <img  src="/src/images/nav/Nav_Config.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('configurations') ? 'NavWhite_Config.png' : 'Nav_Config.png'}`} height={18} width={18} />
 
                                     Configurations
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
-                                    to="/settings"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 
-                                   active-link
-                                        }`}
+                                    to="/queues"
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('queues') && 'active-link'}`}
                                 >
-                                    <img  src="/src/images/nav/NavWhite_Queues.png" height={18} width={18}/>
+                                    <img src={`/src/images/nav/${pathname.includes('queues') ? 'NavWhite_Queues.png' : 'Nav_Queues.png'}`} height={18} width={18} />
 
                                     Queues
                                 </NavLink>
