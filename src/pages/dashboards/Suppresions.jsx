@@ -37,11 +37,11 @@ const Suppresions = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 ">
-                <div className="w-full rounded-md p-2 border border-line-gray">
+                <div className="w-full rounded-md p-2  lg:border border-line-gray">
                  
                     <table class="border-collapse w-full">
                         <thead>
-                            <tr className='border-b border-line-gray'>
+                            <tr className='lg:border-b border-line-gray'>
                                 <th class="py-1 px-4 text-gray hidden lg:table-cell">LIST</th>
                                 <th class="py-1 px-4 text-gray hidden lg:table-cell">DESCRIPTION</th>
                                 <th class="py-1 px-4 text-gray hidden lg:table-cell">COUNT</th>
@@ -50,64 +50,111 @@ const Suppresions = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border border-b lg:border-none block lg:table-cell relative lg:static max-lg:text-center text-left">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">LIST</span>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            className='mx-2 accent-pink-500 checkbox'                
-                                        />
-                                        sample.txt
-                                    </label>
+                        <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                           <label>
+                                                <input
+                                                    type="checkbox"
+                                                    className='mx-2 accent-pink-500 checkbox'                
+                                                />
+                                                sample.txt
+                                            </label>
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">DESCRIPTION</span>
-                                    Lorem ipsum dolor sit amet lorem ipsum sit amet
-                                    dolor sit amet lorem ipsum dolor sit amet ala
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                        Lorem ipsum dolor sit amet lorem ipsum sit amet
+                                        dolor sit amet lorem ipsum dolor sit amet ala
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">COUNT</span>
-                                    <span class="rounded bg-red-400 py-1 px-3 text-xs font-bold"> 123,456</span>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                    123,456
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">STATUS</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Inactive</button>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ACTION</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Delete</button>
-                                </td>
-                            </tr>
-                            <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border border-b lg:border-none block lg:table-cell relative lg:static max-lg:text-center text-left">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">LIST</span>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            className='mx-2 accent-pink-500 checkbox'                
-                                        />
-                                        sampleasdsads.txt
-                                    </label>
-                                </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">DESCRIPTION</span>
-                                    Lorem ipsum dolor sit amet lorem ipsum sit amet
-                                    dolor sit amet lorem ipsum dolor sit amet ala
-                                </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">COUNT</span>
-                                    <span class="rounded bg-red-400 py-1 px-3 text-xs font-bold"> 123,456</span>
-                                </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">STATUS</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Inactive</button>
-                                </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ACTION</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Delete</button>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                    </div>
+                             
                                 </td>
                             </tr>
+                            <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                           <label>
+                                                <input
+                                                    type="checkbox"
+                                                    className='mx-2 accent-pink-500 checkbox'                
+                                                />
+                                                sample.txt
+                                            </label>
+                                    </div>
+                             
+                                </td>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                        Lorem ipsum dolor sit amet lorem ipsum sit amet
+                                        dolor sit amet lorem ipsum dolor sit amet ala
+                                    </div>
+                             
+                                </td>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                    123,456
+                                    </div>
+                             
+                                </td>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
+                                    </div>
+                             
+                                </td>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                    </div>
+                             
+                                </td>
+                            </tr>
+                            
                         
                         
                         </tbody>
@@ -139,9 +186,9 @@ const Suppresions = () => {
             <div className="grid grid-cols-1 ">
                 <div className="w-full rounded-md p-2 border border-line-gray">
                  
-                    <table class="border-collapse w-full">
+                <table class="border-collapse w-full">
                         <thead>
-                            <tr className='border-b border-line-gray'>
+                            <tr className='lg:border-b border-line-gray'>
                                 <th class="py-1 px-4 text-gray hidden lg:table-cell">LIST</th>
                                 <th class="py-1 px-4 text-gray hidden lg:table-cell">DESCRIPTION</th>
                                 <th class="py-1 px-4 text-gray hidden lg:table-cell">COUNT</th>
@@ -150,62 +197,108 @@ const Suppresions = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border border-b lg:border-none block lg:table-cell relative lg:static max-lg:text-center text-left">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">LIST</span>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            className='mx-2 accent-pink-500 checkbox'                
-                                        />
-                                        sample.txt
-                                    </label>
+                        <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                           <label>
+                                                <input
+                                                    type="checkbox"
+                                                    className='mx-2 accent-pink-500 checkbox'                
+                                                />
+                                                sample.txt
+                                            </label>
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">DESCRIPTION</span>
-                                    Lorem ipsum dolor sit amet lorem ipsum sit amet
-                                    dolor sit amet lorem ipsum dolor sit amet ala
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                        Lorem ipsum dolor sit amet lorem ipsum sit amet
+                                        dolor sit amet lorem ipsum dolor sit amet ala
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">COUNT</span>
-                                    <span class="rounded bg-red-400 py-1 px-3 text-xs font-bold"> 123,456</span>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                    123,456
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">STATUS</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Inactive</button>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ACTION</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Delete</button>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                    </div>
+                             
                                 </td>
                             </tr>
-                            <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border border-b lg:border-none block lg:table-cell relative lg:static max-lg:text-center text-left">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">LIST</span>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            className='mx-2 accent-pink-500 checkbox'                
-                                        />
-                                        sampleasdsads.txt
-                                    </label>
+                            <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                           <label>
+                                                <input
+                                                    type="checkbox"
+                                                    className='mx-2 accent-pink-500 checkbox'                
+                                                />
+                                                sample.txt
+                                            </label>
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">DESCRIPTION</span>
-                                    Lorem ipsum dolor sit amet lorem ipsum sit amet
-                                    dolor sit amet lorem ipsum dolor sit amet ala
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                        Lorem ipsum dolor sit amet lorem ipsum sit amet
+                                        dolor sit amet lorem ipsum dolor sit amet ala
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">COUNT</span>
-                                    <span class="rounded bg-red-400 py-1 px-3 text-xs font-bold"> 123,456</span>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                    123,456
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">STATUS</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Inactive</button>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
+                                    </div>
+                             
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800 text-center border border-b text-center lg:border-none lg:border-none block lg:table-cell relative lg:static">
-                                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ACTION</span>
-                                    <button className='btn  bg-red px-3 border rounded-md text-white'>Delete</button>
+                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div class='max-md:mt-3 md:mt-3'>    
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                         <button className=''>
+                                            <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20}  className='mx-1'></img>
+                                         </button>
+                                    </div>
+                             
                                 </td>
                             </tr>
                         

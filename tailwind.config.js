@@ -9,7 +9,9 @@ export default {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      satoshi: ['Satoshi', 'sans-serif'],
+     // satoshi: ['Satoshi', 'sans-serif'],
+      'montserrat': ['Montserrat', 'sans-serif'],
+
     },
     colors: {
       current: 'currentColor',
