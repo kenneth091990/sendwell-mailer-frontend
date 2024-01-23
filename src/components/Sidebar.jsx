@@ -205,7 +205,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/nodes"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('nodes') &&
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('nodes') &&
                                         'active-link'
                                         }`}
                                 >
@@ -219,7 +219,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/profile"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('domains') && 'active-link'
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('domains') && 'active-link'
                                         }`}
                                 >
                                     <img src={`/src/images/nav/${pathname.includes('profile') ? 'NavWhite_Domains.png' : 'Nav_Domains.png'}`} height={18} width={18} />
@@ -231,7 +231,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/integration"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('integration') && 'active-link'
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('integration') && 'active-link'
                                         }`}
                                 >
                                     <img src={`/src/images/nav/${pathname.includes('integration') ? 'NavWhite_Integrations.png' : 'Nav_Integrations.png'}`} height={18} width={18} />
@@ -242,7 +242,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/lists"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('lists') &&
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('lists') &&
                                         'active-link'
                                         }`}
                                 >
@@ -254,7 +254,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/suppresions"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('suppresions') &&
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('suppresions') &&
                                         'active-link'
                                         }`}
                                 >
@@ -266,7 +266,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/configurations"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('configurations') &&
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('configurations') &&
                                         'active-link'
                                         }`}
                                 >
@@ -278,7 +278,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                             <li>
                                 <NavLink
                                     to="/queues"
-                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('queues') && 'active-link'}`}
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('queues') && 'active-link'}`}
                                 >
                                     <img src={`/src/images/nav/${pathname.includes('queues') ? 'NavWhite_Queues.png' : 'Nav_Queues.png'}`} height={18} width={18} />
 

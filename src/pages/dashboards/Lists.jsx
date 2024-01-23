@@ -17,14 +17,14 @@ const Lists = () => {
             <div className="grid grid-cols-12 ">
               
             </div>
-            <div className="grid grid-cols-12 gap-3">
-                <div className='col-span-3 text-left'>
+            <div className="flex flex-row gap-3">
+                <div className='text-left max-xsm:hidden'>
                     <button className='btn  bg-gray px-3 py-2 border-none rounded-md text-gray mb-3 hidden lg:block'>Merge lists</button>
                 </div>
-                <div className='col-span-6 text-center'>
+                <div className='flex-1 text-center'>
                      <h1 className='text-2xl mb-3 text-gray'>MANAGE MY LISTS</h1>
                 </div>
-                <div className='col-span-3 text-right'>
+                <div className='text-right max-xsm:hidden'>
                     <button className='btn  bg-white px-3 py-2 border border-line-blue rounded-md text-blue mb-3 hidden lg:block'>Upload new lists</button>
                 </div>
                 
