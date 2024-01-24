@@ -1,4 +1,6 @@
 import React from 'react'
+import { useState } from 'react';
+
 import DataTable from '../../common/components/DataTable';
 import CardFour from '../../components/CardFour';
 import CardOne from '../../components/CardOne';
@@ -10,8 +12,70 @@ import ChartTwo from '../../components/ChartTwo';
 import ChatCard from '../../components/ChatCard';
 import MapOne from '../../components/MapOne';
 import TableOne from '../../components/TableOne';
+import Modal from '../../components/Modal';
+
 
 const Lists = () => {
+
+    const [showModal, setShowModal] = useState(false);
+    const [ form, setForm] = useState(null);
+
+    const formView = (formName, action, id) => {
+        
+        switch(formName){
+            case 'mergeLists':
+                setForm(cementedSupressionForm());;
+            break;
+        }
+
+        setForm(formElement);
+    }
+
+    const cementedSupressionForm = () =>{
+        return (
+            <div  className='flex-inline'>
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Merge.png' height={70} width={70} className='mx-auto my-0'/>
+                </div>
+                <div className='mt-3'>
+                    <h2 className='text-xl text-blue'>MERGE LISTS?</h2>
+                    <div>
+                        <p className='text-sm'>The selected lists will be merged into one new list.</p>
+                        <p className='text-sm'>Please provide a new title and description for the merged list</p>
+                    </div>
+                </div>
+                <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>MERGE LIST TITLE</label>
+                    </div>
+                    <div>
+                    <input
+                        type="text"
+                        className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    />
+                    </div>
+                </div>
+                <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>MERGE LIST TITLE</label>
+                    </div>
+                    <div>
+                        <textarea  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
+                    </div>
+                </div>
+                <div className='mt-5 '>
+                    <div>
+                        <button className='btn  bg-blue p-3 border rounded-md text-white py-3'>Create Merge Lists</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={ () => setShowModal(false) }>Cancel</button>
+                    </div>
+                </div>
+            
+            </div>
+        )
+    }
+
     const mockData = [
         {
             "list": "list/00000000-0713-e1.txt",
@@ -46,7 +110,13 @@ const Lists = () => {
             </div>
             <div className="flex flex-row gap-3">
                 <div className='text-left max-xsm:hidden'>
-                    <button className='btn  bg-gray px-3 py-2 border-none rounded-md text-gray mb-3'>Merge lists</button>
+                    <button className='btn  bg-gray px-3 py-2 border-none rounded-md text-gray mb-3' onClick={
+                        () => {
+                            setShowModal(true);
+                            formView('mergeLists', 'n', 0);
+                        }
+                    
+                    }>Merge lists</button>
                 </div>
                 <div className='flex-1 text-center'>
                     <h1 className='text-2xl mb-3 text-gray'>MANAGE MY LISTS</h1>
@@ -138,6 +208,11 @@ const Lists = () => {
                     return data;
                 })}
             />
+             <Modal onClose={() => {
+                setShowModal(false); 
+            }} showModal={showModal}>
+                { form }
+            </Modal>
         </>
     )
 }

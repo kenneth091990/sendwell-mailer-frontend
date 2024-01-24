@@ -1,4 +1,6 @@
 import React from 'react'
+import { useState } from 'react';
+
 import CardFour from '../../components/CardFour';
 import CardOne from '../../components/CardOne';
 import CardThree from '../../components/CardThree';
@@ -9,9 +11,57 @@ import ChartTwo from '../../components/ChartTwo';
 import ChatCard from '../../components/ChatCard';
 import MapOne from '../../components/MapOne';
 import TableOne from '../../components/TableOne';
+import Modal from '../../components/Modal';
+
 
 const Suppresions = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [ form, setForm] = useState(null);
 
+    const formView = (formName, action, id) => {
+        
+        switch(formName){
+            case 'cementedSuppression':
+                setForm(cementedSupressionForm());;
+            break;
+        }
+
+        setForm(formElement);
+    }
+
+    const cementedSupressionForm = () =>{
+        return (
+            <div  >
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0'/>
+                </div>
+                <div className='mt-3'>
+                    <h2 className='text-xl text-blue'>ADD CEMENTED LIST</h2>
+                </div>
+                <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>SUPPRESSION LIST</label>
+                    </div>
+                    <div>
+                        <select className='p-3 border border-line-gray w-full'>
+                            <option value="">Campaign Name</option>
+                        </select>
+                    </div>
+                </div>
+                <div className='mt-5 '>
+                    <div>
+                        <button className='btn  bg-blue p-3 border rounded-md text-white py-3'>Cement List</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={ () => setShowModal(false) }>Cancel</button>
+                    </div>
+                </div>
+            
+            </div>
+        )
+    }
+
+   
     return (
         <>
            
@@ -164,7 +214,13 @@ const Suppresions = () => {
 
             <div className="grid grid-cols-12 gap-3 mt-5">
                 <div className='col-span-3 text-left max-md:col-span-12'>
-                    <button className='btn  bg-white px-3 py-2 border border-line-blue rounded-md text-blue mb-3 '>Add cemented list</button>
+                    <button className='btn  bg-white px-3 py-2 border border-line-blue rounded-md text-blue mb-3 ' onClick={
+                        () => {
+                            setShowModal(true);
+                            formView('cementedSuppression', 'n', 0);
+                        }
+                    
+                    } >Add cemented list</button>
                 </div>
                 <div className='col-span-6 text-center max-md:col-span-12'>
                      <h1 className='text-2xl mb-3 text-gray'>CEMENTED SUPPRESSION FILES</h1>
@@ -307,6 +363,11 @@ const Suppresions = () => {
                     </table>
                 </div>
             </div>
+            <Modal onClose={() => {
+                setShowModal(false); 
+            }} showModal={showModal}>
+                { form }
+            </Modal>
         </>
     )
 }
