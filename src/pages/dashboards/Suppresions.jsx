@@ -26,7 +26,7 @@ const Suppresions = () => {
             break;
         }
 
-        setForm(formElement);
+        setForm(null);
     }
 
     const cementedSupressionForm = () =>{

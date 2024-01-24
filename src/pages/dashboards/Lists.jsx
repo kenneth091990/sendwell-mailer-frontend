@@ -16,26 +16,25 @@ import Modal from '../../components/Modal';
 
 
 const Lists = () => {
-
     const [showModal, setShowModal] = useState(false);
-    const [ form, setForm] = useState(null);
+    const [form, setForm] = useState(null);
 
     const formView = (formName, action, id) => {
-        
-        switch(formName){
+
+        switch (formName) {
             case 'mergeLists':
                 setForm(cementedSupressionForm());;
-            break;
+                break;
         }
 
-        setForm(formElement);
+        setForm(null);
     }
 
-    const cementedSupressionForm = () =>{
+    const cementedSupressionForm = () => {
         return (
-            <div  className='flex-inline'>
+            <div className='flex-inline'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Merge.png' height={70} width={70} className='mx-auto my-0'/>
+                    <img src='src/images/nav/Circle_Merge.png' height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-3'>
                     <h2 className='text-xl text-blue'>MERGE LISTS?</h2>
@@ -49,10 +48,10 @@ const Lists = () => {
                         <label className='text-blue'>MERGE LIST TITLE</label>
                     </div>
                     <div>
-                    <input
-                        type="text"
-                        className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                    />
+                        <input
+                            type="text"
+                            className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                        />
                     </div>
                 </div>
                 <div className='mt-5 text-left'>
@@ -60,7 +59,7 @@ const Lists = () => {
                         <label className='text-blue'>MERGE LIST TITLE</label>
                     </div>
                     <div>
-                        <textarea  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
+                        <textarea className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
                     </div>
                 </div>
                 <div className='mt-5 '>
@@ -68,10 +67,10 @@ const Lists = () => {
                         <button className='btn  bg-blue p-3 border rounded-md text-white py-3'>Create Merge Lists</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={ () => setShowModal(false) }>Cancel</button>
+                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
-            
+
             </div>
         )
     }
@@ -96,7 +95,7 @@ const Lists = () => {
             "status": "inactive",
         },
         {
-            "list": "list/00000000-0713.txt",
+            "list": "list/00000_sc_all.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
             "count": "1,223,009",
             "status": "active",
@@ -109,32 +108,33 @@ const Lists = () => {
 
             </div>
             <div className="flex flex-row gap-3">
-                <div className='text-left max-xsm:hidden'>
+                <div className='text-left max-sm:hidden'>
                     <button className='btn  bg-gray px-3 py-2 border-none rounded-md text-gray mb-3' onClick={
                         () => {
                             setShowModal(true);
                             formView('mergeLists', 'n', 0);
                         }
-                    
+
                     }>Merge lists</button>
                 </div>
                 <div className='flex-1 text-center'>
                     <h1 className='text-2xl mb-3 text-gray'>MANAGE MY LISTS</h1>
                 </div>
-                <div className='text-right max-xsm:hidden'>
+                <div className='text-right max-sm:hidden'>
                     <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3'>
                         Upload new lists
                     </button>
                 </div>
             </div>
             <DataTable
+                hideHeaderOnMobile={true}
                 keys={[{
                     "key": "list",
-                    "col": 3,
+                    "col": 4,
 
                 }, {
                     "key": "description",
-                    "col": 5,
+                    "col": 4,
 
                 }, {
                     "key": "count",
@@ -155,9 +155,50 @@ const Lists = () => {
                         </div>
                     )
                 }]}
+                hideCellOnMobile={true}
                 data={mockData.map((mock, index) => {
                     var data = { ...mock };
-
+                    data.mobileCellView = (
+                        <div className='flex flex-col mb-4 justify-between'>
+                            <div className="flex flex-row justify-between">
+                                <span className="text-black/30 text-md uppercase font-semibold">
+                                    List
+                                </span>
+                                <button className=''>
+                                    <img src='src/images/nav/Mobile hamburger.png' height={20} width={20} className='mx-1'></img>
+                                </button>
+                            </div>
+                            <span className='text-sm'>
+                                {data?.list}
+                            </span>
+                            <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                description
+                            </span>
+                            <span className='text-sm'>
+                                {data?.description}
+                            </span>
+                            <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                count
+                            </span>
+                            <span className='text-sm'>
+                                {data?.count}
+                            </span>
+                            <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                status
+                            </span>
+                            <span className='text-sm mt-3'>
+                                {data?.status === "active" ? (
+                                    <span className='w-2/3 text-center border-none bg-success px-7 border rounded font-thin text-white py-2'>
+                                        Active
+                                    </span>
+                                ) : (
+                                    <span className='w-2/3 text-center border-none bg-danger px-7 border rounded font-thin text-white py-2'>
+                                        Inactive
+                                    </span>
+                                )}
+                            </span>
+                        </div>
+                    )
                     data.actions = {
                         childRender: (
                             <div className="py-2 px-2 text-center col-span-1 flex flex-row gap-3 justify-center items-center">
@@ -176,14 +217,14 @@ const Lists = () => {
 
                     data.list = {
                         childRender: (
-                            <div className="px-1 py-2 flex flex-row col-span-3 items-center">
+                            <div className="px-1 py-2 flex flex-row col-span-4 items-center">
                                 <input
                                     type="checkbox"
                                     id={`checkbox_${index}`}
                                     className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
                                 />
-                                <label htmlFor={`checkbox_${index}`} className='cursor-pointer'>
-                                    list/0000000000_0808_verified_refi.txt
+                                <label htmlFor={`checkbox_${index}`} className='cursor-pointer text-xs'>
+                                    {data?.list}
                                 </label>
                             </div>
                         )
@@ -191,7 +232,7 @@ const Lists = () => {
 
                     data.status = {
                         childRender: (
-                            <div className="px-2.5 py-2 col-span-2 flex items-center justify-start">
+                            <div className="px-2.5 py-2 col-span-2 flex items-center  text-xs justify-start">
                                 {data?.status === "active" ? (
                                     <span className='w-2/3 text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
                                         Active
@@ -208,10 +249,10 @@ const Lists = () => {
                     return data;
                 })}
             />
-             <Modal onClose={() => {
-                setShowModal(false); 
+            <Modal onClose={() => {
+                setShowModal(false);
             }} showModal={showModal}>
-                { form }
+                {form}
             </Modal>
         </>
     )
