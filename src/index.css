@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +9,20 @@
     background-color: #fff!important;
     font-family: 'Montserrat' ,  sans-serif;
     letter-spacing: 2px;
+  }
+  
+  p{
+    letter-spacing: 1px;
+  }
+
+  form label{
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  form h2{
+    font-size: 32px;
+    font-weight: lighter;
   }
 }
 
@@ -204,6 +218,7 @@ table tbody tr.odd{
   background-color: transparent;
 }
 
+
 .checkbox{
     -ms-transform: scale(1.6);
     -moz-transform: scale(1.6);
@@ -211,7 +226,12 @@ table tbody tr.odd{
     -o-transform: scale(1.6);
     transform: scale(1.6);
     padding: 0px;
-    accent-color: #3C72AB;
+}
+
+.radio-button,
+.checkbox{
+  accent-color: #3C72AB;
+
 }
 
 .bg-blue{

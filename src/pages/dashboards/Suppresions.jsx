@@ -26,12 +26,11 @@ const Suppresions = () => {
             break;
         }
 
-        setForm(null);
     }
 
     const cementedSupressionForm = () =>{
         return (
-            <div  >
+            <form   >
                 <div className='text-center'>
                     <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0'/>
                 </div>
@@ -56,8 +55,7 @@ const Suppresions = () => {
                         <button className='btn  bg-transparent  text-blue' onClick={ () => setShowModal(false) }>Cancel</button>
                     </div>
                 </div>
-            
-            </div>
+            </form>
         )
     }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useRef, createRef } from 'react';
 
 import DataTable from '../../common/components/DataTable';
 import CardFour from '../../components/CardFour';
@@ -13,65 +13,194 @@ import ChatCard from '../../components/ChatCard';
 import MapOne from '../../components/MapOne';
 import TableOne from '../../components/TableOne';
 import Modal from '../../components/Modal';
+import TextAreaWithCounter from '../../components/TextAreaWithCounter';
+import InputWithCounter from '../../components/InputWithCounter';
+
+
 
 
 const Lists = () => {
     const [showModal, setShowModal] = useState(false);
     const [form, setForm] = useState(null);
+    const formRef = useRef(null);
+    const  formListTitleRef  = createRef(null);
+    const  formListDescRef  = createRef(null);
 
     const formView = (formName, action, id) => {
 
+        
         switch (formName) {
             case 'mergeLists':
                 setForm(cementedSupressionForm());;
                 break;
+            case 'editList':
+                setForm(editForm());;
+            break;
+            case 'deleteList':
+                setForm(deleteForm());;
+            break;
+            case 'uploadList':
+                setForm(uploadForm());;
+            break;
+
+            
         }
 
-        setForm(null);
+        if(formRef.current){
+            formRef.current.reset();
+
+        }
     }
 
     const cementedSupressionForm = () => {
+        
+      
         return (
-            <div className='flex-inline'>
+            <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
                     <img src='src/images/nav/Circle_Merge.png' height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-3'>
-                    <h2 className='text-xl text-blue'>MERGE LISTS?</h2>
-                    <div>
+                    <h2 className='text-blue'>MERGE LISTS?</h2>
+                    <div className='mt-5'>
                         <p className='text-sm'>The selected lists will be merged into one new list.</p>
                         <p className='text-sm'>Please provide a new title and description for the merged list</p>
                     </div>
                 </div>
                 <div className='mt-5 text-left'>
-                    <div>
-                        <label className='text-blue'>MERGE LIST TITLE</label>
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
-                        />
-                    </div>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label='MERGE LIST TITLE'  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
                 <div className='mt-5 text-left'>
-                    <div>
-                        <label className='text-blue'>MERGE LIST TITLE</label>
-                    </div>
-                    <div>
-                        <textarea className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></textarea>
-                    </div>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef}  label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
                 </div>
                 <div className='mt-5 '>
                     <div>
-                        <button className='btn  bg-blue p-3 border rounded-md text-white py-3'>Create Merge Lists</button>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Create Merge Lists</button>
                     </div>
                     <div className='mt-3'>
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
+            </form>   
+        )
+    }
 
-            </div>
+    const deleteForm = () => {
+        
+      
+        return (
+            <form ref={formRef} className='flex-inline'>
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Caution.png' height={70} width={70} className='mx-auto my-0' />
+                </div>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>DELETE LISTS?</h2>
+                    <div className='mt-5'>
+                        <p className='text-sm'>Are you sure you want to delete list “Solar A1”? This cannot</p>
+                        <p className='text-sm'>be undone and you will not be able to recover your list.</p>
+                    </div>
+                </div>
+                <div className='mt-5 '>
+                    <div>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Delete</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>   
+        )
+    }
+
+    const editForm = () => {
+        
+      
+        return (
+            <form ref={formRef} className='flex-inline'>
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Edit.png' height={70} width={70} className='mx-auto my-0' />
+                </div>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>EDIT LISTS?</h2>
+                </div>
+                <div className='mt-5 text-left'>
+                    <InputWithCounter  ref={formListTitleRef} limit="30" label='MERGE LIST TITLE'  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                </div>
+                <div className='mt-5 text-left'>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef}  label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                </div>
+
+                <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>STATUS</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input  id="disabled-radio-1" type="radio" value="" name="status" class="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="disabled-radio-1" className="tracking-tight ms-2 text-sm font-medium text-success ">Active</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input  checked id="disabled-radio-2" type="radio" value="" name="status" class=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="disabled-radio-2" className="tracking-tight ms-2 text-sm font-medium text-danger ">Inactive</label>
+                    </div>
+                </div>
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Save Changes</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>   
+        )
+    }
+
+    const uploadForm = () => {
+        
+      
+        return (
+            <form ref={formRef} className='flex-inline'>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>UPLOAD NEW LIST</h2>
+                </div>
+                <div className='mt-5 text-center'>
+                    <div>
+                         <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
+                         <div className=' tracking-tight text-gray'>Drag file here to upload </div>
+                         <div className=' tracking-tight text-gray'>or </div>
+                    </div>
+                </div>
+                <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>SELECTED FILE</label>
+                    </div>
+                    <div class="grid grid-cols-12  gap-4">
+                        <div className='col-span-2 tracking-tight'>
+                             XLSX
+                        </div>
+                        <div className='col-span-6 tracking-tight'>
+                        testuploadlistfile.xlsx
+                        </div>
+                        <div className='col-span-4 tracking-tight'>
+                            73kb
+                        </div>
+                    </div>
+                </div>
+                <div className='mt-5 text-left'>
+                    <InputWithCounter  ref={formListTitleRef} limit="30" label="NEW LIST TITLE"  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                </div>
+                <div className='mt-5 text-left'>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef}  label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                </div>
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>UPLOAD</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>   
         )
     }
 
@@ -121,7 +250,13 @@ const Lists = () => {
                     <h1 className='text-2xl mb-3 text-gray'>MANAGE MY LISTS</h1>
                 </div>
                 <div className='text-right max-sm:hidden'>
-                    <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3'>
+                    <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
+                        () => {
+                            setShowModal(true);
+                            formView('uploadList', 'n', 0);
+                        }
+
+                    }>
                         Upload new lists
                     </button>
                 </div>
@@ -205,10 +340,22 @@ const Lists = () => {
                                 <button className=''>
                                     <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                 </button>
-                                <button className=''>
+                                <button className='' onClick={
+                                    () => {
+                                        setShowModal(true);
+                                        formView('editList', 'n', 0);
+                                    }
+
+                                }>
                                     <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                 </button>
-                                <button className=''>
+                                <button className='' onClick={
+                                    () => {
+                                        setShowModal(true);
+                                        formView('deleteList', 'n', 0);
+                                    }
+
+                                }>
                                     <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                 </button>
                             </div>

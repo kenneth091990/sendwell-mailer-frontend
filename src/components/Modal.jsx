@@ -38,7 +38,7 @@ const Modal = ({ showModal, onClose, children }) => {
 
     return (
         <div className={`fixed top-0 left-0 z-999999 ${showModal ? "flex" : "hidden"} h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5`}>
-            <div ref={ref} className="relative w-full max-w-142.5 rounded-lg bg-white dark:bg-black py-12 px-8 text-center md:py-15 md:px-17.5">
+            <div ref={ref} className="relative max-w-80 rounded-lg bg-white dark:bg-black py-12 px-8 text-center md:py-15 md:px-17.5">
                 {children}
                 {/* Close Button */}
                 <button onClick={onClose} className="absolute top-6 right-6 flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black transition hover:bg-black hover:text-white">
