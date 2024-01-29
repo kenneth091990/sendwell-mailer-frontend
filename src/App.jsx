@@ -4,6 +4,9 @@ import DefaultLayout from './layout/DefaultLayout';
 import HomePageLayout from './layout/HomePageLayout';
 
 import Dashboard from './pages/dashboards/Dashboard';
+import Nodes from './pages/dashboards/Nodes';
+import Lists from './pages/dashboards/Lists';
+import Suppresions from './pages/dashboards/Suppresions';
 import Loader from './common/Loader';
 import ErrorPage from './pages/ErrorPage';
 import AnalyticsDashboard from './pages/dashboards/AnalyticsDashboard';
@@ -18,6 +21,7 @@ import { toast } from 'react-toastify';
 import useToast from './hooks/useToast';
 import { getCurrentUserThunk } from './modules/authThunks';
 import { useAuth } from './providers/AuthProvider';
+import Domains from './pages/dashboards/Domains';
 
 
 export default function App() {
@@ -205,15 +209,71 @@ export default function App() {
       {loading ? (<Loader />) : (
         <Switch>
           <Route exact path={'/'} render={(props) => {
-            if (!user) {
-              return (
-                <Redirect to={'/login'} />
-              )
-            }
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
 
             return (
               <DefaultLayout>
                 <Dashboard />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/lists'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Lists />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/domains'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Domains />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/nodes'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Nodes />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/suppresions'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Suppresions />
               </DefaultLayout>
             )
           }} />

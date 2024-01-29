@@ -6,7 +6,7 @@ import Flatpickr from "react-flatpickr";
 const DatePicker = () => {
 
     return (
-        <div class="flatpickr" >
+        <div className="flatpickr" >
             <Flatpickr
                 options={{
                     mode: "range",

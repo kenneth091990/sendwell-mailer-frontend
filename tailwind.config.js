@@ -9,7 +9,9 @@ export default {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      satoshi: ['Satoshi', 'sans-serif'],
+     // satoshi: ['Satoshi', 'sans-serif'],
+      'montserrat': ['Montserrat', 'sans-serif'],
+
     },
     colors: {
       current: 'currentColor',
@@ -21,7 +23,7 @@ export default {
       bodydark: '#AEB7C0',
       bodydark1: '#DEE4EE',
       bodydark2: '#8A99AF',
-      primary: '#3C50E0',
+      primary: '#2382D8',
       secondary: '#80CAEE',
       stroke: '#E2E8F0',
       gray: '#EFF4FB',
@@ -44,8 +46,9 @@ export default {
       'meta-7': '#FF6766',
       'meta-8': '#F0950C',
       'meta-9': '#E5E7EB',
-      success: '#219653',
-      danger: '#D34053',
+      'blue-mailer': '#2382D8',
+      success: '#00A551',
+      danger: '#EB3223',
       warning: '#FFA70B',
     },
     screens: {

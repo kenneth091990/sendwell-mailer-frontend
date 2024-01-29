@@ -1,11 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply font-satoshi font-normal text-base text-body bg-whiten relative z-1;
     background-color: #fff!important;
+    font-family: 'Montserrat' ,  sans-serif;
+    letter-spacing: 2px;
+  }
+  
+  p{
+    letter-spacing: 1px;
+  }
+
+  form label{
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  form h2{
+    font-size: 32px;
+    font-weight: lighter;
   }
 }
 
@@ -169,14 +186,55 @@ a {
   border-bottom: 2px solid #dfe1e2;
 }
 
+.border-line-blue{
+  border-color:  #2382d8!important;
+}
+
+.text-blue {
+  color:  #2382d8!important;
+}
+
+.border-line-gray{
+  border-color:  #E5E6E7!important;
+}
+
 .active-link{
-  color: #fff;
-  background: #3C72AB;
+  color: #fff !important;
+  background: #2382d8;
+}
+
+
+.text-gray{
+  color: #BBBDBF;
+}
+
+table tbody tr.even,
+.bg-gray{
+  background-color: #E5E6E7;
+}
+
+table tbody tr.odd{
+  background-color: transparent;
+}
+
+
+.checkbox{
+    -ms-transform: scale(1.6);
+    -moz-transform: scale(1.6);
+    -webkit-transform: scale(1.6);
+    -o-transform: scale(1.6);
+    transform: scale(1.6);
+    padding: 0px;
+}
+
+.radio-button,
+.checkbox{
+  accent-color: #3C72AB;
 
 }
 
 .bg-blue{
-  background: #3C72AB;
+  background: rgb(35 130 216 / var(--tw-text-opacity));
   color: #fff;
 
 }
