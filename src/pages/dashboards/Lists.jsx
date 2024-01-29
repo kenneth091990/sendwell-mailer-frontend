@@ -163,12 +163,17 @@ const Lists = () => {
                 <div className='mt-5'>
                     <h2 className='text-blue'>UPLOAD NEW LIST</h2>
                 </div>
-                <div className='mt-5 text-center'>
+                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
                     <div>
                          <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
                          <div className=' tracking-tight text-gray'>Drag file here to upload </div>
                          <div className=' tracking-tight text-gray'>or </div>
-                    </div>
+                         <div className=' tracking-tight text-gray mt-3'>
+                            <label htmlFor="formId" className='p-3 px-5 rounded-md bg-blue'>  Select a file
+                                <input name="" type="file" id="formId" hidden />
+                            </label>
+                        </div>
+                     </div>
                 </div>
                 <div className='mt-5 text-left'>
                     <div>
@@ -194,7 +199,7 @@ const Lists = () => {
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>UPLOAD</button>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
                     </div>
                     <div className='mt-3'>
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>

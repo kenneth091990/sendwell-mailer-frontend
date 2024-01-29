@@ -187,11 +187,11 @@ a {
 }
 
 .border-line-blue{
-  border-color:  #3C72AB!important;
+  border-color:  #2382d8!important;
 }
 
 .text-blue {
-  color:  #3C72AB!important;
+  color:  #2382d8!important;
 }
 
 .border-line-gray{
@@ -200,7 +200,7 @@ a {
 
 .active-link{
   color: #fff;
-  background: #3C72AB;
+  background: #2382d8;
 
 }
 
@@ -235,7 +235,7 @@ table tbody tr.odd{
 }
 
 .bg-blue{
-  background: #3C72AB;
+  background: rgb(35 130 216 / var(--tw-text-opacity));
   color: #fff;
 
 }
