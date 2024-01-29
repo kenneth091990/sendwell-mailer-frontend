@@ -23,38 +23,38 @@ const Lists = () => {
     const [showModal, setShowModal] = useState(false);
     const [form, setForm] = useState(null);
     const formRef = useRef(null);
-    const  formListTitleRef  = createRef(null);
-    const  formListDescRef  = createRef(null);
+    const formListTitleRef = createRef(null);
+    const formListDescRef = createRef(null);
 
     const formView = (formName, action, id) => {
 
-        
+
         switch (formName) {
             case 'mergeLists':
                 setForm(cementedSupressionForm());;
                 break;
             case 'editList':
                 setForm(editForm());;
-            break;
+                break;
             case 'deleteList':
                 setForm(deleteForm());;
-            break;
+                break;
             case 'uploadList':
                 setForm(uploadForm());;
-            break;
+                break;
 
-            
+
         }
 
-        if(formRef.current){
+        if (formRef.current) {
             formRef.current.reset();
 
         }
     }
 
     const cementedSupressionForm = () => {
-        
-      
+
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
@@ -68,10 +68,10 @@ const Lists = () => {
                     </div>
                 </div>
                 <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label='MERGE LIST TITLE'  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label='MERGE LIST TITLE' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
                 <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef}  label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
                 </div>
                 <div className='mt-5 '>
                     <div>
@@ -81,13 +81,13 @@ const Lists = () => {
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
-            </form>   
+            </form>
         )
     }
 
     const deleteForm = () => {
-        
-      
+
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
@@ -108,13 +108,13 @@ const Lists = () => {
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
-            </form>   
+            </form>
         )
     }
 
     const editForm = () => {
-        
-      
+
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
@@ -124,10 +124,10 @@ const Lists = () => {
                     <h2 className='text-blue'>EDIT LISTS?</h2>
                 </div>
                 <div className='mt-5 text-left'>
-                    <InputWithCounter  ref={formListTitleRef} limit="30" label='MERGE LIST TITLE'  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label='MERGE LIST TITLE' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
                 <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef}  label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
                 </div>
 
                 <div className='mt-5 text-left'>
@@ -135,11 +135,11 @@ const Lists = () => {
                         <label className='text-blue'>STATUS</label>
                     </div>
                     <div class="flex items-center">
-                        <input  id="disabled-radio-1" type="radio" value="" name="status" class="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input id="disabled-radio-1" type="radio" value="" name="status" class="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label for="disabled-radio-1" className="tracking-tight ms-2 text-sm font-medium text-success ">Active</label>
                     </div>
                     <div class="flex items-center">
-                        <input  checked id="disabled-radio-2" type="radio" value="" name="status" class=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input checked id="disabled-radio-2" type="radio" value="" name="status" class=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label for="disabled-radio-2" className="tracking-tight ms-2 text-sm font-medium text-danger ">Inactive</label>
                     </div>
                 </div>
@@ -151,13 +151,13 @@ const Lists = () => {
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
-            </form>   
+            </form>
         )
     }
 
     const uploadForm = () => {
-        
-      
+
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='mt-5'>
@@ -165,9 +165,9 @@ const Lists = () => {
                 </div>
                 <div className='mt-5 text-center'>
                     <div>
-                         <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
-                         <div className=' tracking-tight text-gray'>Drag file here to upload </div>
-                         <div className=' tracking-tight text-gray'>or </div>
+                        <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
+                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
+                        <div className=' tracking-tight text-gray'>or </div>
                     </div>
                 </div>
                 <div className='mt-5 text-left'>
@@ -176,10 +176,10 @@ const Lists = () => {
                     </div>
                     <div class="grid grid-cols-12  gap-4">
                         <div className='col-span-2 tracking-tight'>
-                             XLSX
+                            XLSX
                         </div>
                         <div className='col-span-6 tracking-tight'>
-                        testuploadlistfile.xlsx
+                            testuploadlistfile.xlsx
                         </div>
                         <div className='col-span-4 tracking-tight'>
                             73kb
@@ -187,10 +187,10 @@ const Lists = () => {
                     </div>
                 </div>
                 <div className='mt-5 text-left'>
-                    <InputWithCounter  ref={formListTitleRef} limit="30" label="NEW LIST TITLE"  className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
                 <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef}  label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
                 </div>
                 <div className='mt-5'>
                     <div>
@@ -200,7 +200,7 @@ const Lists = () => {
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
-            </form>   
+            </form>
         )
     }
 

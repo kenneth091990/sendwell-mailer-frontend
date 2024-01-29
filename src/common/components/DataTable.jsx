@@ -48,7 +48,9 @@ const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinc
             {/* Headers */}
             <div className={`grid grid-cols-12 border-b-2 border-black/40 ${hideHeaderOnMobile ? "max-sm:hidden" : ""}`}>
                 {(keys ?? []).map((ii, index) => {
-                    if (ii?.render) return ii?.render;
+                    if (ii?.render) return <React.Fragment key={index}>
+                        {ii?.render}
+                    </React.Fragment>;
 
                     return (
                         <div key={index} className={`px-2.5 py-2 col-span-${ii?.col}`}>
@@ -63,7 +65,7 @@ const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinc
 
                 if (isMobile) {
                     if (!ele?.mobileCellView) {
-                        return <div className="text-center text-black">
+                        return <div key={index} className="text-center text-black">
                             Please add a `mobileCellView`
                         </div>
                     }
@@ -76,14 +78,16 @@ const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinc
 
                 return (
                     <div key={index} className={`grid grid-cols-12 ${index % 2 !== 0 ? "bg-black/10" : ""} ${hideCellOnMobile ? "max-sm:hidden" : ""}`} >
-                        {(keys ?? []).map(ii => {
+                        {(keys ?? []).map((ii, jj) => {
                             var cellElement = ele[ii?.key];
                             if (cellElement?.childRender) {
-                                return cellElement?.childRender;
+                                return <React.Fragment key={index + "_" + jj}>
+                                    {cellElement?.childRender}
+                                </React.Fragment>;
                             }
 
                             return (
-                                <div className={`px-2.5 py-2 col-span-${ii?.col} text-xs`}>
+                                <div key={index + "_" + jj} className={`px-2.5 py-2 col-span-${ii?.col} text-xs`}>
                                     {cellElement}
                                 </div>
                             )
