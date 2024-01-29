@@ -20,7 +20,7 @@ import { useState } from 'react';
  * }
  * ```
  */
-const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinctCellBg, hideHeaderOnMobile }) => {
+const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile, keys, removeDistinctCellBg, hideHeaderOnMobile }) => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -43,26 +43,27 @@ const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinc
     }, []);
 
     return (
-        <div className="flex w-full flex-col rounded-2xl px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-2xl max-sm:shadow-none">
+        <div className="flex w-full flex-col rounded-2xl px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-lg max-sm:shadow-none">
             {headerChildren}
             {/* Headers */}
             <div className={`grid grid-cols-12 border-b-2 border-black/40 ${hideHeaderOnMobile ? "max-sm:hidden" : ""}`}>
                 {(keys ?? []).map((ii, index) => {
-                    if (ii?.render) return <React.Fragment key={index}>
+                    if (ii?.render) return <div key={index} className={`px-2.5 py-2 col-span-${ii?.col}`}>
                         {ii?.render}
-                    </React.Fragment>;
+                    </div>;
 
                     return (
                         <div key={index} className={`px-2.5 py-2 col-span-${ii?.col}`}>
-                            <span className="font-normal text-black/30 text-sm uppercase">
-                                {ii?.key}
+                            <span className="font-semibold text-black/40 text-sm uppercase">
+                                {ii?.label ?? ii?.key}
                             </span>
                         </div>
                     )
                 })}
             </div>
-            {(data ?? []).map((ele, index) => {
+            {(data ?? []).length ? (data ?? []).map((ele, index) => {
 
+                // * Add to non strict mobile View [ && ele?.mobileCellView]
                 if (isMobile) {
                     if (!ele?.mobileCellView) {
                         return <div key={index} className="text-center text-black">
@@ -81,9 +82,11 @@ const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinc
                         {(keys ?? []).map((ii, jj) => {
                             var cellElement = ele[ii?.key];
                             if (cellElement?.childRender) {
-                                return <React.Fragment key={index + "_" + jj}>
-                                    {cellElement?.childRender}
-                                </React.Fragment>;
+                                return (
+                                    <div key={index + "_" + jj} className={`px-2.5 py-2 col-span-${ii?.col} text-xs`}>
+                                        {cellElement?.childRender}
+                                    </div>
+                                )
                             }
 
                             return (
@@ -94,7 +97,11 @@ const DataTable = ({ data, headerChildren, hideCellOnMobile, keys, removeDistinc
                         })}
                     </div>
                 )
-            })}
+            }) : (
+                <div className="flex w-full">
+                    {emptyDataComponent ?? (<span className='w-full mt-4 text-center'>No Data Yet</span>)}
+                </div>
+            )}
         </div>
     )
 }

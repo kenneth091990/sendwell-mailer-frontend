@@ -15,7 +15,7 @@ import TableOne from '../../components/TableOne';
 import Modal from '../../components/Modal';
 import TextAreaWithCounter from '../../components/TextAreaWithCounter';
 import InputWithCounter from '../../components/InputWithCounter';
-
+import BurgerMenu from './../../images/nav/Mobile hamburger.png';
 
 
 
@@ -134,12 +134,12 @@ const Lists = () => {
                     <div>
                         <label className='text-blue'>STATUS</label>
                     </div>
-                    <div class="flex items-center">
-                        <input id="disabled-radio-1" type="radio" value="" name="status" class="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <div className="flex items-center">
+                        <input id="disabled-radio-1" type="radio" value="" name="status" className="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label for="disabled-radio-1" className="tracking-tight ms-2 text-sm font-medium text-success ">Active</label>
                     </div>
-                    <div class="flex items-center">
-                        <input checked id="disabled-radio-2" type="radio" value="" name="status" class=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <div className="flex items-center">
+                        <input checked id="disabled-radio-2" type="radio" value="" name="status" className=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label for="disabled-radio-2" className="tracking-tight ms-2 text-sm font-medium text-danger ">Inactive</label>
                     </div>
                 </div>
@@ -165,21 +165,21 @@ const Lists = () => {
                 </div>
                 <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
                     <div>
-                         <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
-                         <div className=' tracking-tight text-gray'>Drag file here to upload </div>
-                         <div className=' tracking-tight text-gray'>or </div>
-                         <div className=' tracking-tight text-gray mt-3'>
+                        <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
+                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
+                        <div className=' tracking-tight text-gray'>or </div>
+                        <div className=' tracking-tight text-gray mt-3'>
                             <label htmlFor="formId" className='p-3 px-5 rounded-md bg-blue'>  Select a file
                                 <input name="" type="file" id="formId" hidden />
                             </label>
                         </div>
-                     </div>
+                    </div>
                 </div>
                 <div className='mt-5 text-left'>
                     <div>
                         <label className='text-blue'>SELECTED FILE</label>
                     </div>
-                    <div class="grid grid-cols-12  gap-4">
+                    <div className="grid grid-cols-12  gap-4">
                         <div className='col-span-2 tracking-tight'>
                             XLSX
                         </div>
@@ -237,7 +237,7 @@ const Lists = () => {
     ]
 
     return (
-        <>
+        <div className='pb-11'>
             <div className="grid grid-cols-12 ">
 
             </div>
@@ -270,7 +270,7 @@ const Lists = () => {
                 hideHeaderOnMobile={true}
                 keys={[{
                     "key": "list",
-                    "col": 4,
+                    "col": 3,
 
                 }, {
                     "key": "description",
@@ -286,10 +286,10 @@ const Lists = () => {
 
                 }, {
                     "key": "actions",
-                    "col": 1,
+                    "col": 2,
                     "render": (
-                        <div className="py-2 px-2 text-center col-span-1 flex flex-row gap-3 justify-center items-center">
-                            <span className=" font-normal text-black/30 uppercase xsm:text-base">
+                        <div className="text-center flex flex-row gap-3 justify-center items-center">
+                            <span className="font-semibold text-black/40 uppercase xsm:text-base">
                                 Actions
                             </span>
                         </div>
@@ -305,7 +305,7 @@ const Lists = () => {
                                     List
                                 </span>
                                 <button className=''>
-                                    <img src='src/images/nav/Mobile hamburger.png' height={20} width={20} className='mx-1'></img>
+                                    <img src={BurgerMenu} height={20} width={20} className='mx-1'></img>
                                 </button>
                             </div>
                             <span className='text-sm'>
@@ -341,7 +341,7 @@ const Lists = () => {
                     )
                     data.actions = {
                         childRender: (
-                            <div className="py-2 px-2 text-center col-span-1 flex flex-row gap-3 justify-center items-center">
+                            <div className="h-full flex flex-row gap-3 justify-center items-center">
                                 <button className=''>
                                     <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                 </button>
@@ -369,7 +369,7 @@ const Lists = () => {
 
                     data.list = {
                         childRender: (
-                            <div className="px-1 py-2 flex flex-row col-span-4 items-center">
+                            <div className="h-full flex flex-row col-span-4 items-center">
                                 <input
                                     type="checkbox"
                                     id={`checkbox_${index}`}
@@ -384,7 +384,7 @@ const Lists = () => {
 
                     data.status = {
                         childRender: (
-                            <div className="px-2.5 py-2 col-span-2 flex items-center  text-xs justify-start">
+                            <div className="h-full flex items-center  text-xs justify-start">
                                 {data?.status === "active" ? (
                                     <span className='w-2/3 text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
                                         Active
@@ -406,7 +406,7 @@ const Lists = () => {
             }} showModal={showModal}>
                 {form}
             </Modal>
-        </>
+        </div>
     )
 }
 

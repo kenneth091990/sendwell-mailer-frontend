@@ -21,6 +21,7 @@ import { toast } from 'react-toastify';
 import useToast from './hooks/useToast';
 import { getCurrentUserThunk } from './modules/authThunks';
 import { useAuth } from './providers/AuthProvider';
+import Domains from './pages/dashboards/Domains';
 
 
 export default function App() {
@@ -231,6 +232,20 @@ export default function App() {
             return (
               <DefaultLayout>
                 <Lists />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/domains'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Domains />
               </DefaultLayout>
             )
           }} />
