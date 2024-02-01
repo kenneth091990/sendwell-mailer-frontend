@@ -39,26 +39,24 @@ export const signToken = async (payload, customKey, customExpire) => {
 }
 
 export function validatePassword(password) {
-    const minLengthRegex = /.{6,}/; // Checks for minimum length of 6 characters
-    const uppercaseRegex = /[A-Z]/; // Checks for at least one uppercase letter
-    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/; // Checks for at least one special character
-    const twoDigitsRegex = /(\d.*\d)/; // Checks for at least two digits
-    var newPass = null;
-
-    if (!minLengthRegex.test(password)) {
-        newPass = "Password must be at least 6 characters long.";
+    // Check for minimum length of 8 characters
+    if (password.length < 8) {
+        return 'Password should have a minimum length of 8 characters.';
     }
 
-    if (!uppercaseRegex.test(password)) {
-        newPass = "Password must contain at least one uppercase letter.";
-    }
-
+    // Check for at least one special character
+    const specialCharRegex = /[!@#$&*~]/;
     if (!specialCharRegex.test(password)) {
-        newPass = "Password must contain at least one special character.";
+        return 'Password should contain at least one special character (!, @, #, $, &, *, ~).';
     }
 
+    // Check for at least one uppercase letter
+    const uppercaseRegex = /[A-Z]/;
+    if (!uppercaseRegex.test(password)) {
+        return 'Password should contain at least one uppercase letter.';
+    }
 
-    return newPass;
+    return null;
 }
 
 
@@ -78,6 +76,7 @@ export function capitalizeWordsWithSpace(str) {
 
     return capitalizedWords;
 }
+
 
 
 export const parseDateToInput = (originalDateTime) => {
