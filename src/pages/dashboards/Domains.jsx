@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import DataTable from '../../common/components/DataTable';
+import CircularProgressBar from '../../components/CircularProgressBar';
 import CircleIcon from './../../images/nav/Circle_Caution.png'
 import CircleQuestion from './../../images/nav/Circle_Question.png'
 const Domains = () => {
@@ -139,6 +140,9 @@ const Domains = () => {
                     Don't see all your domains? Make sure you've connected all
                     of your registrar accounts on the <Link to={'/integrations'} className='text-primary underline'>integrations</Link> page.
                 </p>
+            </div>
+            <div className="flex flex-col items-center">
+                <CircularProgressBar />
             </div>
         </div>
     )
