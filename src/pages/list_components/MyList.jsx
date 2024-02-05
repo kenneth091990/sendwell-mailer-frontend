@@ -220,9 +220,6 @@ const MyList = () => {
 
     return (
         <div className='pb-11'>
-            <div className="grid grid-cols-12 ">
-
-            </div>
             <div className="flex flex-row gap-3">
                 <div className='text-left max-sm:hidden'>
                     <button className='btn  bg-gray px-3 py-2 border-none rounded-md text-gray mb-3' onClick={

@@ -222,7 +222,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     to="/domains"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('domains') && 'active-link'}`}>
                                     <img src={`/src/images/nav/${pathname.includes('domains') ? 'NavWhite_Domains.png' : 'Nav_Domains.png'}`} height={18} width={18} />
-                                    Domains
+                                    Domains and SES
                                 </NavLink>
                             </li>
 
