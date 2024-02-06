@@ -54,7 +54,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     return (
         <aside
             ref={sidebar}
-            className={`absolute left-0 top-0 z-9999 flex h-screen w-72.5 flex-col overflow-y-hidden bg-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            className={`absolute left-0 top-0 max-sm:z-9999 max-sm:h-screen flex w-[34rem] flex-col overflow-y-hidden bg-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}
         >
             {/* <!-- SIDEBAR HEADER --> */}
@@ -203,7 +203,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     );
                                 }}
                             </SidebarLinkGroup> */}
-                            <li>
+                            {/* <li>
                                 <NavLink
                                     to="/nodes"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('nodes') &&
@@ -212,6 +212,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 >
                                     <img src={`/src/images/nav/${pathname.includes('nodes') ? 'NavWhite_Nodes.png' : 'Nav_Nodes.png'}`} height={18} width={18} />
                                     Nodes
+                                </NavLink>
+                            </li> */}
+                            <li>
+                                <NavLink
+                                    to="/"
+                                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname === '/' &&
+                                        'active-link'
+                                        }`}
+                                >
+                                    <img src={`/src/images/nav/${pathname === '/' ? 'NavWhite_Nodes.png' : 'Nav_Nodes.png'}`} height={18} width={18} />
+                                    Dashboard
                                 </NavLink>
                             </li>
                             {/* <!-- Menu Item Calendar --> */}

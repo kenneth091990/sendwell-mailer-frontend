@@ -1,17 +1,17 @@
 import React from 'react'
 
-const SelectDropdown = ({ label, optionComponent, containerClassName, labelClassName, value, defaultValue, onChange }) => {
+const SelectDropdown = ({ label, children, containerClassName, labelClassName, value, defaultValue, onChange }) => {
 
     return (
         <div className={containerClassName}>
             {label && (
-                <label className={`block ${labelClassName ?? 'mb-3text-black dark:text-white'}`}>
+                <label className={`block mb-1 ${labelClassName ?? 'text-black dark:text-white'}`}>
                     {label}
                 </label>
             )}
             <div className="relative z-20 bg-white dark:bg-form-input">
-                <select value={value} defaultValue={defaultValue} onChange={onChange} className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-3 outline-none transition focus:border-primary active:border-primary">
-                    {optionComponent}
+                <select value={value} defaultValue={defaultValue} onChange={onChange} className="relative z-20 w-full appearance-none rounded border border-strokedark/50 bg-transparent py-1 px-3 outline-none transition text-sm focus:border-primary active:border-primary">
+                    {children}
                 </select>
                 <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
                     <svg

@@ -84,10 +84,10 @@ const MyList = () => {
                 </div>
                 <div className='mt-5 '>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Delete</button>
+                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-10'>Delete</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
+                        <button className='btn bg-transparent text-blue px-10' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
             </form>
@@ -127,10 +127,10 @@ const MyList = () => {
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Save Changes</button>
+                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Save Changes</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
+                        <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
                     </div>
                 </div>
             </form>
@@ -257,7 +257,7 @@ const MyList = () => {
 
                 }, {
                     "key": "count",
-                    "col": 1,
+                    "col": 2,
 
                 }, {
                     "key": "status",
@@ -265,7 +265,7 @@ const MyList = () => {
 
                 }, {
                     "key": "actions",
-                    "col": 2,
+                    "col": 1,
                     "render": (
                         <div className="text-center flex flex-row gap-3 justify-center items-center">
                             <span className="font-semibold text-black/40 uppercase xsm:text-base">
@@ -318,64 +318,61 @@ const MyList = () => {
                             </span>
                         </div>
                     )
-                    data.actions = {
-                        childRender: (
-                            <div className="h-full flex flex-row gap-3 justify-center items-center">
-                                <button className=''>
-                                    <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
-                                </button>
-                                <button className='' onClick={
-                                    () => {
-                                        setShowModal(true);
-                                        formView('editList', 'n', 0);
-                                    }
 
-                                }>
-                                    <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20} className='mx-1'></img>
-                                </button>
-                                <button className='' onClick={
-                                    () => {
-                                        setShowModal(true);
-                                        formView('deleteList', 'n', 0);
-                                    }
+                    data.actions = (
+                        <div className="h-full flex flex-row gap-3 justify-center items-center">
+                            <button className=''>
+                                <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                            </button>
+                            <button className='' onClick={
+                                () => {
+                                    setShowModal(true);
+                                    formView('editList', 'n', 0);
+                                }
 
-                                }>
-                                    <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20} className='mx-1'></img>
-                                </button>
-                            </div>
-                        )
-                    }
+                            }>
+                                <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                            </button>
+                            <button className='' onClick={
+                                () => {
+                                    setShowModal(true);
+                                    formView('deleteList', 'n', 0);
+                                }
 
-                    data.list = {
-                        childRender: (
-                            <div className="h-full flex flex-row col-span-4 items-center">
-                                <input
-                                    type="checkbox"
-                                    id={`checkbox_${index}`}
-                                    className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
-                                />
-                                <label htmlFor={`checkbox_${index}`} className='cursor-pointer text-xs'>
-                                    {data?.list}
-                                </label>
-                            </div>
-                        )
-                    }
+                            }>
+                                <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                            </button>
+                        </div>
+                    )
 
-                    data.status = {
-                        childRender: (
-                            <div className="h-full flex items-center  text-xs justify-start">
-                                {data?.status === "active" ? (
-                                    <span className='w-2/3 text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
-                                        Active
-                                    </span>
-                                ) : (
-                                    <span className='w-2/3 text-center border-none bg-danger px-5 border rounded font-thin text-white py-1'>
-                                        Inactive
-                                    </span>
-                                )}
-                            </div>
-                        )
-                    }
+                    data.list = (
+                        <div className="h-full flex flex-row col-span-4 items-center">
+                            <input
+                                type="checkbox"
+                                id={`checkbox_${index}`}
+                                className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
+                            />
+                            <label htmlFor={`checkbox_${index}`} className='cursor-pointer text-xs'>
+                                {data?.list}
+                            </label>
+                        </div>
+                    )
+
+
+                    data.status = (
+                        <div className="h-full flex items-center  text-xs justify-start">
+                            {data?.status === "active" ? (
+                                <span className='w-[45%] text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
+                                    Active
+                                </span>
+                            ) : (
+                                <span className='w-[45%] text-center border-none bg-danger px-5 border rounded font-thin text-white py-1'>
+                                    Inactive
+                                </span>
+                            )}
+                        </div>
+                    )
+
 
                     return data;
                 })}
