@@ -34,7 +34,7 @@ const DefaultLayout = ({ children }) => {
             <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <div className="flex flex-row">
                 <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-                <main className="px-[25px] pt-[50px] h-[90vh] overflow-y-scroll overflow-x-hidden">
+                <main className="px-[25px] pt-[50px] w-[84%] h-[90vh] overflow-y-scroll overflow-x-hidden">
                     {/* <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10"> */}
                     {children}
                     {/* </div> */}

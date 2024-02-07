@@ -87,7 +87,7 @@ const CementedSuppressionList = () => {
                         CEMENTED SUPPRESSION FILES
                     </h1>
                 </div>
-                <div className='col-span-3'>                  
+                <div className='col-span-3'>
                 </div>
             </div>
             <div className="w-full mt-5">
