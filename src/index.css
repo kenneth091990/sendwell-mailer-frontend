@@ -217,6 +217,10 @@ table tbody tr.odd{
   background-color: transparent;
 }
 
+.webkit-center{
+  text-align: -webkit-center;
+}
+
 
 .checkbox{
     -ms-transform: scale(1.6);
