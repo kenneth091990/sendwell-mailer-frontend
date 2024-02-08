@@ -1,4 +1,4 @@
-import React from 'react'
+import React , { createRef, useRef, useState } from 'react'
 import DataTable from '../../common/components/DataTable';
 import { Link } from 'react-router-dom';
 import CircleIcon from './../../images/nav/Circle_Caution.png'
@@ -8,9 +8,154 @@ import SES_Settings from './../../images/nav/SES_Settings.png'
 import TrashIcon from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import EditIcon from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import InputTextfield from '../../components/InputTextfield';
+import Modal from '../../components/Modal';
+
+
 
 
 const SesProfiles = () => {
+    const [showModal, setShowModal] = useState(false);
+    const [form, setForm] = useState(null);
+    const formRef = useRef(null);
+    const formView = (formName, action, id) => {
+        switch (formName) {
+            case 'settings':
+                setForm(settingsForm());
+                break;
+            case 'addSesProfile':
+                setForm(addSesProfileForm());
+                break;
+            case 'addSesProfile':
+                setForm(addRegistrarForm());
+                break;
+        }
+
+        if (formRef.current) {
+            formRef.current.reset();
+
+        }
+    }
+
+    const settingsForm = () => {
+
+
+        return (
+            <form ref={formRef} className='flex-inline w-[85vh] max-sm:w-[95%]'>
+                <div className='text-center'>
+                    <img src='src/images/nav/SES Settings.png' height={70} width={70} className='mx-auto my-0' />
+                </div>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>SES SETTINGS</h2>
+                </div>
+                <div className='mt-5'>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
+                        
+                        <div><InputTextfield type="text" label="DEFAULT DAILY QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div><InputTextfield type="text" label="GLOBAL QUOTA INCREASE" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                        
+                        <div><InputTextfield type="text" label="GLOBAL MAX QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div><InputTextfield type="text" label="GLOBAL MIN QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+
+                    </div>
+                </div>
+           
+               
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Save Settings</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
+
+
+
+    const addSesProfileForm = () => {
+
+
+        return (
+            <form ref={formRef} className='flex-inline w-[85vh] max-sm:w-[95%]'>
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                </div>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>ADD SES PROFILE</h2>
+                </div>
+                <div className='mt-5'>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
+                        
+                        <div><InputTextfield type="text" label="EMAIL" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div><InputTextfield type="text" label="USERNAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                        
+                        <div><InputTextfield type="password" label="PASSWORD" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div><InputTextfield type="text" label="HOST" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                        
+                        <div>
+                            <InputTextfield type="text" label="DAILY QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' />
+                            <div className="flex items-center mt-3">
+                                <input
+                                    type="checkbox"
+                                   
+                                    className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
+                                />
+                                <label  className='cursor-pointer text-xs text-primary tracking-tighter'>
+                                    Subscribe to global quota increase
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <InputTextfield type="text" label="RATE LIMIT" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' />
+                        </div>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                        
+                        <div><InputTextfield type="text" label="SNS NOTIFICATION ADDRESS" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div><InputTextfield type="text" label="POOL NAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                        
+                        <div><InputTextfield type="text" label="API KEY" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div><InputTextfield type="text" label="API SECRET" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                        
+                        <div><InputTextfield type="text" label="API IP" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
+                        <div class="flex items-end ">
+                            <span className='text-primary'>GENERATED ID: </span> 1455
+                        </div>
+
+                    </div>
+                </div>
+           
+               
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Add Profile</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
+
     const mockData = [
         // {
         //     id: 1231,
@@ -98,11 +243,11 @@ const SesProfiles = () => {
             <div className="grid grid-cols-12 gap-3 pt-11">
                 <div className='col-span-3 max-sm:col-span-12 text-left max-sm:hidden'>
                     <button className='flex flex-row gap-3 btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
-                        () => {
-                            // setShowModal(true);
-                            // formView('uploadList', 'n', 0);
-                        }
-                    }>
+                                () => {
+                                    setShowModal(true);
+                                    formView('addSesProfile', 'n', 0);
+                                }
+                            }>
                         <div className='flex flex-row gap-3 '>
                             <span>
                                 Add SES Profile
@@ -146,8 +291,8 @@ const SesProfiles = () => {
                             )} />
                             <button className='max-sm:hidden btn font-medium bg-white px-3 py-2 border-0 rounded-md mb-3' onClick={
                                 () => {
-                                    // setShowModal(true);
-                                    // formView('uploadList', 'n', 0);
+                                    setShowModal(true);
+                                    formView('settings', 'n', 0);
                                 }
                             }>
                                 <div className='flex flex-row gap-3 text-primary'>
@@ -246,6 +391,12 @@ const SesProfiles = () => {
                     )}
                 />
             </div>
+
+            <Modal onClose={() => {
+                setShowModal(false);
+            }} showModal={showModal}>
+                {form}
+            </Modal>
         </React.Fragment>
     )
 }
