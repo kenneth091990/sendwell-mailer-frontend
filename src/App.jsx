@@ -22,6 +22,8 @@ import useToast from './hooks/useToast';
 import { getCurrentUserThunk } from './modules/authThunks';
 import { useAuth } from './providers/AuthProvider';
 import Domains from './pages/dashboards/Domains';
+import Queues from './pages/dashboards/Queues';
+
 
 
 export default function App() {
@@ -246,6 +248,20 @@ export default function App() {
             return (
               <DefaultLayout>
                 <Domains />
+              </DefaultLayout>
+            )
+          }} />
+
+          <Route exact path={'/queues'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+            
+            return (
+              <DefaultLayout>
+                <Queues />
               </DefaultLayout>
             )
           }} />

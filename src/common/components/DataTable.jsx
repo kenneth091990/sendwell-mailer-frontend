@@ -48,12 +48,12 @@ const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile,
             {/* Headers */}
             <div className={`grid grid-cols-12 border-b-2 border-black/40 ${hideHeaderOnMobile ? "max-sm:hidden" : ""}`}>
                 {(keys ?? []).map((ii, index) => {
-                    if (ii?.render) return <div key={index} className={`px-2.5 py-2 col-span-${ii?.col}`}>
+                    if (ii?.render) return <div key={index} className={`px-1 py-2 col-span-${ii?.col}`}>
                         {ii?.render}
                     </div>;
 
                     return (
-                        <div key={index} className={`px-2.5 py-2 col-span-${ii?.col}`}>
+                        <div key={index} className={`px-1 py-2 col-span-${ii?.col}`}>
                             <span className="font-semibold text-black/40 text-sm uppercase">
                                 {ii?.label ?? ii?.key}
                             </span>
@@ -83,14 +83,14 @@ const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile,
                             var cellElement = ele[ii?.key];
                             if (cellElement?.childRender) {
                                 return (
-                                    <div key={index + "_" + jj} className={`px-2.5 py-2 col-span-${ii?.col} text-xs`}>
+                                    <div key={index + "_" + jj} className={`px-1 py-2 col-span-${ii?.col} text-xs`}>
                                         {cellElement?.childRender}
                                     </div>
                                 )
                             }
 
                             return (
-                                <div key={index + "_" + jj} className={`px-2.5 py-2 col-span-${ii?.col} text-xs`}>
+                                <div key={index + "_" + jj} className={`px-1 break-words py-2 col-span-${ii?.col} text-xs`}>
                                     {cellElement}
                                 </div>
                             )

@@ -217,6 +217,10 @@ table tbody tr.odd{
   background-color: transparent;
 }
 
+.webkit-center{
+  text-align: -webkit-center;
+}
+
 
 .checkbox{
     -ms-transform: scale(1.6);
@@ -234,7 +238,7 @@ table tbody tr.odd{
 }
 
 .bg-blue{
-  background: rgb(35 130 216 / var(--tw-text-opacity));
+  background: #2382d8 ;
   color: #fff;
 
 }
@@ -250,4 +254,17 @@ table tbody tr.odd{
 
 .bg-red{
   background: #B92D2B;
+}
+.test{
+  z-index: 9999999;
+}
+
+.react-select__menu-list{
+  padding: 10px;
+  border: 1px solid #BBBDBF;
+  letter-spacing: -0.05em;
+}
+
+.react-select__option{
+  padding: 0px!important;
 }
