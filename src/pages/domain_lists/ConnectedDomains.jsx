@@ -7,6 +7,8 @@ import SearchIcon from './../../images/nav/SearchIcon.png'
 import TrashIcon from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import InputTextfield from '../../components/InputTextfield';
 import Modal from '../../components/Modal';
+import MultiSelectWithCheckboxes from '../../components/MultiSelectWithCheckboxes';
+
 import CircularProgressBar from '../../components/CircularProgressBar';
 
 
@@ -21,8 +23,11 @@ const ConnectedDomains = () => {
     const formView = (formName, action, id) => {
         switch (formName) {
             case 'registrar':
-                setForm(loading());
+                setForm(addRegistrarForm());
                 break;
+            case 'domain':
+                setForm(addDomainsForm());
+            break;
         }
 
         if (formRef.current) {
@@ -30,6 +35,11 @@ const ConnectedDomains = () => {
 
         }
     }
+
+   
+
+      
+
 
     const loading = () => {
 
@@ -40,7 +50,7 @@ const ConnectedDomains = () => {
                 <div className='mt-5'>
                     <h2 className='text-blue text-2xl'>PLEASE WAIT</h2>
                 </div>
-                <div className='mt-5 text-justify'>
+                <div className='mt-5 webkit-center'>
                    <CircularProgressBar />
 
                    <div  className='mt-5 tracking-tighter font-thin '>Adding registrar and syncing domains.</div>
@@ -99,6 +109,48 @@ const ConnectedDomains = () => {
                 <div className='mt-5'>
                     <div>
                         <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Add Registrar</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
+
+    const addDomainsForm = () => {
+
+
+        return (
+            <form ref={formRef} className='flex-inline w-[110vh] max-sm:w-[95%]'>
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                </div>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>ADD DOMAINS</h2>
+                </div>
+                <div className='mt-5'>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 text-left">
+                        
+                        <div>
+                             <MultiSelectWithCheckboxes  placeholder='search account' label='REGISTRAR ACCOUNT' labelClassName='text-primary' isMulti={false}  />                      
+                        </div>
+                         
+                        <div>
+                             <MultiSelectWithCheckboxes  placeholder='search available domains' label='AVAILABLE DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} hasSelectAll={true}/>                      
+                        </div>
+                         
+                        <div>
+                             <MultiSelectWithCheckboxes  placeholder='search selected domains' label='SELECTED DOMAINS' labelClassName='text-primary' isMulti={true}  hasCheckbox={true}/>                      
+                        </div>
+
+                    </div>
+                </div>
+           
+               
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Sync Domains</button>
                     </div>
                     <div className='mt-3'>
                         <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
@@ -190,7 +242,12 @@ const ConnectedDomains = () => {
         <React.Fragment>
             <div className='flex flex-row justify-center text-center mb-5 mt-2 max-sm:mb-0 items-center'>
                 <div className='text-right max-sm:hidden'>
-                    <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3'>
+                    <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
+                                () => {
+                                    setShowModal(true);
+                                    formView('domain', 'n', 0);
+                                }
+                            }>
                         Add domains
                     </button>
                 </div>

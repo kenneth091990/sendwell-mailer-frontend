@@ -1,0 +1,112 @@
+import React, { useState, useEffect, forwardRef } from 'react';
+import Select, { components } from 'react-select';
+
+const DropdownIndicator = props => {
+  return (
+    <components.DropdownIndicator {...props}>
+          <img src='src/images/nav/SearchIcon.png' height={17} width={17} />
+    </components.DropdownIndicator>
+  );
+};
+
+const options = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'orange', label: 'Orange' },
+  { value: 'grape', label: 'Grape' },
+  { value: 'pear', label: 'Pear' },
+
+];
+
+
+const CheckboxOption = ({ children, isChecked, onChange }) => {
+  const handleClick = (e) => {
+    // Prevent the click event from bubbling up to the parent
+    e.stopPropagation();
+  };
+
+  const checkboxStyle = {
+    'position' : 'absolute',
+    'right' : '5px',
+    'height': '17px',
+    'width': '17px',
+    'accentColor': '#3C72AB',
+    'OAppearance':'none',
+    'border': '1px solid #BBBDBF!important',
+    'borderRadius' : '2px'
+  }
+
+  const containerStyle = () => {
+    
+    if(children == 'Select All'){
+      return {
+        'color':  '#2382d8',
+        'borderBottom': '1px solid #BBBDBF',
+        'paddingBottom': '10px',
+        'marginBottom': '10px'
+      }
+    }
+  
+  }
+
+  return (
+     <div style={ containerStyle() }>
+      
+      <label  className={`flex items-center tracking-tighter ${children == 'Select All' ? 'bold' : 'font-light'}`}>{children}
+        <input type="checkbox" checked={isChecked} onChange={onChange} onClick={handleClick} style={checkboxStyle}/>
+      </label>
+    </div>
+    
+  );
+};
+
+
+const CheckboxMenu = ({ children, ...props }) => {
+console.log(props)
+  const optionNodes = React.Children.map(children, (child) =>
+
+      React.cloneElement(child, {
+      isSelected: props.getValue().some((val) => val.value === child.props.data.value),
+      onSelect: () => {
+        console.log('sss')
+      },
+    })
+  );
+
+  return <div>{optionNodes}</div>;
+};
+
+const MultiSelectWithCheckboxes =  forwardRef(({ label, placeholder, labelClassName, isMulti, hasCheckbox=false, hasSelectAll=false }, ref) => {
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const handleChange = (selectedOptions) => {
+    setSelectedOptions(selectedOptions);
+  };
+
+  const allOption = { value: 'all', label: 'Select All' };
+
+  return (
+
+    <React.Fragment>
+      {label && <label className={labelClassName}>
+                {label}
+            </label>}
+      <Select
+          isMulti={isMulti}
+          options={hasSelectAll ? [allOption, ...options] : options}
+          value={selectedOptions}
+          onChange={handleChange}
+          placeholder={placeholder}
+          isSearchable
+          className="react-select-container"
+          classNamePrefix="react-select"
+          components= { hasCheckbox  ? {Option: CheckboxOption, Menu: CheckboxMenu, DropdownIndicator, IndicatorSeparator:() => null} : {DropdownIndicator, IndicatorSeparator:() => null} }
+          menuIsOpen={true}
+        
+      />
+    </React.Fragment>
+  
+  );
+});
+
+export default MultiSelectWithCheckboxes;
