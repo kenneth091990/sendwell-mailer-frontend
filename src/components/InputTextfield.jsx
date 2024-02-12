@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react'
 
 const InputTextfield = forwardRef(({ inputProps, label, iconComponent, className, labelClassName,type }, ref) => {
-    console.log(labelClassName)
     return (
         <React.Fragment>
             {label && <label className={labelClassName}>

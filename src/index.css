@@ -255,3 +255,16 @@ table tbody tr.odd{
 .bg-red{
   background: #B92D2B;
 }
+.test{
+  z-index: 9999999;
+}
+
+.react-select__menu-list{
+  padding: 10px;
+  border: 1px solid #BBBDBF;
+  letter-spacing: -0.05em;
+}
+
+.react-select__option{
+  padding: 0px!important;
+}

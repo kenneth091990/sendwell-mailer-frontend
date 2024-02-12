@@ -7,6 +7,8 @@ import SearchIcon from './../../images/nav/SearchIcon.png'
 import TrashIcon from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import InputTextfield from '../../components/InputTextfield';
 import Modal from '../../components/Modal';
+import MultiSelectWithCheckboxes from '../../components/MultiSelectWithCheckboxes';
+
 import CircularProgressBar from '../../components/CircularProgressBar';
 
 
@@ -21,11 +23,11 @@ const ConnectedDomains = () => {
     const formView = (formName, action, id) => {
         switch (formName) {
             case 'registrar':
-                setForm(loading());
-                break;
-            case 'addRegistrar':
                 setForm(addRegistrarForm());
                 break;
+            case 'domain':
+                setForm(addDomainsForm());
+            break;
         }
 
         if (formRef.current) {
@@ -33,6 +35,11 @@ const ConnectedDomains = () => {
 
         }
     }
+
+   
+
+      
+
 
     const loading = () => {
 
@@ -195,19 +202,23 @@ const ConnectedDomains = () => {
         <React.Fragment>
             <div className='flex flex-row justify-center text-center mb-5 mt-2 max-sm:mb-0 items-center'>
                 <div className='text-right max-sm:hidden'>
-                    <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3'>
+                    <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
+                                () => {
+                                    setShowModal(true);
+                                    formView('domain', 'n', 0);
+                                }
+                            }>
                         Add domains
                     </button>
                 </div>
                 <h1 className='flex-1 text-2xl mb-3 max-sm:mb-0 text-gray'>CONNECTED DOMAINS</h1>
                 <div className='text-right max-sm:hidden'>
                     <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
-                        () => {
-                            setShowModal(true);
-                            // formView('registrar', 'n', 0);
-                            formView('addRegistrar', 'n', 0);
-                        }
-                    }>
+                                () => {
+                                    setShowModal(true);
+                                    formView('registrar', 'n', 0);
+                                }
+                            }>
                         Add registrar
                     </button>
                 </div>
