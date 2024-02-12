@@ -19,10 +19,19 @@ const options = [
 ];
 
 
-const CheckboxOption = ({ children, isChecked, onChange }) => {
+const CheckboxOption = ({ children, isChecked, onChange, ...props }) => {
   const handleClick = (e) => {
     // Prevent the click event from bubbling up to the parent
     e.stopPropagation();
+
+    if(props.value === 'all' && e.target.checked){
+      const containerElem  = e.target.closest('.react-select-container');
+
+      const checkboxes = containerElem.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked  = true;
+      });
+    }
   };
 
   const checkboxStyle = {
@@ -38,7 +47,7 @@ const CheckboxOption = ({ children, isChecked, onChange }) => {
 
   const containerStyle = () => {
     
-    if(children == 'Select All'){
+    if(props.value == 'all'){
       return {
         'color':  '#2382d8',
         'borderBottom': '1px solid #BBBDBF',
@@ -49,11 +58,11 @@ const CheckboxOption = ({ children, isChecked, onChange }) => {
   
   }
 
+
   return (
      <div style={ containerStyle() }>
-      
-      <label  className={`flex items-center tracking-tighter ${children == 'Select All' ? 'bold' : 'font-light'}`}>{children}
-        <input type="checkbox" checked={isChecked} onChange={onChange} onClick={handleClick} style={checkboxStyle}/>
+      <label  className={`flex items-center tracking-tighter ${props.value == 'all' ? 'bold' : 'font-light'}`}>{children}
+        <input type="checkbox" checked={isChecked} onChange={onChange} onClick={handleClick} style={checkboxStyle} value={props.value}/>
       </label>
     </div>
     
@@ -62,14 +71,11 @@ const CheckboxOption = ({ children, isChecked, onChange }) => {
 
 
 const CheckboxMenu = ({ children, ...props }) => {
-console.log(props)
   const optionNodes = React.Children.map(children, (child) =>
 
       React.cloneElement(child, {
       isSelected: props.getValue().some((val) => val.value === child.props.data.value),
-      onSelect: () => {
-        console.log('sss')
-      },
+      onSelect: () => props.setValue(child.props.data),
     })
   );
 
@@ -81,6 +87,7 @@ const MultiSelectWithCheckboxes =  forwardRef(({ label, placeholder, labelClassN
 
   const handleChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
+    console.log('dddd');
   };
 
   const allOption = { value: 'all', label: 'Select All' };
