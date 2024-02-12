@@ -198,6 +198,49 @@ const ConnectedDomains = () => {
 
     ]
 
+    const addDomainsForm = () => {
+
+
+        return (
+            <form ref={formRef} className='flex-inline w-[110vh] max-sm:w-[95%]'>
+                <div className='text-center'>
+                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                </div>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>ADD DOMAINS</h2>
+                </div>
+                <div className='mt-5'>
+                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 text-left">
+
+                        <div>
+                            <MultiSelectWithCheckboxes placeholder='search account' label='REGISTRAR ACCOUNT' labelClassName='text-primary' isMulti={false} />
+                        </div>
+
+                        <div>
+                            <MultiSelectWithCheckboxes placeholder='search available domains' label='AVAILABLE DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} hasSelectAll={true} />
+                        </div>
+
+                        <div>
+                            <MultiSelectWithCheckboxes placeholder='search selected domains' label='SELECTED DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} />
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Sync Domains</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
+
+
     return (
         <React.Fragment>
             <div className='flex flex-row justify-center text-center mb-5 mt-2 max-sm:mb-0 items-center'>
