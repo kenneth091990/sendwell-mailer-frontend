@@ -25,9 +25,7 @@ const SesProfiles = () => {
             case 'addSesProfile':
                 setForm(addSesProfileForm());
                 break;
-            case 'addSesProfile':
-                setForm(addRegistrarForm());
-                break;
+            
         }
 
         if (formRef.current) {

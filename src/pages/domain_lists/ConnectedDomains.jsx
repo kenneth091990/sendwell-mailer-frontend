@@ -1,4 +1,4 @@
-import React, { createRef, useRef, useState }  from 'react'
+import React, { createRef, useRef, useState } from 'react'
 import DataTable from '../../common/components/DataTable';
 import { Link } from 'react-router-dom';
 import CircleIcon from './../../images/nav/Circle_Caution.png'
@@ -23,6 +23,9 @@ const ConnectedDomains = () => {
             case 'registrar':
                 setForm(loading());
                 break;
+            case 'addRegistrar':
+                setForm(addRegistrarForm());
+                break;
         }
 
         if (formRef.current) {
@@ -35,18 +38,20 @@ const ConnectedDomains = () => {
 
 
         return (
-            <div  className='flex-inline w-[85vh] max-sm:w-[95%]'>
-           
+            <div className='flex-inline w-[85vh] max-sm:w-[95%]'>
+
                 <div className='mt-5'>
                     <h2 className='text-blue text-2xl'>PLEASE WAIT</h2>
                 </div>
-                <div className='mt-5 text-justify'>
-                   <CircularProgressBar />
-
-                   <div  className='mt-5 tracking-tighter font-thin '>Adding registrar and syncing domains.</div>
-                   
-                   <div  className='mt-5 tracking-tighter font-thin'>Please <span className='text-black font-semibold'>do not </span>navigate away from this page until the sync completes</div>
-                   <div  className='tracking-tighter font-thin'>and the "Add Domains" window appears, this may take a few moments</div>
+                <div className='mt-5 flex flex-col justify-between items-center text-justify'>
+                    <CircularProgressBar />
+                    <div className='mt-5 tracking-tighter font-thin '>Adding registrar and syncing domains.</div>
+                    <div className='mt-5 tracking-tighter font-thin'>
+                        Please
+                        <span className='text-black font-semibold'>do not </span>
+                        navigate away from this page until the sync completes
+                    </div>
+                    <div className='tracking-tighter font-thin'>and the "Add Domains" window appears, this may take a few moments</div>
                 </div>
             </div>
         )
@@ -65,37 +70,37 @@ const ConnectedDomains = () => {
                 </div>
                 <div className='mt-5'>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
-                        
+
                         <div><InputTextfield type="text" label="REGISTRAR NAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="USERNAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+
                         <div><InputTextfield type="password" label="PASSWORD" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+
                         <div><InputTextfield type="text" label="API TOKEN" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="API URL" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+
                         <div><InputTextfield type="text" label="NAMESERVER1" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="NAMESERVER1 IP" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+
                         <div><InputTextfield type="text" label="NAMESERVER2" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="NAMESERVER2 IP" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
                 </div>
-           
-               
+
+
                 <div className='mt-5'>
                     <div>
                         <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Add Registrar</button>
@@ -197,11 +202,12 @@ const ConnectedDomains = () => {
                 <h1 className='flex-1 text-2xl mb-3 max-sm:mb-0 text-gray'>CONNECTED DOMAINS</h1>
                 <div className='text-right max-sm:hidden'>
                     <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
-                                () => {
-                                    setShowModal(true);
-                                    formView('registrar', 'n', 0);
-                                }
-                            }>
+                        () => {
+                            setShowModal(true);
+                            // formView('registrar', 'n', 0);
+                            formView('addRegistrar', 'n', 0);
+                        }
+                    }>
                         Add registrar
                     </button>
                 </div>
@@ -326,7 +332,7 @@ const ConnectedDomains = () => {
                     of your registrar accounts on the <Link to={'/integrations'} className='text-primary underline'>integrations</Link> page.
                 </p>
             </div> */}
-             <Modal onClose={() => {
+            <Modal onClose={() => {
                 setShowModal(false);
             }} showModal={showModal}>
                 {form}
