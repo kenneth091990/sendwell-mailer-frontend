@@ -1,4 +1,4 @@
-import React , { createRef, useRef, useState } from 'react'
+import React, { createRef, useRef, useState } from 'react'
 import DataTable from '../../common/components/DataTable';
 import { Link } from 'react-router-dom';
 import CircleIcon from './../../images/nav/Circle_Caution.png'
@@ -25,7 +25,7 @@ const SesProfiles = () => {
             case 'addSesProfile':
                 setForm(addSesProfileForm());
                 break;
-            
+
         }
 
         if (formRef.current) {
@@ -46,21 +46,21 @@ const SesProfiles = () => {
                     <h2 className='text-blue'>SES SETTINGS</h2>
                 </div>
                 <div className='mt-5'>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
+
                         <div><InputTextfield type="text" label="DEFAULT DAILY QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="GLOBAL QUOTA INCREASE" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+
                         <div><InputTextfield type="text" label="GLOBAL MAX QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="GLOBAL MIN QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
                 </div>
-           
-               
+
+
                 <div className='mt-5'>
                     <div>
                         <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Save Settings</button>
@@ -87,29 +87,29 @@ const SesProfiles = () => {
                     <h2 className='text-blue'>ADD SES PROFILE</h2>
                 </div>
                 <div className='mt-5'>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
+
                         <div><InputTextfield type="text" label="EMAIL" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="USERNAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+
                         <div><InputTextfield type="password" label="PASSWORD" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="HOST" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+
                         <div>
                             <InputTextfield type="text" label="DAILY QUOTA" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' />
                             <div className="flex items-center mt-3">
                                 <input
                                     type="checkbox"
-                                   
+
                                     className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
                                 />
-                                <label  className='cursor-pointer text-xs text-primary tracking-tighter'>
+                                <label className='cursor-pointer text-xs text-primary tracking-tighter'>
                                     Subscribe to global quota increase
                                 </label>
                             </div>
@@ -119,29 +119,29 @@ const SesProfiles = () => {
                         </div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+
                         <div><InputTextfield type="text" label="SNS NOTIFICATION ADDRESS" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="POOL NAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+
                         <div><InputTextfield type="text" label="API KEY" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="API SECRET" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
-                        
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+
                         <div><InputTextfield type="text" label="API IP" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
-                        <div class="flex items-end ">
+                        <div className="flex items-end ">
                             <span className='text-primary'>GENERATED ID: </span> 1455
                         </div>
 
                     </div>
                 </div>
-           
-               
+
+
                 <div className='mt-5'>
                     <div>
                         <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Add Profile</button>
@@ -241,11 +241,11 @@ const SesProfiles = () => {
             <div className="grid grid-cols-12 gap-3 pt-11">
                 <div className='col-span-3 max-sm:col-span-12 text-left max-sm:hidden'>
                     <button className='flex flex-row gap-3 btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
-                                () => {
-                                    setShowModal(true);
-                                    formView('addSesProfile', 'n', 0);
-                                }
-                            }>
+                        () => {
+                            setShowModal(true);
+                            formView('addSesProfile', 'n', 0);
+                        }
+                    }>
                         <div className='flex flex-row gap-3 '>
                             <span>
                                 Add SES Profile
@@ -278,12 +278,12 @@ const SesProfiles = () => {
                     hideHeaderOnMobile={true}
                     hideCellOnMobile={true}
                     headerChildren={(
-                        <div className='w-full flex flex-row max-sm:flex-col justify-between max-sm:items-center  mb-3'>
-                            <InputTextfield inputProps={{
+                        <div className='w-full gap-2 flex flex-row max-sm:flex-col tablet:flex-row laptop:flex-row desktop:flex-row justify-between max-sm:items-center  mb-3'>
+                            <InputTextfield containerClass="flex-2" className={"rounded-md border focus:border-primary border-black/10 bg-transparent px-2 py-2"} inputProps={{
                                 placeholder: "Search...",
                                 type: "text",
                             }} iconComponent={(
-                                <div className='px-3 py-1.5'>
+                                <div className='px-3 py-2'>
                                     <img src={SearchIcon} className="h-6 w-6" alt="SearchIcon" />
                                 </div>
                             )} />
@@ -305,7 +305,7 @@ const SesProfiles = () => {
                     keys={[
                         {
                             "key": "id",
-                            "col": 2
+                            "col": 1
                         },
                         {
                             "key": "email",
@@ -329,7 +329,7 @@ const SesProfiles = () => {
                         {
                             "key": "action",
                             "label": "",
-                            "col": 1
+                            "col": 2
                         },
                     ]}
                     data={mockData.map((domain, index) => {

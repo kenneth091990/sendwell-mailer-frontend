@@ -34,11 +34,18 @@ const Modal = ({ showModal, onClose, children }) => {
         }
     }, [isComponentVisible])
 
+    useEffect(() => {
+        if (showModal) {
+            document.body.style.overflow = 'hidden';
+        } else document.body.style.overflow = 'none';
+        return () => { };
+    }, [showModal]);
+
 
 
     return (
-        <div className={`fixed top-0 left-0 z-999999 ${showModal ? "flex" : "hidden"} h-full min-h-screen w-full items-center justify-center bg-black/90 px-4 py-5`}>
-            <div ref={ref} className="relative max-w-80 rounded-lg bg-white dark:bg-black py-12 px-8 text-center md:py-15 md:px-17.5">
+        <div className={`tablet:p-4 laptop:p-13 max-sm:p-3 fixed top-0 left-0 right-0 bottom-0 z-999999 ${showModal ? "overflow-y-auto" : "hidden"} h-full min-h-screen w-full bg-black/90`}>
+            <div ref={ref} className="relative mx-auto rounded-lg bg-white text-center flex justify-center desktop:w-[50%] py-9 px-7">
                 {children}
                 {/* Close Button */}
                 <button onClick={onClose} className="absolute top-6 right-6 flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black transition hover:bg-black hover:text-white">
