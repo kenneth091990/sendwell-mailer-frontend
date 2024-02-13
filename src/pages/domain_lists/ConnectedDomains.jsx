@@ -76,30 +76,30 @@ const ConnectedDomains = () => {
                     <h2 className='text-blue'>ADD REGISTRAR</h2>
                 </div>
                 <div className='mt-5'>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left">
 
                         <div><InputTextfield type="text" label="REGISTRAR NAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="USERNAME" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
 
                         <div><InputTextfield type="password" label="PASSWORD" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
 
                         <div><InputTextfield type="text" label="API TOKEN" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="API URL" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
 
                         <div><InputTextfield type="text" label="NAMESERVER1" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="NAMESERVER1 IP" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
 
                     </div>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 text-left mt-5">
 
                         <div><InputTextfield type="text" label="NAMESERVER2" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
                         <div><InputTextfield type="text" label="NAMESERVER2 IP" labelClassName="mb-2.5 block font-medium text-black" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /></div>
@@ -128,7 +128,7 @@ const ConnectedDomains = () => {
                 </span>
             ),
             domain_name: (
-                <span className='text-[1rem] '>
+                <span className='text-[1rem] break-words'>
                     mydomainname.com
                 </span>
             ),
@@ -165,7 +165,7 @@ const ConnectedDomains = () => {
                 </span>
             ),
             domain_name: (
-                <span className='text-[1rem] '>
+                <span className='text-[1rem]  break-words'>
                     mydomainname.com
                 </span>
             ),
@@ -210,7 +210,7 @@ const ConnectedDomains = () => {
                     <h2 className='text-blue'>ADD DOMAINS</h2>
                 </div>
                 <div className='mt-5'>
-                    <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 text-left">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 text-left">
 
                         <div>
                             <MultiSelectWithCheckboxes placeholder='search account' label='REGISTRAR ACCOUNT' labelClassName='text-primary' isMulti={false} />
@@ -272,11 +272,11 @@ const ConnectedDomains = () => {
                     hideCellOnMobile={true}
                     headerChildren={(
                         <div className='w-full max-sm:items-center max-sm:flex-col flex flex-row mb-3'>
-                            <InputTextfield inputProps={{
+                            <InputTextfield className={"rounded-md border focus:border-primary focus-visible:border-primary border-black/10 bg-transparent px-2 py-2"} inputProps={{
                                 placeholder: "Search...",
                                 type: "text",
                             }} iconComponent={(
-                                <div className='px-3 py-1.5'>
+                                <div className='px-3 py-2'>
                                     <img src={SearchIcon} className="h-6 w-6" alt="SearchIcon" />
                                 </div>
                             )} />

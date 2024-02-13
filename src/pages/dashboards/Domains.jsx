@@ -5,7 +5,7 @@ import SesProfiles from '../domain_lists/SesProfiles';
 const Domains = () => {
 
     return (
-        <div>
+        <div className="flex flex-col">
             <ConnectedDomains />
             <SesProfiles />
             {/* <div className="flex flex-col items-center">

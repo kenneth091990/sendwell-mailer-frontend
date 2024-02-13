@@ -54,14 +54,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     return (
         <aside
             ref={sidebar}
-            className={`absolute left-0 top-0 max-sm:z-9999 max-sm:h-screen flex w-[16%] flex-col overflow-y-hidden bg-white duration-300 ease-linear dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            className={`absolute left-0 top-0 flex flex-col overflow-y-hidden bg-white duration-300 ease-linear 
+            laptop:w-[30%] laptop:static laptop:translate-x-0  laptop:h-[90vh] desktop:h-[90vh]
+            desktop:w-[16%] desktop:static desktop:translate-x-0 
+            max-sm:z-999999 max-sm:h-screen 
+            max-sm:w-full tablet:z-999999 
+            tablet:h-screen tablet:w-full 
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
             {/* <!-- SIDEBAR HEADER --> */}
-            <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+            <div className="flex items-center justify-between max-sm:flex-row-reverse gap-2 px-6 py-5.5 desktop:py-6.5">
                 <div className="hidden sm:block">
                     <form action="https://formbold.com/s/unique_form_id" method="POST">
                         <div className="relative">
-
-
                             <input
                                 type="text"
                                 placeholder="Type to search..."

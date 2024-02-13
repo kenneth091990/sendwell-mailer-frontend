@@ -25,7 +25,7 @@ const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile,
 
     useEffect(() => {
         const checkScreenSize = () => {
-            if (!window.matchMedia("(min-width: 640px)").matches) {
+            if (window.matchMedia("(max-width: 768px)").matches) {
                 setIsMobile(true);
             } else {
                 setIsMobile(false);
@@ -46,7 +46,7 @@ const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile,
         <div className="flex w-full flex-col rounded-2xl px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-lg max-sm:shadow-none">
             {headerChildren}
             {/* Headers */}
-            <div className={`grid grid-cols-12 border-b-2 border-black/40 ${hideHeaderOnMobile ? "max-sm:hidden" : ""}`}>
+            <div className={`grid grid-cols-12 border-b-2 border-black/40 ${hideHeaderOnMobile ? "laptop:grid tablet:hidden max-sm:hidden " : ""}`}>
                 {(keys ?? []).map((ii, index) => {
                     if (ii?.render) return <div key={index} className={`px-1 py-2 col-span-${ii?.col}`}>
                         {ii?.render}

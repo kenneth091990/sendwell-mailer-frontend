@@ -87,21 +87,21 @@ const Suppresions = () => {
             <div className="grid grid-cols-1 ">
                 <div className="w-full rounded-md p-2  lg:border border-line-gray">
                  
-                    <table class="border-collapse w-full">
+                    <table className="border-collapse w-full">
                         <thead>
                             <tr className='lg:border-b border-line-gray'>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">LIST</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">DESCRIPTION</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">COUNT</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">STATUS</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">ACTION</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">LIST</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">DESCRIPTION</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">COUNT</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">STATUS</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                        <tr className="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                            <label>
                                                 <input
                                                     type="checkbox"
@@ -112,31 +112,31 @@ const Suppresions = () => {
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                         Lorem ipsum dolor sit amet lorem ipsum sit amet
                                         dolor sit amet lorem ipsum dolor sit amet ala
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                     123,456
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className=''>
                                             <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                          </button>
@@ -150,10 +150,10 @@ const Suppresions = () => {
                              
                                 </td>
                             </tr>
-                            <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                            <tr className="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                            <label>
                                                 <input
                                                     type="checkbox"
@@ -164,31 +164,31 @@ const Suppresions = () => {
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                         Lorem ipsum dolor sit amet lorem ipsum sit amet
                                         dolor sit amet lorem ipsum dolor sit amet ala
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                     123,456
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className=''>
                                             <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                          </button>
@@ -240,21 +240,21 @@ const Suppresions = () => {
             <div className="grid grid-cols-1 ">
                 <div className="w-full rounded-md p-2 border border-line-gray">
                  
-                <table class="border-collapse w-full">
+                <table className="border-collapse w-full">
                         <thead>
                             <tr className='lg:border-b border-line-gray'>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">LIST</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">DESCRIPTION</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">COUNT</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">STATUS</th>
-                                <th class="py-1 px-4 text-gray hidden lg:table-cell">ACTION</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">LIST</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">DESCRIPTION</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">COUNT</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">STATUS</th>
+                                <th className="py-1 px-4 text-gray hidden lg:table-cell">ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                        <tr className="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 odd">
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                            <label>
                                                 <input
                                                     type="checkbox"
@@ -265,31 +265,31 @@ const Suppresions = () => {
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                         Lorem ipsum dolor sit amet lorem ipsum sit amet
                                         dolor sit amet lorem ipsum dolor sit amet ala
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                     123,456
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className=''>
                                             <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                          </button>
@@ -303,10 +303,10 @@ const Suppresions = () => {
                              
                                 </td>
                             </tr>
-                            <tr class="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                            <tr className="rounded-md bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0 even">
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">LIST</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                            <label>
                                                 <input
                                                     type="checkbox"
@@ -317,31 +317,31 @@ const Suppresions = () => {
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">DESCRIPTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                         Lorem ipsum dolor sit amet lorem ipsum sit amet
                                         dolor sit amet lorem ipsum dolor sit amet ala
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">COUNT</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                     123,456
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">STATUS</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className='btn  bg-red p-5 border rounded-md text-white py-3'>Inactive</button>
                                     </div>
                              
                                 </td>
-                                <td class="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
-                                    <div class="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
-                                    <div class='max-md:mt-3 md:mt-3'>    
+                                <td className="w-full lg:w-auto p-4 text-gray-800  border-none  block lg:table-cell relative lg:static text-left">
+                                    <div className="lg:hidden text-xl font-medium uppercase text-gray">ACTION</div>
+                                    <div className='max-md:mt-3 md:mt-3'>    
                                          <button className=''>
                                             <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
                                          </button>

@@ -9,7 +9,7 @@ export default {
   darkMode: 'class',
   theme: {
     fontFamily: {
-     // satoshi: ['Satoshi', 'sans-serif'],
+      // satoshi: ['Satoshi', 'sans-serif'],
       'montserrat': ['Montserrat', 'sans-serif'],
 
     },
@@ -55,6 +55,15 @@ export default {
       '2xsm': '375px',
       xsm: '425px',
       '3xl': '2000px',
+      // screen 
+      'tablet': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'laptop': '1024px',
+      // => @media (min-width: 1024px) { ... }
+
+      'desktop': '1280px',
+      // => @media (min-width: 1280px) { ... }
       ...defaultTheme.screens,
     },
     extend: {
