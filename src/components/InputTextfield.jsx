@@ -7,7 +7,7 @@ const InputTextfield = forwardRef(({ containerClass, inputProps, label, iconComp
                 {label}
             </label>}
             <div className="flex w-full">
-                <div className="relative">
+                <div className="relative w-full">
                     <input
                         type={type}
                         ref={ref}

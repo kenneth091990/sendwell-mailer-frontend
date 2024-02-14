@@ -20,7 +20,7 @@ import { useState } from 'react';
  * }
  * ```
  */
-const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile, keys, removeDistinctCellBg, hideHeaderOnMobile }) => {
+const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile, keys, removeDistinctCellBg, hideHeaderOnMobile, overrideClass }) => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const DataTable = ({ data, emptyDataComponent, headerChildren, hideCellOnMobile,
     }, []);
 
     return (
-        <div className="flex w-full flex-col rounded-2xl px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-lg max-sm:shadow-none">
+        <div className={`flex w-full flex-col rounded-2xl px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-lg max-sm:shadow-none ${overrideClass}`} >
             {headerChildren}
             {/* Headers */}
             <div className={`grid grid-cols-12 border-b-2 border-black/40 ${hideHeaderOnMobile ? "laptop:grid tablet:hidden max-sm:hidden " : ""}`}>
