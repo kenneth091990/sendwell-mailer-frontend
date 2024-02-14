@@ -5,7 +5,7 @@ function AccordionItem({ title, content }){
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='flex w-full flex-col rounded-2xl px-6 max-sm:px-0 py-4 bg-white shadow-2xl max-sm:shadow-none'>
+    <div className='flex w-full flex-col rounded-2xl px-6 max-sm:px-0 py-4 bg-white shadow-2xl max-sm:shadow-none my-1'>
       <div
         onClick={() => setIsOpen(!isOpen)}
         style={{ cursor: 'pointer' }}
@@ -17,7 +17,7 @@ function AccordionItem({ title, content }){
        
         {title}
       </div>
-      {isOpen && <div>{content}</div>}
+      {isOpen && <div className='pt-3'>{content}</div>}
     </div>
   );
 }

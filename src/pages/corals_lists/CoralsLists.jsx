@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import CircleIcon from './../../images/nav/Circle_Caution.png'
 import SearchIcon from './../../images/nav/SearchIcon.png'
 import TrashIcon from "./../../images/nav/Icon_Trash-removebg-preview.png"
+import ErrorIcon from "./../../images/nav/Icon_Error.png"
+
 import InputTextfield from '../../components/InputTextfield';
 import Modal from '../../components/Modal';
 import MultiSelectWithCheckboxes from '../../components/MultiSelectWithCheckboxes';
@@ -85,12 +87,42 @@ const CoralsLists = () => {
         )
     }
 
+    const DomainsMockData = [
+        {
+           
+            domain_name: (
+                <span className='text-[1rem] break-words'>
+                    mydomainname.com
+                </span>
+            ),
+            action: (
+                <div className="w-full text-right flex flex-row-reverse">
+                     <img src={ErrorIcon} alt="ErrorIcon" className='h-5 w-5' />
+                 </div>
+            )
+        },
+        {
+          
+            domain_name: (
+                <span className='text-[1rem]  break-words'>
+                    mydomainname.com
+                </span>
+            ),
+            action: (
+                <div className="w-full text-right flex flex-row-reverse">
+                    <img src={ErrorIcon} alt="ErrorIcon" className='h-5 w-5' />
+                </div>
+            )
+        },
+
+    ]
+
     const accordionItems = [
         {
             title: (
                 <div className="flex-grow">
                     <div class="grid grid-cols-3 gap-4">
-                        <div className='text-primary'>EXAMPLE CORRAL</div>
+                        <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
                         <div className='col-span-2 text-right flex flex-row-reverse'>
                             <ul className='flex flex-inline text-primary'>
                                 <li className='px-5 '><div>Domains: 3 <span className='pl-5'>|</span></div> </li>
@@ -103,16 +135,514 @@ const CoralsLists = () => {
                 </div>
             ),
             content: (
-                <span className='text-[1rem] break-words'>
-                   this is content
-                </span>
+                <div className="flex-grow">
+                    <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "Domains",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        Domains
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "SES Profiles",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        SES Profiles
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "LISTS",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        LISTS
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "SUPPRESIONS",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        SUPPRESIONS
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                </div>
             ),
-        }
+        },
+        {
+            title: (
+                <div className="flex-grow">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
+                        <div className='col-span-2 text-right flex flex-row-reverse'>
+                            <ul className='flex flex-inline text-primary'>
+                                <li className='px-5 '><div>Domains: 3 <span className='pl-5'>|</span></div> </li>
+                                <li className='px-5 '><div>SES: 5  <span className='pl-5'>|</span></div></li>
+                                <li className='px-5 '><div>Lists: 3  <span className='pl-5'>|</span></div></li>
+                                <li className='px-5'><div>Suppresion: 3 </div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            ),
+            content: (
+                <div className="flex-grow">
+                    <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "Domains",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        Domains
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "SES Profiles",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        SES Profiles
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "LISTS",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        LISTS
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "SUPPRESIONS",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        SUPPRESIONS
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                </div>
+            ),
+        },
+        {
+            title: (
+                <div className="flex-grow">
+                    <div class="grid grid-cols-3 gap-4">
+                        <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
+                        <div className='col-span-2 text-right flex flex-row-reverse'>
+                            <ul className='flex flex-inline text-primary'>
+                                <li className='px-5 '><div>Domains: 3 <span className='pl-5'>|</span></div> </li>
+                                <li className='px-5 '><div>SES: 5  <span className='pl-5'>|</span></div></li>
+                                <li className='px-5 '><div>Lists: 3  <span className='pl-5'>|</span></div></li>
+                                <li className='px-5'><div>Suppresion: 3 </div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            ),
+            content: (
+                <div className="flex-grow">
+                    <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "Domains",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        Domains
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "SES Profiles",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        SES Profiles
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "LISTS",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        LISTS
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                     <DataTable
+                        overrideClass='shadow-none'
+                        hideHeaderOnMobile={true}
+                        hideCellOnMobile={true}
+                        keys={[
+                        
+                            {
+                                "key": "domain_name",
+                                "label": "SUPPRESIONS",
+                                "col": 6
+                            },
+                            {
+                                "key": "action",
+                                "label": "",
+                                "col": 6
+                            },
+                        ]}
+                        data= {DomainsMockData.map((domain, index) => {
+                            var data = { ...domain };
+                            data.mobileCellView = (
+                                <div className='flex flex-col mb-4 justify-between'>
+                                    <span className="text-black/30 text-md uppercase font-semibold">
+                                        SUPPRESIONS
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.domain_name}
+                                    </span>
+                                    <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                    </span>
+                                    <span className='text-sm'>
+                                        {data?.action}
+                                    </span>
+                                </div>
+                            )
+
+                            return data;
+                        })}
+                    />
+                </div>
+            ),
+        },
+        
 
     ]
 
   
-
+  
 
     return (
         <React.Fragment>

@@ -67,6 +67,7 @@ export default {
       ...defaultTheme.screens,
     },
     extend: {
+   
       fontSize: {
         'title-xxl': ['44px', '55px'],
         'title-xl': ['36px', '45px'],
