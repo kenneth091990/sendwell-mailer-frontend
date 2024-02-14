@@ -23,6 +23,8 @@ import { getCurrentUserThunk } from './modules/authThunks';
 import { useAuth } from './providers/AuthProvider';
 import Domains from './pages/dashboards/Domains';
 import Queues from './pages/dashboards/Queues';
+import Corrals from './pages/dashboards/Corrals';
+
 
 
 
@@ -251,6 +253,22 @@ export default function App() {
               </DefaultLayout>
             )
           }} />
+
+      <Route exact path={'/corrals'} render={(props) => {
+            // if (!user) {
+            //   return (
+            //     <Redirect to={'/login'} />
+            //   )
+            // }
+
+            return (
+              <DefaultLayout>
+                <Corrals />
+              </DefaultLayout>
+            )
+          }} />
+
+          
 
           <Route exact path={'/queues'} render={(props) => {
             // if (!user) {

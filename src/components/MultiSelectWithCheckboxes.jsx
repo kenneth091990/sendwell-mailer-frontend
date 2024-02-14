@@ -108,7 +108,7 @@ const MultiSelectWithCheckboxes = forwardRef(({ label, placeholder, labelClassNa
         className="react-select-container"
         classNamePrefix="react-select"
         components={hasCheckbox ? { Option: CheckboxOption, Menu: CheckboxMenu, DropdownIndicator, IndicatorSeparator: () => null } : { DropdownIndicator, IndicatorSeparator: () => null }}
-        menuIsOpen={true}
+       
 
       />
     </React.Fragment>
