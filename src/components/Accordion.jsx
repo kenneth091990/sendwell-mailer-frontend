@@ -11,7 +11,7 @@ function AccordionItem({ title, content }){
         style={{ cursor: 'pointer' }}
         className='flex w-full'
       >
-        <div class="flex-none w-12">
+        <div className="flex-none w-12">
            {!isOpen ?  <img src='/src/images/icon/arrow-down-icon.svg' width={'20px'} className=''/> :  <img src='/src/images/icon/arrow-up-icon.svg' width={'20px'} className=''/>}
         </div>
        

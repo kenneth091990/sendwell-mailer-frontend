@@ -121,7 +121,7 @@ const CoralsLists = () => {
         {
             title: (
                 <div className="flex-grow">
-                    <div class="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                         <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
                         <div className='col-span-2 text-right flex flex-row-reverse'>
                             <ul className='flex flex-inline text-primary'>
@@ -294,7 +294,7 @@ const CoralsLists = () => {
         {
             title: (
                 <div className="flex-grow">
-                    <div class="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                         <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
                         <div className='col-span-2 text-right flex flex-row-reverse'>
                             <ul className='flex flex-inline text-primary'>
@@ -467,7 +467,7 @@ const CoralsLists = () => {
         {
             title: (
                 <div className="flex-grow">
-                    <div class="grid grid-cols-3 gap-4">
+                    <div className="grid grid-cols-3 gap-4">
                         <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
                         <div className='col-span-2 text-right flex flex-row-reverse'>
                             <ul className='flex flex-inline text-primary'>
