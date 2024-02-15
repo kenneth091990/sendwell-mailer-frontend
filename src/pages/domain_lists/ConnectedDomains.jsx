@@ -13,6 +13,7 @@ import CircularProgressBar from '../../components/CircularProgressBar';
 
 
 
+import Circle_Add from "./../../images/nav/Circle_Add.png"
 
 
 const ConnectedDomains = () => {
@@ -70,7 +71,7 @@ const ConnectedDomains = () => {
         return (
             <form ref={formRef} className='flex-inline w-[85vh] max-sm:w-[95%]'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Add} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>ADD REGISTRAR</h2>
@@ -204,7 +205,7 @@ const ConnectedDomains = () => {
         return (
             <form ref={formRef} className='flex-inline w-[110vh] max-sm:w-[95%]'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Add} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>ADD DOMAINS</h2>

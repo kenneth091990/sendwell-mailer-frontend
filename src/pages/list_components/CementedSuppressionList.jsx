@@ -5,6 +5,8 @@ import Modal from '../../components/Modal';
 import SelectDropdown from '../../components/SelectDropdown';
 import TextAreaWithCounter from '../../components/TextAreaWithCounter';
 import AddIcon from "./../../images/nav/AddIcon.png"
+import Circle_Add from "./../../images/nav/Circle_Add.png"
+
 const CementedSuppressionList = () => {
     const [showModal, setShowModal] = useState(false);
     const [form, setForm] = useState(null);
@@ -30,7 +32,7 @@ const CementedSuppressionList = () => {
         return (
             <form ref={formRef} className='flex-inline w-[49vh] max-sm:w-[95%]'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Add} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-3'>
                     <h2 className='text-blue'>ADD CEMENTED LIST</h2>

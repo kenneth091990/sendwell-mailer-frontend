@@ -5,6 +5,7 @@ import DropdownMessage from './DropdownMessage';
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 import MenuBurgerIcon from './../images/nav/Mobile hamburger.png';
+import sendwellLogo from "./../images/logo/sendwell-mailer-logo.png"
 
 const Header = ({ sidebarOpen,
     setSidebarOpen, }) => {
@@ -12,7 +13,7 @@ const Header = ({ sidebarOpen,
         <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none header">
             <div className="flex flex-grow items-center justify-between py-4 px-4 shadow-2 md:px-6 2xl:px-11">
                 <div className="hidden lg:block">
-                    <img src="/src/images/logo/sendwell-mailer-logo.png" />
+                    <img src={sendwellLogo} />
                 </div>
                 <div className="flex items-right gap-3 2xsm:gap-7">
                     <div className="grid grid-cols-1 gap-4 w-full">
@@ -22,7 +23,7 @@ const Header = ({ sidebarOpen,
                     </div>
                 </div>
                 <div className="block lg:hidden">
-                    <img src="/src/images/logo/sendwell-mailer-logo.png" />
+                    <img src={sendwellLogo} />
                 </div>
                 <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
                     {/* <!-- Hamburger Toggle BTN --> */}

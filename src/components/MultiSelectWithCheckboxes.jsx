@@ -1,10 +1,11 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import Select, { components } from 'react-select';
+import SearchIcon from "./../images/nav/SearchIcon.png";
 
 const DropdownIndicator = props => {
   return (
     <components.DropdownIndicator {...props}>
-      <img src='src/images/nav/SearchIcon.png' height={17} width={17} />
+      <img src={SearchIcon} height={17} width={17} />
     </components.DropdownIndicator>
   );
 };
@@ -108,8 +109,6 @@ const MultiSelectWithCheckboxes = forwardRef(({ label, placeholder, labelClassNa
         className="react-select-container"
         classNamePrefix="react-select"
         components={hasCheckbox ? { Option: CheckboxOption, Menu: CheckboxMenu, DropdownIndicator, IndicatorSeparator: () => null } : { DropdownIndicator, IndicatorSeparator: () => null }}
-       
-
       />
     </React.Fragment>
 

@@ -4,6 +4,14 @@ import InputWithCounter from '../../components/InputWithCounter';
 import Modal from '../../components/Modal';
 import TextAreaWithCounter from '../../components/TextAreaWithCounter';
 import BurgerMenu from './../../images/nav/Mobile hamburger.png';
+import Circle_Merge from "./../../images/nav/Circle_Merge.png"
+import Circle_Add from "./../../images/nav/Circle_Add.png"
+import Circle_Caution from "./../../images/nav/Circle_Caution.png"
+import Circle_Edit from "./../../images/nav/Circle_Edit.png"
+import Icon_DragAndDrop from "./../../images/nav/Icon_DragAndDrop.png"
+import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
+import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
+import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
 
 const MyList = () => {
     const [showModal, setShowModal] = useState(false);
@@ -40,7 +48,7 @@ const MyList = () => {
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Merge.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Merge} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-3'>
                     <h2 className='text-blue'>MERGE LISTS?</h2>
@@ -73,7 +81,7 @@ const MyList = () => {
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Caution.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Caution} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>DELETE LISTS?</h2>
@@ -100,7 +108,7 @@ const MyList = () => {
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Edit.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Edit} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>EDIT LISTS?</h2>
@@ -147,7 +155,7 @@ const MyList = () => {
                 </div>
                 <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
                     <div>
-                        <img src='src/images/nav/Icon_DragAndDrop.png' height={70} width={70} className='mx-auto my-0' />
+                        <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
                         <div className=' tracking-tight text-gray'>Drag file here to upload </div>
                         <div className=' tracking-tight text-gray'>or </div>
                         <div className=' tracking-tight text-gray mt-3'>
@@ -322,7 +330,7 @@ const MyList = () => {
                     data.actions = (
                         <div className="h-full flex flex-row gap-3 justify-center items-center">
                             <button className=''>
-                                <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                             </button>
                             <button className='' onClick={
                                 () => {
@@ -331,7 +339,7 @@ const MyList = () => {
                                 }
 
                             }>
-                                <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
                             </button>
                             <button className='' onClick={
                                 () => {
@@ -340,7 +348,7 @@ const MyList = () => {
                                 }
 
                             }>
-                                <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                <img src={Icon_Trash} height={20} width={20} className='mx-1'></img>
                             </button>
                         </div>
                     )

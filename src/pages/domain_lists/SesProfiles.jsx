@@ -10,7 +10,9 @@ import EditIcon from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import InputTextfield from '../../components/InputTextfield';
 import Modal from '../../components/Modal';
 
+import SESSettings from "./../../images/nav/SES Settings.png";
 
+import Circle_Add from "./../../images/nav/Circle_Add.png"
 
 
 const SesProfiles = () => {
@@ -40,7 +42,7 @@ const SesProfiles = () => {
         return (
             <form ref={formRef} className='flex-inline w-[85vh] max-sm:w-[95%]'>
                 <div className='text-center'>
-                    <img src='src/images/nav/SES Settings.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={SESSettings} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>SES SETTINGS</h2>
@@ -81,7 +83,7 @@ const SesProfiles = () => {
         return (
             <form ref={formRef} className='flex-inline w-[85vh] max-sm:w-[95%]'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Add} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>ADD SES PROFILE</h2>
