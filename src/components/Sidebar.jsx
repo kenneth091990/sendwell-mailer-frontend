@@ -3,13 +3,13 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../images/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
-import NavWhite_Nodes from "./../images/nav/NavWhite_Nodes.png";
+import NavWhite_Nodes from "./../images/nav/navwhitenodes.png";
 import Nav_Nodes from "./../images/nav/Nav_Nodes.png";
 
 import NavWhite_Domains from "./../images/nav/NavWhite_Domains.png";
 import Nav_Domains from "./../images/nav/Nav_Domains.png";
 
-import NavWhite_Lists from "./../images/nav/NavWhite_Lists.png";
+import NavWhite_Lists from "./../images/nav/navwhitelists.png";
 import Nav_Lists from "./../images/nav/Nav_Lists.png";
 
 import Icon_CorralsWhite from "./../images/nav/Icon_CorralsWhite.png";
