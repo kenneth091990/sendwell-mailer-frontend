@@ -2,6 +2,9 @@ import React from 'react'
 import DataTable from '../../common/components/DataTable';
 import SelectDropdown from '../../components/SelectDropdown';
 import BurgerMenu from './../../images/nav/Mobile hamburger.png';
+import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
+import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
+import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
 
 
 const SuppresionFiles = () => {
@@ -143,7 +146,7 @@ const SuppresionFiles = () => {
                         data.actions = (
                             <div className="h-full flex flex-row gap-3 justify-center items-center">
                                 <button className=''>
-                                    <img src='src/images/nav/Icon_Download-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                    <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                 </button>
                                 <button className='' onClick={
                                     () => {
@@ -152,7 +155,7 @@ const SuppresionFiles = () => {
                                     }
 
                                 }>
-                                    <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                    <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
                                 </button>
                                 <button className='' onClick={
                                     () => {
@@ -161,7 +164,7 @@ const SuppresionFiles = () => {
                                     }
 
                                 }>
-                                    <img src='src/images/nav/Icon_Trash-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                    <img src={Icon_Trash} height={20} width={20} className='mx-1'></img>
                                 </button>
                             </div>
                         )

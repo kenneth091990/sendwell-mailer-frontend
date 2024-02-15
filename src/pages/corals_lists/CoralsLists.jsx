@@ -12,7 +12,7 @@ import MultiSelectWithCheckboxes from '../../components/MultiSelectWithCheckboxe
 import CircularProgressBar from '../../components/CircularProgressBar';
 import Accordion from '../../components/Accordion';
 
-
+import Circle_Add from "./../../images/nav/Circle_Add.png"
 
 
 
@@ -39,12 +39,10 @@ const CoralsLists = () => {
 
 
     const addCorralsForm = () => {
-
-
         return (
             <form ref={formRef} className='flex-inline w-[54vh] max-sm:w-[95%]'>
                 <div className='text-center'>
-                    <img src='src/images/nav/Circle_Add.png' height={70} width={70} className='mx-auto my-0' />
+                    <img src={Circle_Add} height={70} width={70} className='mx-auto my-0' />
                 </div>
                 <div className='mt-5'>
                     <h2 className='text-blue'>CREATE NEW CORRAL</h2>
@@ -89,7 +87,7 @@ const CoralsLists = () => {
 
     const DomainsMockData = [
         {
-           
+
             domain_name: (
                 <span className='text-[1rem] break-words'>
                     mydomainname.com
@@ -97,12 +95,12 @@ const CoralsLists = () => {
             ),
             action: (
                 <div className="w-full text-right flex flex-row-reverse">
-                     <img src={ErrorIcon} alt="ErrorIcon" className='h-5 w-5' />
-                 </div>
+                    <img src={ErrorIcon} alt="ErrorIcon" className='h-5 w-5' />
+                </div>
             )
         },
         {
-          
+
             domain_name: (
                 <span className='text-[1rem]  break-words'>
                     mydomainname.com
@@ -141,7 +139,7 @@ const CoralsLists = () => {
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "Domains",
@@ -153,7 +151,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -174,12 +172,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "SES Profiles",
@@ -191,7 +189,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -212,12 +210,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "LISTS",
@@ -229,7 +227,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -250,12 +248,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "SUPPRESIONS",
@@ -267,7 +265,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -314,7 +312,7 @@ const CoralsLists = () => {
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "Domains",
@@ -326,7 +324,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -347,12 +345,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "SES Profiles",
@@ -364,7 +362,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -385,12 +383,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "LISTS",
@@ -402,7 +400,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -423,12 +421,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "SUPPRESIONS",
@@ -440,7 +438,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -487,7 +485,7 @@ const CoralsLists = () => {
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "Domains",
@@ -499,7 +497,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -520,12 +518,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "SES Profiles",
@@ -537,7 +535,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -558,12 +556,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "LISTS",
@@ -575,7 +573,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -596,12 +594,12 @@ const CoralsLists = () => {
                             return data;
                         })}
                     />
-                     <DataTable
+                    <DataTable
                         overrideClass='shadow-none'
                         hideHeaderOnMobile={true}
                         hideCellOnMobile={true}
                         keys={[
-                        
+
                             {
                                 "key": "domain_name",
                                 "label": "SUPPRESIONS",
@@ -613,7 +611,7 @@ const CoralsLists = () => {
                                 "col": 6
                             },
                         ]}
-                        data= {DomainsMockData.map((domain, index) => {
+                        data={DomainsMockData.map((domain, index) => {
                             var data = { ...domain };
                             data.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
@@ -637,12 +635,12 @@ const CoralsLists = () => {
                 </div>
             ),
         },
-        
+
 
     ]
 
-  
-  
+
+
 
     return (
         <React.Fragment>
@@ -663,13 +661,13 @@ const CoralsLists = () => {
                 </div>
                 <div className='col-span-6 max-sm:col-span-12 text-center'>
                     <h1 className='text-2xl mb-3 text-gray'>
-                       CORRALS
+                        CORRALS
                     </h1>
                 </div>
             </div>
             <div className="flex flex-col w-full">
-              <Accordion items={accordionItems} />
-            </div>        
+                <Accordion items={accordionItems} />
+            </div>
             <Modal onClose={() => {
                 setShowModal(false);
             }} showModal={showModal}>

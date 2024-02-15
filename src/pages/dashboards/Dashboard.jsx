@@ -12,6 +12,11 @@ import MapOne from '../../components/MapOne';
 import Modal from '../../components/Modal';
 import TableOne from '../../components/TableOne';
 
+import CardIcons22 from "./../../images/CardIcons-22.png";
+import CardIcons23 from "./../../images/CardIcons-23.png";
+import CardIcons24 from "./../../images/CardIcons-24.png";
+import CardIcons25 from "./../../images/CardIcons-25.png";
+
 const Dashboard = () => {
     const [showModal, setShowModal] = useState(false);
 
@@ -25,7 +30,7 @@ const Dashboard = () => {
                     <div >
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex h-11.5 w-11.5">
-                                <img  src="/src/images/CardIcons-22.png" height={16} />
+                                <img  src={CardIcons22} height={16} />
 
                             </div>
                             <div>
@@ -93,7 +98,7 @@ const Dashboard = () => {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex h-11.5 w-11.5 ">
                            
-                                <img  src="/src/images/CardIcons-23.png" height={16} />
+                                <img  src={CardIcons23} height={16} />
 
                             </div>
                             <div>
@@ -115,7 +120,7 @@ const Dashboard = () => {
                     <div >
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex h-11.5 w-11.5 ">
-                                <img  src="/src/images/CardIcons-24.png" height={16} />
+                                <img  src={CardIcons24} height={16} />
 
                             </div>
                             <div>
@@ -137,7 +142,7 @@ const Dashboard = () => {
                     <div >
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex h-11.5 w-11.5">
-                                <img  src="/src/images/CardIcons-25.png" height={16} />
+                                <img  src={CardIcons25} height={16} />
 
                             </div>
                             <div>

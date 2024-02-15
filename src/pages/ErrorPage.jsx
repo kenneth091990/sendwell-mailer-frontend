@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import errorIllus from "./../images/illustration/illustration-01.svg";
 const ErrorPage = () => {
 
     return (
         <div className="flex justify-center align-middle py-10">
             <div className="mx-4 w-full h-full rounded-sm border border-stroke bg-white px-5 py-10 shadow-default dark:border-strokedark dark:bg-boxdark sm:py-20">
                 <div className="mx-auto max-w-[410px]">
-                    <img src="src/images/illustration/illustration-01.svg" alt="illustration" />
+                    <img src={errorIllus} alt="illustration" />
                     <div className="mt-7.5 text-center">
                         <h2 className="mb-3 text-2xl font-bold text-black dark:text-white">
                             Sorry, the page can’t be found

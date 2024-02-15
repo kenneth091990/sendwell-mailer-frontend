@@ -2,8 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import DataTable from '../../common/components/DataTable';
 import CircularProgressBar from '../../components/CircularProgressBar';
-import CircleIcon from './../../images/nav/Circle_Caution.png'
-import CircleQuestion from './../../images/nav/Circle_Question.png'
+
+import GrayBurgerIcon from "./../../images/nav/GrayBurgerIcon.png"
+import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
 const Queues = () => {
 
     const mockData = [
@@ -42,17 +43,17 @@ const Queues = () => {
                         },
                         {
                             "key": "delivery_type",
-                            "label" : "delivery type",
+                            "label": "delivery type",
                             "col": 2
-                        },  
+                        },
                         {
                             "key": "time",
                             "label": "created on",
-                            "col": 3    
+                            "col": 3
                         },
                         {
                             "key": "actions",
-                            "col": 2    
+                            "col": 2
                         },
                     ]}
                     data={mockData.map((domain, index) => {
@@ -66,7 +67,7 @@ const Queues = () => {
                                     {data?.name}
                                 </span>
                                 <span className="text-black/30 text-md uppercase font-semibold mt-3">
-                                   Count
+                                    Count
                                 </span>
                                 <span className='text-sm'>
                                     {data?.count}
@@ -98,29 +99,29 @@ const Queues = () => {
                             </div>
                         )
                         data.name = {
-                            childRender:(
+                            childRender: (
                                 <div className="h-full flex flex-row gap-3 ">
-                                    <img src='src/images/nav/GrayBurgerIcon.png'  className='h-3.5 w-3.5 mr-1'></img> {data.name}
+                                    <img src={GrayBurgerIcon} className='h-3.5 w-3.5 mr-1'></img> {data.name}
                                 </div>
-                            )   
+                            )
                         }
                         data.actions = {
                             childRender: (
                                 <div className="h-full flex flex-row gap-3 ">
-                                
+
                                     <button className='' onClick={
                                         () => {
-                                           
+
                                         }
-    
+
                                     }>
-                                        <img src='src/images/nav/Icon_Edit-removebg-preview.png' height={20} width={20} className='mx-1'></img>
+                                        <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
                                     </button>
                                     <button className='bg-blue p-2 px-5 rounded-md font-semibold' onClick={
                                         () => {
-                                         
+
                                         }
-    
+
                                     }> SEND NOW
                                     </button>
                                 </div>

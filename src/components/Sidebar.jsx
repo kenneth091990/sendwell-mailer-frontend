@@ -3,6 +3,30 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Logo from '../images/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
+import NavWhite_Nodes from "./../images/nav/NavWhite_Nodes.png";
+import Nav_Nodes from "./../images/nav/Nav_Nodes.png";
+
+import NavWhite_Domains from "./../images/nav/NavWhite_Domains.png";
+import Nav_Domains from "./../images/nav/Nav_Domains.png";
+
+import NavWhite_Lists from "./../images/nav/NavWhite_Lists.png";
+import Nav_Lists from "./../images/nav/Nav_Lists.png";
+
+import Icon_CorralsWhite from "./../images/nav/Icon_CorralsWhite.png";
+import Icon_CorralsBlue from "./../images/nav/Icon_CorralsBlue.png";
+
+import NavWhite_Supression from "./../images/nav/NavWhite_Supression.png";
+import Nav_Suppression from "./../images/nav/Nav_Suppression.png";
+
+import NavWhite_Config from "./../images/nav/NavWhite_Config.png";
+import Nav_Config from "./../images/nav/Nav_Config.png";
+
+import NavWhite_Integrations from "./../images/nav/NavWhite_Integrations.png";
+import Nav_Integrations from "./../images/nav/Nav_Integrations.png";
+
+import NavWhite_Queues from "./../images/nav/NavWhite_Queues.png";
+import Nav_Queues from "./../images/nav/Nav_Queues.png";
+
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const location = useLocation();
@@ -134,7 +158,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 <NavLink
                                     to="/"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname === '/' ? 'active-link' : ""}`}>
-                                    <img src={`/src/images/nav/${pathname === '/' ? 'NavWhite_Nodes.png' : 'Nav_Nodes.png'}`} height={18} width={18} />
+                                    <img src={pathname === '/' ? NavWhite_Nodes : Nav_Nodes} height={18} width={18} />
                                     Dashboard
                                 </NavLink>
                             </li>
@@ -142,7 +166,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 <NavLink
                                     to="/domains"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('domains') ? 'active-link' : ""}`}>
-                                    <img src={`/src/images/nav/${pathname.includes('domains') ? 'NavWhite_Domains.png' : 'Nav_Domains.png'}`} height={18} width={18} />
+                                    <img src={pathname.includes('domains') ? NavWhite_Domains : Nav_Domains} height={18} width={18} />
                                     Domains and SES
                                 </NavLink>
                             </li>
@@ -152,7 +176,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('lists') ?
                                         'active-link' : ""
                                         }`}>
-                                    <img src={`/src/images/nav/${pathname.includes('lists') ? 'NavWhite_Lists.png' : 'Nav_Lists.png'}`} height={18} width={18} />
+                                    <img src={pathname.includes('lists') ? NavWhite_Lists : Nav_Lists} height={18} width={18} />
                                     Lists
                                 </NavLink>
                             </li>
@@ -162,7 +186,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('corrals') ?
                                         'active-link' : ""
                                         }`}>
-                                    <img src={`/src/images/nav/${pathname.includes('corrals') ? 'Icon_CorralsWhite.png' : 'Icon_CorralsBlue.png'}`} height={18} width={18} />
+                                    <img src={pathname.includes('corrals') ? Icon_CorralsWhite : Icon_CorralsBlue} height={18} width={18} />
                                     Corrals
                                 </NavLink>
                             </li>
@@ -173,8 +197,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         'active-link' : ""
                                         }`}
                                 >
-                                    <img src={`/src/images/nav/${pathname.includes('suppresions') ? 'NavWhite_Supression.png' : 'Nav_Suppression.png'}`} height={18} width={18} />
-
+                                    <img src={pathname.includes('suppresions') ? NavWhite_Supression : Nav_Suppression} height={18} width={18} />
                                     Suppresions
                                 </NavLink>
                             </li>
@@ -185,7 +208,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                         'active-link' : ''
                                         }`}
                                 >
-                                    <img src={`/src/images/nav/${pathname.includes('settings') ? 'NavWhite_Config.png' : 'Nav_Config.png'}`} height={18} width={18} />
+                                    <img src={pathname.includes('settings') ? NavWhite_Config : Nav_Config} height={18} width={18} />
                                     Settings
                                 </NavLink>
                             </li>
@@ -193,7 +216,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                 <NavLink
                                     to="/prompts"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('prompts') ? 'active-link' : ""}`}>
-                                    <img src={`/src/images/nav/${pathname.includes('prompts') ? 'NavWhite_Integrations.png' : 'Nav_Integrations.png'}`} height={18} width={18} />
+                                    <img src={pathname.includes('prompts') ? NavWhite_Integrations : Nav_Integrations} height={18} width={18} />
                                     Prompts
                                 </NavLink>
                             </li>
@@ -202,8 +225,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                     to="/queues"
                                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-blue duration-300 ease-in-out hover:bg-[#d8d8d8] hover:text-white dark:hover:bg-meta-4 ${pathname.includes('queues') ? 'active-link' : ""}`}
                                 >
-                                    <img src={`/src/images/nav/${pathname.includes('queues') ? 'NavWhite_Queues.png' : 'Nav_Queues.png'}`} height={18} width={18} />
-
+                                    <img src={pathname.includes('queues') ? NavWhite_Queues : Nav_Queues} height={18} width={18} />
                                     Campaign Wizard
                                 </NavLink>
                             </li>
