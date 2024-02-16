@@ -213,11 +213,11 @@ export default function App() {
       {loading ? (<Loader />) : (
         <Switch>
           <Route exact path={'/'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
 
             return (
               <DefaultLayout>
@@ -227,11 +227,11 @@ export default function App() {
           }} />
 
           <Route exact path={'/lists'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
 
             return (
               <DefaultLayout>
@@ -241,11 +241,11 @@ export default function App() {
           }} />
 
           <Route exact path={'/domains'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
 
             return (
               <DefaultLayout>
@@ -255,11 +255,11 @@ export default function App() {
           }} />
 
       <Route exact path={'/corrals'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
 
             return (
               <DefaultLayout>
@@ -271,11 +271,11 @@ export default function App() {
           
 
           <Route exact path={'/queues'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
             
             return (
               <DefaultLayout>
@@ -285,11 +285,11 @@ export default function App() {
           }} />
 
           <Route exact path={'/nodes'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
 
             return (
               <DefaultLayout>
@@ -299,11 +299,11 @@ export default function App() {
           }} />
 
           <Route exact path={'/suppresions'} render={(props) => {
-            // if (!user) {
-            //   return (
-            //     <Redirect to={'/login'} />
-            //   )
-            // }
+             if (!user) {
+               return (
+                 <Redirect to={'/login'} />
+               )
+             }
 
             return (
               <DefaultLayout>
