@@ -13,7 +13,7 @@ const Registration = () => {
     (prev, next) => {
       var newEvent = { ...prev, ...next };
 
-      if (`${newEvent?.password}`.trim() && `${newEvent?.confirm_password}`.trim()) {
+      if (`${newEvent?.password}`.trim()) {
         if (newEvent?.password !== newEvent?.confirm_password) {
           newEvent.password_match = validatePassword(newEvent?.password) ?? "Password does not match";
         } else {
@@ -110,6 +110,7 @@ const Registration = () => {
                   className={` tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
                 />
               </div>
+              {(registerForm.password_match && registerForm.password_match !== "Password does not match") && <small className='text-meta-1'>{registerForm?.password_match}</small>}
             </div>
 
             <div className="mb-6">
@@ -126,7 +127,7 @@ const Registration = () => {
                   autoComplete="new-password"
                   className={`tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
                 />
-                {registerForm.password_match && <small className='text-meta-1'>{registerForm?.password_match}</small>}
+                {(registerForm.password_match && registerForm.password_match === "Password does not match") && <small className='text-meta-1'>{registerForm?.password_match}</small>}
               </div>
             </div>
 
@@ -139,17 +140,17 @@ const Registration = () => {
             </div>
 
             <div className="mt-6 text-center text-gray tracking-tighter font-thin">
-              <p  className="tracking-tighter font-thin">
+              <p className="tracking-tighter font-thin">
                 Already have an account?{' '}
-                
+
               </p>
-              
+
             </div>
             <div className="mt-6 text-center">
-              
+
               <Link to="/login" className="text-primary underline pt-6 tracking-tighter font-thin">
-                  Login
-                </Link>
+                Login
+              </Link>
             </div>
           </form>
         </div>

@@ -45,9 +45,9 @@ export function validatePassword(password) {
     }
 
     // Check for at least one special character
-    const specialCharRegex = /[!@#$&*~]/;
+    const specialCharRegex = /[!@#$&^*~]/;
     if (!specialCharRegex.test(password)) {
-        return 'Password should contain at least one special character (!, @, #, $, &, *, ~).';
+        return 'Password should contain at least one special character (!, @, #, ^, $, &, *, ~).';
     }
 
     // Check for at least one uppercase letter

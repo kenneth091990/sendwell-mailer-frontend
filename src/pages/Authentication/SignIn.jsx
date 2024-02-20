@@ -66,7 +66,7 @@ const SignIn = () => {
                   autoComplete="new-password"
                   value={loginForm?.password}
                   onChange={handleInput}
-                  placeholder="6+ Characters, 1 Capital letter"
+                  placeholder="Enter your password"
                   className="tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
               </div>
