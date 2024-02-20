@@ -32,13 +32,13 @@ const SignIn = () => {
       <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 ">
         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
           <div className='text-center'>
-            <h2 className="mb-9 text-2xl text-black dark:text-white sm:text-title-xl2">
+            <h2 className="mb-9 text-black sm:text-2xl font-thin">
               LOGIN
             </h2>
           </div>
           <form ref={form} onSubmit={submitLogin}>
             <div className="mb-4">
-              <label className="mb-2.5 block  text-black dark:text-white">
+              <label className="block  text-gray tracking-tighter font-thin">
                 Email
               </label>
               <div className="relative">
@@ -50,12 +50,12 @@ const SignIn = () => {
                   value={loginForm?.emailOrUsername}
                   onChange={handleInput}
                   placeholder="Enter your email or username"
-                  className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  className="tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
               </div>
             </div>
             <div className="mb-6">
-              <label className="mb-2.5 block text-black dark:text-white">
+              <label className=" block text-gray dark:text-white tracking-tighter font-thin">
                 Password
               </label>
               <div className="relative">
@@ -67,13 +67,13 @@ const SignIn = () => {
                   value={loginForm?.password}
                   onChange={handleInput}
                   placeholder="6+ Characters, 1 Capital letter"
-                  className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  className="tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
               </div>
             </div>
-            <div className="mt-15 text-center">
+            <div className="mt-15 mb-5 text-center">
               <p>
-                <Link to="/forgot_password" className="text-primary">
+                <Link to="/forgot_password" className="text-primary tracking-tighter font-thin">
                   Forgot Password?
                 </Link>
               </p>
@@ -85,8 +85,8 @@ const SignIn = () => {
                 className="cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 px-20 py-3"
               />
             </div>
-            <div className="mt-6 text-center">
-              <p>
+            <div className="mt-6 text-center tracking-tighter font-thin">
+              <p className='tracking-tighter font-thin text-gray'>
                 Don’t have any account?{' '}
                 <Link to="/registration" className="text-primary underline">
                   Register for an account

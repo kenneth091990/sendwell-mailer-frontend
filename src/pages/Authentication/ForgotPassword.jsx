@@ -26,15 +26,15 @@ const ForgotPassword = () => {
             <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 ">
                 <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
                     <div className='text-center'>
-                        <h2 className="mb-9 text-2xl text-black dark:text-white sm:text-title-xl2">
+                        <h2 className="mb-9 sm:text-2xl font-thin">
                             RESET YOUR PASSWORD
                         </h2>
-                        <p>Enter your email and we'll send you instructions to reset the <br /> password associated with your account</p>
+                        <p className='text-gray'>Enter your email and we'll send you instructions to reset the <br /> password associated with your account</p>
                     </div>
 
                     <form onSubmit={submitForm}>
                         <div className="mb-4 mt-15">
-                            <label className="mb-2.5 block  text-black dark:text-white">
+                            <label className="tracking-tighter font-thin text-gray ">
                                 Email
                             </label>
                             <div className="relative">
@@ -43,7 +43,7 @@ const ForgotPassword = () => {
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                     placeholder="Enter your email"
-                                    className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                                    className="tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                                 />
 
 
