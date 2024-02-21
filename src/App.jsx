@@ -28,6 +28,8 @@ import Corrals from './pages/dashboards/Corrals';
 
 
 
+
+
 export default function App() {
   const [user, updateAuth] = useAuth();
   const [toastId, setToastId] = useToast();
@@ -214,7 +216,7 @@ export default function App() {
         <Switch>
           <Route exact path={'/'} render={(props) => {
              if (!user) {
-               return (
+              return (
                  <Redirect to={'/login'} />
                )
              }

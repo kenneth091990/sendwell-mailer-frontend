@@ -9,12 +9,12 @@ const HomeHeader = () => {
                 <div className=" inline-flex justify-end items-center">
                     <ul className='float-right'>
                         <li className="inline p-2">
-                            <Link to="/login" className="font-semibold ">
+                            <Link to="/login" className="font-thin tracking-tighter">
                                 LOGIN
                             </Link>
                         </li>
                         <li className="inline p-2">
-                            <Link to="/registration" className="font-semibold ">
+                            <Link to="/registration" className="font-thin tracking-tighter ">
                                 REGISTRATION
                             </Link>
                         </li>

@@ -13,7 +13,7 @@ const Registration = () => {
     (prev, next) => {
       var newEvent = { ...prev, ...next };
 
-      if (`${newEvent?.password}`.trim() && `${newEvent?.confirm_password}`.trim()) {
+      if (`${newEvent?.password}`.trim()) {
         if (newEvent?.password !== newEvent?.confirm_password) {
           newEvent.password_match = validatePassword(newEvent?.password) ?? "Password does not match";
         } else {
@@ -53,14 +53,14 @@ const Registration = () => {
       <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 ">
         <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
           <div className='text-center'>
-            <h2 className="mb-9 text-2xl text-black dark:text-white sm:text-title-xl2">
+            <h2 className="mb-9 text-black sm:text-2xl font-thin">
               REGISTER FOR <br /> AN ACCOUNT
             </h2>
           </div>
 
           <form ref={form} onSubmit={submitRegister}>
             <div className="mb-4">
-              <label className="mb-2.5 block  text-black dark:text-white">
+              <label className=" block  text-gray dark:text-white tracking-tighter font-thin">
                 Email
               </label>
               <div className="relative">
@@ -72,13 +72,13 @@ const Registration = () => {
                   onChange={handleInput}
                   placeholder="Enter your email"
                   autoComplete="new-password"
-                  className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  className="tracking-tighter w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="mb-2.5 block  text-black dark:text-white">
+              <label className=" block  text-gray dark:text-white tracking-tighter font-thin">
                 Username
               </label>
               <div className="relative">
@@ -90,13 +90,13 @@ const Registration = () => {
                   onChange={handleInput}
                   placeholder="Enter your username"
                   autoComplete="new-password"
-                  className="w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                  className="tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                 />
               </div>
             </div>
 
             <div className="mb-6">
-              <label className="mb-2.5 block text-black dark:text-white">
+              <label className=" block text-gray dark:text-white tracking-tighter font-thin">
                 Password
               </label>
               <div className="relative">
@@ -107,13 +107,14 @@ const Registration = () => {
                   value={registerForm?.password}
                   onChange={handleInput}
                   autoComplete="new-password"
-                  className={`w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
+                  className={` tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
                 />
               </div>
+              {(registerForm.password_match && registerForm.password_match !== "Password does not match") && <small className='text-meta-1'>{registerForm?.password_match}</small>}
             </div>
 
             <div className="mb-6">
-              <label className="mb-2.5 block text-black dark:text-white">
+              <label className=" block text-gray dark:text-white tracking-tighter font-thin">
                 Confirm Password
               </label>
               <div className="relative">
@@ -124,27 +125,32 @@ const Registration = () => {
                   value={registerForm?.confirm_password}
                   onChange={handleInput}
                   autoComplete="new-password"
-                  className={`w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
+                  className={`tracking-tighter font-thin w-full rounded-lg border border-stroke bg-transparent py-3 pl-6 pr-10 outline-none focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'} focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:${registerForm.password_match ? 'border-primary' : ' border-meta-1'}`}
                 />
-                {registerForm.password_match && <small className='text-meta-1'>{registerForm?.password_match}</small>}
+                {(registerForm.password_match && registerForm.password_match === "Password does not match") && <small className='text-meta-1'>{registerForm?.password_match}</small>}
               </div>
             </div>
 
             <div className="mb-5 text-center">
               <input
                 type="submit"
-                value="Register"
-                className="cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 px-20 py-3"
+                value="Register Account"
+                className="cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 px-20 py-3 tracking-tighter font-thin"
               />
             </div>
 
-            <div className="mt-6 text-center">
-              <p>
+            <div className="mt-6 text-center text-gray tracking-tighter font-thin">
+              <p className="tracking-tighter font-thin">
                 Already have an account?{' '}
-                <Link to="/login" className="text-primary underline">
-                  Login
-                </Link>
+
               </p>
+
+            </div>
+            <div className="mt-6 text-center">
+
+              <Link to="/login" className="text-primary underline pt-6 tracking-tighter font-thin">
+                Login
+              </Link>
             </div>
           </form>
         </div>
