@@ -12,6 +12,7 @@ import Icon_DragAndDrop from "./../../images/nav/Icon_DragAndDrop.png"
 import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
 import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
+import DataTableV2 from '../../common/components/DataTableV2';
 
 const MyList = () => {
     const [showModal, setShowModal] = useState(false);
@@ -19,6 +20,16 @@ const MyList = () => {
     const formRef = useRef(null);
     const formListTitleRef = createRef(null);
     const formListDescRef = createRef(null);
+    // Initialize the checked state for each item in the list
+    const [checkedItems, setCheckedItems] = useState([]);
+
+    // Handle checkbox change
+    const handleCheckboxChange = (index) => {
+        // Update the checked state based on the toggled checkbox
+        const updatedCheckedItems = [...checkedItems];
+        updatedCheckedItems[index] = !updatedCheckedItems[index];
+        setCheckedItems(updatedCheckedItems);
+    };
 
     const formView = (formName, action, id) => {
         switch (formName) {
@@ -65,7 +76,7 @@ const MyList = () => {
                 </div>
                 <div className='mt-5 '>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Create Merge Lists</button>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-4'>Created Merge Lists</button>
                     </div>
                     <div className='mt-3'>
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
@@ -114,10 +125,10 @@ const MyList = () => {
                     <h2 className='text-blue'>EDIT LISTS?</h2>
                 </div>
                 <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label='MERGE LIST TITLE' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label='EDIT LIST TITLE' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
                 <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="EDIT LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
                 </div>
 
                 <div className='mt-5 text-left'>
@@ -201,7 +212,7 @@ const MyList = () => {
 
     const mockData = [
         {
-            "list": "list/00000000-0713-e1.txt",
+            "list": "list/0000000000_0808_verified_refi.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
             "count": "4,019",
             "status": "inactive",
@@ -230,10 +241,12 @@ const MyList = () => {
         <div className='pb-11'>
             <div className="flex flex-row gap-3">
                 <div className='text-left max-sm:hidden'>
-                    <button className='btn  bg-gray px-3 py-2 border-none rounded-md text-gray mb-3' onClick={
+                    <button disabled={!checkedItems.includes(true)} className={`btn ${!checkedItems.includes(true) ? 'text-gray bg-gray border-none' : 'border text-blue-mailer bg-white'} px-3 py-2 rounded-md mb-3`} onClick={
                         () => {
-                            setShowModal(true);
-                            formView('mergeLists', 'n', 0);
+                            if (checkedItems.includes(true)) {
+                                setShowModal(true);
+                                formView('mergeLists', 'n', 0);
+                            }
                         }
 
                     }>Merge lists</button>
@@ -253,27 +266,27 @@ const MyList = () => {
                     </button>
                 </div>
             </div>
-            <DataTable
+            <DataTableV2
                 hideHeaderOnMobile={true}
                 keys={[{
                     "key": "list",
-                    "col": 3,
+                    "col": "35%",
 
                 }, {
                     "key": "description",
-                    "col": 4,
+                    "col": "35%",
 
                 }, {
                     "key": "count",
-                    "col": 2,
+                    "col": "10%",
 
                 }, {
                     "key": "status",
-                    "col": 2,
+                    "col": "10%",
 
                 }, {
                     "key": "actions",
-                    "col": 1,
+                    "col": "10%",
                     "render": (
                         <div className="text-center flex flex-row gap-3 justify-center items-center">
                             <span className="font-semibold text-black/40 uppercase xsm:text-base">
@@ -358,6 +371,9 @@ const MyList = () => {
                             <input
                                 type="checkbox"
                                 id={`checkbox_${index}`}
+                                name={`checkbox_${index}`}
+                                checked={checkedItems[index]}
+                                onChange={() => handleCheckboxChange(index)}
                                 className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
                             />
                             <label htmlFor={`checkbox_${index}`} className='cursor-pointer text-xs'>
@@ -368,13 +384,13 @@ const MyList = () => {
 
 
                     data.status = (
-                        <div className="h-full flex items-center  text-xs justify-start">
+                        <div className="h-full w-full flex items-center  text-xs justify-start">
                             {data?.status === "active" ? (
-                                <span className='w-[45%] text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
+                                <span className='w-full text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
                                     Active
                                 </span>
                             ) : (
-                                <span className='w-[45%] text-center border-none bg-danger px-5 border rounded font-thin text-white py-1'>
+                                <span className='w-full text-center border-none bg-danger px-5 border rounded font-thin text-white py-1'>
                                     Inactive
                                 </span>
                             )}

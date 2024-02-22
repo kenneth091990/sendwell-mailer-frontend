@@ -1,5 +1,6 @@
 import React, { createRef, useRef, useState } from 'react'
 import DataTable from '../../common/components/DataTable';
+import DataTableV2 from '../../common/components/DataTableV2';
 import InputWithCounter from '../../components/InputWithCounter';
 import Modal from '../../components/Modal';
 import SelectDropdown from '../../components/SelectDropdown';
@@ -27,6 +28,7 @@ const CementedSuppressionList = () => {
 
         }
     }
+
 
     const cementedSupressionForm = () => {
         return (
@@ -93,31 +95,31 @@ const CementedSuppressionList = () => {
                 </div>
             </div>
             <div className="w-full mt-5">
-                <DataTable
+                <DataTableV2
                     hideHeaderOnMobile={true}
                     keys={[{
                         "key": "list",
-                        "col": 2,
-
-                    }, {
+                        "col": "30%"
+                    },
+                    {
                         "key": "description",
-                        "col": 3,
-
-                    }, {
+                        "col": "30%",
+                    },
+                    {
                         "key": "campaign",
-                        "col": 2,
-
-                    }, {
+                        "col": "10%",
+                    },
+                    {
                         "key": "count",
-                        "col": 1,
-
-                    }, {
+                        "col": "10%",
+                    },
+                    {
                         "key": "status",
-                        "col": 2,
-
-                    }, {
+                        "col": "10%",
+                    },
+                    {
                         "key": "actions",
-                        "col": 2,
+                        "col": "10%",
                         "render": (
                             <div className="text-center flex flex-row gap-3 justify-center items-center">
                                 <span className="font-semibold text-black/40 uppercase xsm:text-base">

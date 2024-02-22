@@ -13,6 +13,7 @@ import Modal from '../../components/Modal';
 import SESSettings from "./../../images/nav/SES Settings.png";
 
 import Circle_Add from "./../../images/nav/Circle_Add.png"
+import DataTableV2 from '../../common/components/DataTableV2';
 
 
 const SesProfiles = () => {
@@ -239,7 +240,7 @@ const SesProfiles = () => {
 
     ]
     return (
-        <React.Fragment>
+        <div className='pb-3'>
             <div className="grid grid-cols-12 gap-3 pt-11">
                 <div className='col-span-3 max-sm:col-span-12 text-left max-sm:hidden'>
                     <button className='flex flex-row gap-3 btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
@@ -276,7 +277,7 @@ const SesProfiles = () => {
                 </div>
             </div>
             <div className="flex flex-col w-full">
-                <DataTable
+                <DataTableV2
                     hideHeaderOnMobile={true}
                     hideCellOnMobile={true}
                     headerChildren={(
@@ -307,31 +308,31 @@ const SesProfiles = () => {
                     keys={[
                         {
                             "key": "id",
-                            "col": 1
+                            "col": "10%"
                         },
                         {
                             "key": "email",
-                            "col": 3
+                            "col": "40%"
                         },
                         {
                             "key": "rate_limit",
                             "label": "rate limit",
-                            "col": 2
+                            "col": "10%"
                         },
                         {
                             "key": "daily_quota",
                             "label": "daily quota",
-                            "col": 2
+                            "col": "10%"
                         },
                         {
                             "key": "total_jobs",
                             "label": "total jobs",
-                            "col": 2
+                            "col": "10%"
                         },
                         {
                             "key": "action",
                             "label": "",
-                            "col": 2
+                            "col": "20%"
                         },
                     ]}
                     data={mockData.map((domain, index) => {
@@ -397,7 +398,7 @@ const SesProfiles = () => {
             }} showModal={showModal}>
                 {form}
             </Modal>
-        </React.Fragment>
+        </div>
     )
 }
 
