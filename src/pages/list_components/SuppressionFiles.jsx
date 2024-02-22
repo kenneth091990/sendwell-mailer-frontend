@@ -5,6 +5,7 @@ import BurgerMenu from './../../images/nav/Mobile hamburger.png';
 import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
 import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
+import DataTableV2 from '../../common/components/DataTableV2';
 
 
 const SuppresionFiles = () => {
@@ -17,7 +18,7 @@ const SuppresionFiles = () => {
             "status": "inactive",
         },
         {
-            "list": "list/00000000-0713.txt",
+            "list": "list/0000000000_0808_verified_refi.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
             "campaign": "Global",
             "count": "1,223,009",
@@ -61,31 +62,31 @@ const SuppresionFiles = () => {
                 </div>
             </div>
             <div className="w-full mt-5">
-                <DataTable
+                <DataTableV2
                     hideHeaderOnMobile={true}
                     keys={[{
                         "key": "list",
-                        "col": 3,
+                        "col": '20%',
 
                     }, {
                         "key": "description",
-                        "col": 3,
+                        "col": '30%',
 
                     }, {
                         "key": "campaign",
-                        "col": 2,
+                        "col": '20%',
 
                     }, {
                         "key": "count",
-                        "col": 1,
+                        "col": '10%',
 
                     }, {
                         "key": "status",
-                        "col": 1,
+                        "col": '10%',
 
                     }, {
                         "key": "actions",
-                        "col": 2,
+                        "col": '10%',
                         "render": (
                             <div className="text-center flex flex-row gap-3 justify-center items-center">
                                 <span className="font-semibold text-black/40 uppercase xsm:text-base">
@@ -170,7 +171,7 @@ const SuppresionFiles = () => {
                         )
 
                         data.status = (
-                            <div className="h-full flex items-center  text-xs justify-start">
+                            <div className="h-full w-full flex items-center  text-xs justify-start">
                                 {data?.status === "active" ? (
                                     <span className='w-full text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
                                         Active

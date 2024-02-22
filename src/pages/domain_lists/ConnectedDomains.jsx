@@ -14,6 +14,7 @@ import CircularProgressBar from '../../components/CircularProgressBar';
 
 
 import Circle_Add from "./../../images/nav/Circle_Add.png"
+import DataTableV2 from '../../common/components/DataTableV2';
 
 
 const ConnectedDomains = () => {
@@ -268,7 +269,7 @@ const ConnectedDomains = () => {
                 </div>
             </div>
             <div className="flex flex-col w-full">
-                <DataTable
+                <DataTableV2
                     hideHeaderOnMobile={true}
                     hideCellOnMobile={true}
                     headerChildren={(
@@ -286,35 +287,35 @@ const ConnectedDomains = () => {
                     keys={[
                         {
                             "key": "id",
-                            "col": 1
+                            "col": "10%"
                         },
                         {
                             "key": "domain_name",
                             "label": "domain name",
-                            "col": 2
+                            "col": "20%"
                         },
                         {
                             "key": "registrar",
-                            "col": 2
+                            "col": "20%"
                         },
                         {
                             "key": "account",
-                            "col": 2
+                            "col": "20%"
                         },
                         {
                             "key": "created_on",
                             "label": "created on",
-                            "col": 2
+                            "col": "10%"
                         },
                         {
                             "key": "expire_date",
                             "label": "expire date",
-                            "col": 2
+                            "col": "10%"
                         },
                         {
                             "key": "action",
                             "label": "",
-                            "col": 1
+                            "col": "10%"
                         },
                     ]}
                     data={mockData.map((domain, index) => {
