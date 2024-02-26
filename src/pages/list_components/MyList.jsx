@@ -53,6 +53,10 @@ const MyList = () => {
         }
     }
 
+    const checkList = () => {
+        return checkedItems.filter(ee => ee === true).length > 1;
+    }
+
     const cementedSupressionForm = () => {
 
 
@@ -241,9 +245,9 @@ const MyList = () => {
         <div className='pb-11'>
             <div className="flex flex-row gap-3">
                 <div className='text-left max-sm:hidden'>
-                    <button disabled={!checkedItems.includes(true)} className={`btn ${!checkedItems.includes(true) ? 'text-gray bg-gray border-none' : 'border text-blue-mailer bg-white'} px-3 py-2 rounded-md mb-3`} onClick={
+                    <button disabled={!checkList()} className={`btn ${!checkList() ? 'text-gray bg-gray border-none' : 'border text-blue-mailer bg-white'} px-3 py-2 rounded-md mb-3`} onClick={
                         () => {
-                            if (checkedItems.includes(true)) {
+                            if (checkList()) {
                                 setShowModal(true);
                                 formView('mergeLists', 'n', 0);
                             }
