@@ -388,7 +388,7 @@ const ConnectedDomains = () => {
                     of your registrar accounts on the <Link to={'/integrations'} className='text-primary underline'>integrations</Link> page.
                 </p>
             </div> */}
-            <Modal onClose={() => {
+            <Modal className={"desktop:w-[75%] laptop:w-[95%]"} onClose={() => {
                 setShowModal(false);
             }} showModal={showModal}>
                 {form}

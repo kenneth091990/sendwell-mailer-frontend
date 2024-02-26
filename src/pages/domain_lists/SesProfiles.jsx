@@ -393,7 +393,7 @@ const SesProfiles = () => {
                 />
             </div>
 
-            <Modal onClose={() => {
+            <Modal className={"desktop:w-[75%] laptop:w-[95%]"} onClose={() => {
                 setShowModal(false);
             }} showModal={showModal}>
                 {form}

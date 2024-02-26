@@ -21,7 +21,7 @@ function useComponentVisible(initialIsVisible) {
     return { ref, isComponentVisible, setIsComponentVisible };
 }
 
-const Modal = ({ showModal, onClose, children }) => {
+const Modal = ({ showModal, onClose, children, className }) => {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(true);
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const Modal = ({ showModal, onClose, children }) => {
 
     return (
         <div className={`tablet:p-4 laptop:p-13 max-sm:p-3 fixed top-0 left-0 right-0 bottom-0 z-999999 ${showModal ? "overflow-y-auto" : "hidden"} h-full min-h-screen w-full bg-black/90`}>
-            <div ref={ref} className="relative mx-auto rounded-lg bg-white text-center flex justify-center desktop:w-[50%] py-9 px-7">
+            <div ref={ref} className={`relative mx-auto rounded-lg bg-white text-center flex justify-center ${className ?? "desktop:w-[50%]"} py-9 px-7`}>
                 {children}
                 {/* Close Button */}
                 <button onClick={onClose} className="absolute top-6 right-6 flex h-7 w-7 items-center justify-center rounded-full bg-black/10 text-black transition hover:bg-black hover:text-white">
