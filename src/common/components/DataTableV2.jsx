@@ -26,7 +26,7 @@ const DataTableV2 = ({ data, emptyDataComponent, headerChildren, isLoading, hide
     const validatedData = data ?? [];
 
     return (
-        <div className={`overflow-auto flex w-full flex-col rounded-2xl px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-lg max-sm:shadow-none ${overrideClass}`}>
+        <div className={`overflow-auto flex w-full flex-col rounded-2xl border-black-2/10 border-solid border px-6 max-sm:px-0 pt-5 pb-7 bg-white  shadow-lg max-sm:shadow-none ${overrideClass}`}>
             {headerChildren}
 
             <table className="w-full table-auto">
