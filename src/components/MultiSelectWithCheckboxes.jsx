@@ -85,10 +85,12 @@ const CheckboxMenu = ({ children, ...props }) => {
 
 const MultiSelectWithCheckboxes = forwardRef(({ label, placeholder, labelClassName, isMulti, hasCheckbox = false, hasSelectAll = false }, ref) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [isOpen, setIsOpen] = useState();
+  
 
   const handleChange = (selectedOptions) => {
-    setSelectedOptions(selectedOptions);
-    console.log('dddd');
+      setSelectedOptions(selectedOptions);
+    
   };
 
   const allOption = { value: 'all', label: 'Select All' };
@@ -104,11 +106,13 @@ const MultiSelectWithCheckboxes = forwardRef(({ label, placeholder, labelClassNa
         options={hasSelectAll ? [allOption, ...options] : options}
         value={selectedOptions}
         onChange={handleChange}
+        closeMenuOnSelect={false}
         placeholder={placeholder}
+        menuIsOpen={true}
         isSearchable
         className="react-select-container"
         classNamePrefix="react-select"
-        components={hasCheckbox ? { Option: CheckboxOption, Menu: CheckboxMenu, DropdownIndicator, IndicatorSeparator: () => null } : { DropdownIndicator, IndicatorSeparator: () => null }}
+        components={hasCheckbox ? { Option: CheckboxOption, DropdownIndicator, IndicatorSeparator: () => null } : { DropdownIndicator, IndicatorSeparator: () => null }}
       />
     </React.Fragment>
 
