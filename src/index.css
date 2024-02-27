@@ -268,3 +268,7 @@ table tbody tr.odd{
 .react-select__option{
   padding: 0px!important;
 }
+
+.react-select__menu{
+  position: relative!important;
+}
