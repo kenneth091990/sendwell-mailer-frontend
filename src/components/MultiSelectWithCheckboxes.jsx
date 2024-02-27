@@ -109,7 +109,6 @@ const MultiSelectWithCheckboxes = forwardRef(({ label, placeholder, labelClassNa
         closeMenuOnSelect={false}
         placeholder={placeholder}
         menuIsOpen={true}
-        closeMenuOnSelect
         isSearchable
         className="react-select-container"
         classNamePrefix="react-select"

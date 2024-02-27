@@ -39,24 +39,47 @@ export const signToken = async (payload, customKey, customExpire) => {
 }
 
 export function validatePassword(password) {
-    // Check for minimum length of 8 characters
-    if (password.length < 8) {
-        return 'Password should have a minimum length of 8 characters.';
-    }
 
-    // Check for at least one special character
-    const specialCharRegex = /[!@#$&^*~]/;
-    if (!specialCharRegex.test(password)) {
-        return 'Password should contain at least one special character (!, @, #, ^, $, &, *, ~).';
-    }
+    const passwordPattern = {
+        password_has_one_lowercase: false,
+        password_has_one_uppercase:false,
+        password_has_one_number:false,
+        password_has_one_special_character:false,
+        password_has_8_minimum:false,
+        password_has_pattern_error: false
+    };
 
-    // Check for at least one uppercase letter
     const uppercaseRegex = /[A-Z]/;
-    if (!uppercaseRegex.test(password)) {
-        return 'Password should contain at least one uppercase letter.';
-    }
+    const lowercaseRegex = /[a-z]/;
+    const noRegex = /[0-9]/;
+    const specialCharRegex = /[!@#$&^*~]/;
 
-    return null;
+    // Check for minimum length of 8 characters
+    passwordPattern.password_has_one_lowercase =  (!lowercaseRegex.test(password)) ? false : true;
+    passwordPattern.password_has_one_uppercase =  (!uppercaseRegex.test(password)) ? false : true;
+    passwordPattern.password_has_one_number =  (!noRegex.test(password)) ? false : true;
+    passwordPattern.password_has_one_special_character =  (!specialCharRegex.test(password)) ? false : true;
+    passwordPattern.password_has_8_minimum =  (password.length < 8) ? false : true;
+ 
+
+    for (const key in passwordPattern) {
+        if (key != 'password_has_pattern_error' && passwordPattern[key] === false) {
+            passwordPattern.password_has_pattern_error = true;
+            break;
+        } 
+      }
+
+    // // Check for at least one special character
+    // if (!specialCharRegex.test(password)) {
+    //     return 'Password should contain at least one special character (!, @, #, ^, $, &, *, ~).';
+    // }
+
+    // // Check for at least one uppercase letter
+  
+    // if (!uppercaseRegex.test(password)) {
+    //     return 'Password should contain at least one uppercase letter.';
+    // }
+    return passwordPattern;
 }
 
 
