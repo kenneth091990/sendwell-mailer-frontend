@@ -5,6 +5,7 @@ import CircleIcon from './../../images/nav/Circle_Caution.png'
 import SearchIcon from './../../images/nav/SearchIcon.png'
 import TrashIcon from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import ErrorIcon from "./../../images/nav/Icon_Error.png"
+import Icon_Caution from "./../../images/nav/Icon_Caution.png"
 
 import InputTextfield from '../../components/InputTextfield';
 import Modal from '../../components/Modal';
@@ -13,6 +14,7 @@ import CircularProgressBar from '../../components/CircularProgressBar';
 import Accordion from '../../components/Accordion';
 
 import Circle_Add from "./../../images/nav/Circle_Add.png"
+import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 
 
 
@@ -56,19 +58,35 @@ const CoralsLists = () => {
                 </div>
                 <div className='mt-5'>
                     <div className='text-left'>
-                        <MultiSelectWithCheckboxes placeholder='select domains' label='SELECT DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} />
+                        <MultiSelectDropdown options={[
+                            { value: 'imodoma.com', label: 'imodoma.com' },
+                            { value: 'generalred.com', label: 'generalred.com' },
+                            { value: 'italiantourismboard.com', label: 'italiantourismboard.com' },
+                            { value: 'garysgarageband.com', label: 'garysgarageband.com' },
+                            { value: 'juiceboxcleanse.com', label: 'juiceboxcleanse.com' },
+                            { value: 'blueneoninvestments.com', label: 'blueneoninvestments.com' },
+                        ]} placeholder='select domains' label='SELECT DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} />
                     </div>
                 </div>
                 <div className='mt-5'>
                     <div className='text-left'>
-                        <MultiSelectWithCheckboxes placeholder='select ses' label='SELECT SES PROFILES' labelClassName='text-primary' isMulti={true} />
+                        <MultiSelectDropdown options={[
+                            { value: 'samdini141@gmail.com', label: 'samdini141@gmail.com' },
+                            { value: 'ladderspaces.com', label: 'ladderspaces.com' },
+                            { value: 'greenneonfantastic.com', label: 'greenneonfantastic.com' },
+                            { value: 'godskins.com', label: 'godskins.com' },
+                        ]} placeholder='select ses' label='SELECT SES PROFILES' labelClassName='text-primary' isMulti={true} hasCheckbox={true} />
                     </div>
                 </div>
                 <div className='mt-5'>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-1 text-left">
-
-                        <InputTextfield type="text" label="SELECT LISTS" labelClassName="mb-2.5 block font-medium text-primary" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' />
-
+                        {/* <InputTextfield type="text" label="SELECT LISTS" labelClassName="mb-2.5 block font-medium text-primary" className='w-full rounded-md border border-black/10 bg-transparent py-1 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none' /> */}
+                        <MultiSelectDropdown options={[
+                            { value: 'list/0000000000_0808_verified_refi.txt', label: 'list/0000000000_0808_verified_refi.txt' },
+                            { value: 'list/00000000-0713.txt', label: 'list/00000000-0713.txt' },
+                            { value: 'list/00000000-0713-e1.txt', label: 'list/00000000-0713-e1.txt' },
+                            { value: 'list/00000_sc_all.txt', label: 'list/00000_sc_all.txt' },
+                        ]} placeholder='select lists' label='SELECT LISTS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} />
                     </div>
                 </div>
 
@@ -89,8 +107,11 @@ const CoralsLists = () => {
         {
 
             domain_name: (
-                <span className='text-[1rem] break-words'>
-                    mydomainname.com
+                <span className='items-center text-[1rem] break-words flex flex-row gap-3'>
+                    <img src={Icon_Caution} alt="Icon_Caution" className="w-6 h-6" />
+                    <span className='h-full w-full'>
+                        mydomainname.com
+                    </span>
                 </span>
             ),
             action: (
@@ -102,7 +123,7 @@ const CoralsLists = () => {
         {
 
             domain_name: (
-                <span className='text-[1rem]  break-words'>
+                <span className='items-center text-[1rem]  break-words'>
                     mydomainname.com
                 </span>
             ),
@@ -120,7 +141,10 @@ const CoralsLists = () => {
             title: (
                 <div className="flex-grow">
                     <div className="grid grid-cols-3 gap-4">
-                        <div className='text-primary font-semibold'>EXAMPLE CORRAL</div>
+                        <div className='text-primary font-semibold flex flex-row gap-3'>
+                            <img src={Icon_Caution} alt="Icon_Caution" className="w-6 h-6" />
+                            EXAMPLE CORRAL
+                        </div>
                         <div className='col-span-2 text-right flex flex-row-reverse'>
                             <ul className='flex flex-inline text-primary'>
                                 <li className='px-5 '><div>Domains: 3 <span className='pl-5'>|</span></div> </li>
