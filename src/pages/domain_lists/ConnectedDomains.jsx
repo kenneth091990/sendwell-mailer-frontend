@@ -15,6 +15,7 @@ import CircularProgressBar from '../../components/CircularProgressBar';
 
 import Circle_Add from "./../../images/nav/Circle_Add.png"
 import DataTableV2 from '../../common/components/DataTableV2';
+import MultiSelectDropdown from '../../components/MultiSelectDropdown';
 
 
 const ConnectedDomains = () => {
@@ -28,6 +29,7 @@ const ConnectedDomains = () => {
                 setForm(addRegistrarForm());
                 break;
             case 'domain':
+                // setForm(loading());
                 setForm(addDomainsForm());
                 break;
         }
@@ -211,19 +213,61 @@ const ConnectedDomains = () => {
                 <div className='mt-5'>
                     <h2 className='text-blue'>ADD DOMAINS</h2>
                 </div>
-                <div className='mt-5'>
+                <div className='mt-5 mb-[100px]'>
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 text-left">
 
                         <div>
-                            <MultiSelectWithCheckboxes placeholder='search account' label='REGISTRAR ACCOUNT' labelClassName='text-primary' isMulti={false} />
+                            <MultiSelectDropdown
+                                placeholder='search account'
+                                label='REGISTRAR ACCOUNT'
+                                labelClassName='text-primary'
+                                isMulti={false}
+                                options={[
+                                    { value: 'GoDaddy (fred1@lusky.com)', label: 'GoDaddy (fred1@lusky.com)' },
+                                    { value: 'GoDaddy (fred2@lusky.com)', label: 'GoDaddy (fred2@lusky.com)' },
+                                    { value: 'GoDaddy (fred3@lusky.com)', label: 'GoDaddy (fred3@lusky.com)' },
+                                    { value: 'GoDaddy (scott@maslowe.com)', label: 'GoDaddy (scott@maslowe.com)' },
+                                    { value: 'GoDaddy (fred@lusky.com)', label: 'GoDaddy (fred@lusky.com)' },
+                                ]} />
                         </div>
 
                         <div>
-                            <MultiSelectWithCheckboxes placeholder='search available domains' label='AVAILABLE DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} hasSelectAll={true} />
+                            {/* <MultiSelectWithCheckboxes placeholder='search available domains' label='AVAILABLE DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} hasSelectAll={true} /> */}
+                            <MultiSelectDropdown
+                                placeholder='search available domains'
+                                label='AVAILABLE DOMAINS'
+                                labelClassName='text-primary'
+                                isMulti={true}
+                                hasCheckbox={true}
+                                hasSelectAll={true}
+                                options={[
+                                    { value: 'bgnormanlateral.com', label: 'bgnormanlateral.com' },
+                                    { value: 'ladderspaces.com', label: 'ladderspaces.com' },
+                                    { value: 'greenneonfantastic.com', label: 'greenneonfantastic.com' },
+                                    { value: 'godskins.com', label: 'godskins.com' },
+                                ]} />
                         </div>
 
+
+
+
+
+
                         <div>
-                            <MultiSelectWithCheckboxes placeholder='search selected domains' label='SELECTED DOMAINS' labelClassName='text-primary' isMulti={true} hasCheckbox={true} />
+                            <MultiSelectDropdown
+                                placeholder='search selected domains'
+                                label='SELECTED DOMAINS'
+                                labelClassName='text-primary'
+                                isMulti={true}
+                                hasCheckbox={true}
+                                options={[
+                                    { value: 'imodoma.com', label: 'imodoma.com' },
+                                    { value: 'generalred.com', label: 'generalred.com' },
+                                    { value: 'italiantourismboard.com', label: 'italiantourismboard.com' },
+                                    { value: 'garysgarageband.com', label: 'garysgarageband.com' },
+                                    { value: 'juiceboxcleanse.com', label: 'juiceboxcleanse.com' },
+                                    { value: 'blueneoninvestments.com', label: 'blueneoninvestments.com' },
+                                ]} />
                         </div>
 
                     </div>

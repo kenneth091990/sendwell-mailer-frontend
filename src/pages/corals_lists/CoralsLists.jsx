@@ -654,7 +654,7 @@ const CoralsLists = () => {
                     }>
                         <div className='flex flex-row gap-3 '>
                             <span>
-                                Create new corrals
+                                Create new corral
                             </span>
                         </div>
                     </button>
