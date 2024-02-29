@@ -80,7 +80,7 @@ const MyList = () => {
                 </div>
                 <div className='mt-5 '>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-4'>Created Merge Lists</button>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-4'>Create Merge List</button>
                     </div>
                     <div className='mt-3'>
                         <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
@@ -253,7 +253,7 @@ const MyList = () => {
                             }
                         }
 
-                    }>Created merged list</button>
+                    }>Merge lists</button>
                 </div>
                 <div className='flex-1 text-center'>
                     <h1 className='text-2xl mb-3 text-gray'>MANAGE MY LISTS</h1>
