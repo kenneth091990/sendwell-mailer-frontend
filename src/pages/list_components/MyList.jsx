@@ -253,7 +253,7 @@ const MyList = () => {
                             }
                         }
 
-                    }>Merge lists</button>
+                    }>Created merged list</button>
                 </div>
                 <div className='flex-1 text-center'>
                     <h1 className='text-2xl mb-3 text-gray'>MANAGE MY LISTS</h1>
@@ -266,7 +266,7 @@ const MyList = () => {
                         }
 
                     }>
-                        Upload new lists
+                        Upload new list
                     </button>
                 </div>
             </div>
