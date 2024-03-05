@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef, useRef, useState, useEffect } from 'react'
 import DataTable from '../../common/components/DataTable';
 import SelectDropdown from '../../components/SelectDropdown';
 import BurgerMenu from './../../images/nav/Mobile hamburger.png';
@@ -6,9 +6,227 @@ import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png
 import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import DataTableV2 from '../../common/components/DataTableV2';
+import Icon_DragAndDrop from "./../../images/nav/Icon_DragAndDrop.png"
+import InputWithCounter from '../../components/InputWithCounter';
+import Modal from '../../components/Modal';
+import TextAreaWithCounter from '../../components/TextAreaWithCounter';
+import { toast } from 'react-toastify';
+import Papa from 'papaparse';
+import { Scrollbars } from 'react-custom-scrollbars-2';
+
 
 
 const SuppresionFiles = () => {
+   
+    const [showModal, setShowModal] = useState(false);
+    const [isDataLoad, setIsDataLoad] = useState(false);
+
+    const [form, setForm] = useState(null);
+    const [importFileData, setImportFileData] = useState({});
+    const [importFileDataCtr, setImportFileDataCtr] = useState(0);
+    const formRef = useRef(null);
+    const formListTitleRef = createRef(null);
+    const formListDescRef = createRef(null);
+
+    useEffect(() => {
+       
+         if(importFileData.length > 0){
+            setForm(importListFileMapping())
+         }
+         
+      }, [importFileData]);
+
+    const formView = (formName, action, id) => {
+        switch (formName) {
+            case 'uploadList':
+                setForm(uploadForm());
+                break;
+        }
+
+        if (formRef.current) {
+            formRef.current.reset();
+
+        }
+    }
+
+    const handleFile = (event) => {
+        const uploadedFile = event.target.files[0];
+        const allowedExtensions = ['csv', 'xls', 'xlsx'];
+
+        if (uploadedFile) {
+            const extension = uploadedFile.name.split('.').pop().toLowerCase();
+            if (!allowedExtensions.includes(extension)) {
+                toast.error(`Please upload a CSV or XLS/XLSX file.`);
+            }  else {
+
+                const currentForm = formRef.current;
+                const fileInput = currentForm.querySelector('#importList');
+                const file = fileInput.files[0];
+             
+                handleFileUpload(file);
+    
+            }
+        }
+    };
+
+    const uploadForm = () => {
+
+
+        return (
+            <form ref={formRef} className='flex-inline'>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>UPLOAD NEW LIST</h2>
+                </div>
+                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
+                    <div>
+                        <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
+                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
+                        <div className=' tracking-tight text-gray'>or </div>
+                        <div className=' tracking-tight text-gray mt-3'>
+                            <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
+                                <input name="" type="file" id="importList" hidden onChange={handleFile} accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>SELECTED FILE</label>
+                    </div>
+                    <div className="grid grid-cols-12  gap-4">
+                        <div className='col-span-2 tracking-tight'>
+                            XLSX
+                        </div>
+                        <div className='col-span-6 tracking-tight'>
+                            testuploadlistfile.xlsx
+                        </div>
+                        <div className='col-span-4 tracking-tight'>
+                            73kb
+                        </div>
+                    </div>
+                </div>
+                <div className='mt-5 text-left'>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                </div>
+                <div className='mt-5 text-left'>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                </div>
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
+
+    const importListFileMapping =  () => {
+   
+
+        return (
+            <form className='flex-inline w-[90%]'>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>MATCH LABEL TO IMPORT</h2>
+                </div>
+                
+                <div className='mt-5'>
+                    <p> <span className='font-semibold'>{ importFileData[0].length } columns </span> were recognized in this file</p>
+                </div>
+                <div className='mt-5 import-table'>
+                    <Scrollbars style={{ width: '100%' }}  
+                         renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
+                         renderView={props => <div {...props} className="view"/>}>
+                        <table class=" w-[100%]" >
+                                <thead>
+                                    <tr>
+                                        {
+                                            importFileData[0].map((object, i) => 
+                                                <th class="border border-slate-300 border-line-gray text-sm font-medium">
+                                                    <SelectDropdown className={'p-2'}>
+                                                        <option value="firstName">FIRST NAME</option>
+                                                        <option value="lastName">LAST NAME</option>
+                                                        <option value="emailAddress">EMAIL ADDRESS</option>
+                                                        <option value="streetAddress">STREET ADDRESS</option>
+                                                        <option value="streetAddress">CITY</option>
+                                                        <option value="state">STATE</option>
+                                                        <option value="zip">zip</option>
+                                                    </SelectDropdown>
+                                                </th>
+                                            )
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                            importFileData.map((v, i) => {
+                                                if(i > 0 && i < 6 ) {
+                                                    return (
+                                                        <tr>
+                                                            {
+                                                                v.map((vv, ii) => {
+                                                                    return (
+                                                                        <td  class="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </tr>
+                                                    )
+                                                }
+                                                
+                                            })
+                                    }
+                                </tbody>
+                        </table>
+                    </Scrollbars>
+                </div>
+                <div className='mt-5'>
+                    <div>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Finalize import</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
+                    </div>
+                </div>
+             
+            </form>
+            
+        )
+    }
+      
+    
+
+    const handleFileUpload = async (file) => {
+       
+
+        try {
+
+            const parseResult = await parseCSV(file);
+            setTimeout(() => {
+                setImportFileData(parseResult); 
+              }, 1000);
+          
+        } catch (error) {
+            console.error('Error parsing CSV:', error);
+        } 
+    };
+
+    const parseCSV = async (file) => {
+        return new Promise((resolve, reject) => {
+            Papa.parse(file, {
+            header: false,
+            complete: (results) => resolve(results.data),
+            error: (error) => reject(error)
+            });
+        });
+    };
+    
+    
+
+    
+
     const mockData = [
         {
             "list": "list/00000000-0713-e1.txt",
@@ -46,8 +264,8 @@ const SuppresionFiles = () => {
                 <div className='col-span-3 max-sm:col-span-12 text-left max-sm:hidden'>
                     <button className='flex flex-row gap-3 btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
                         () => {
-                            // setShowModal(true);
-                            // formView('uploadList', 'n', 0);
+                            setShowModal(true);
+                            formView('uploadList', 'n', 0);
                         }
                     }>
                         Upload new list
@@ -198,6 +416,11 @@ const SuppresionFiles = () => {
                         </div>
                     )} />
             </div>
+            <Modal onClose={() => {
+                setShowModal(false);
+            }} showModal={showModal}>
+                {form}
+            </Modal>
         </div>
     )
 }

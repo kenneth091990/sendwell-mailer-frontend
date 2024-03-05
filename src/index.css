@@ -272,3 +272,48 @@ table tbody tr.odd{
 .react-select__menu{
   position: relative!important;
 }
+
+.Toastify{
+  z-index: 9999999!important ;
+  position: fixed;
+}
+
+.w-maxContent{
+  width: max-content ;
+}
+
+.import-table .view::-webkit-scrollbar {
+  display: none;
+}
+
+.import-table .view{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  margin-right: unset!important;
+  margin-bottom: 40px!important;
+  position: unset!important;
+
+}
+
+.import-table .track-horizontal{
+  background: #E5E6E7;
+  width: 80%;
+  border-radius: 8px;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.import-table .track-horizontal div{
+  background: #2382d8!important;
+  border-radius: 8px;
+
+
+
+
+}
+
+  
