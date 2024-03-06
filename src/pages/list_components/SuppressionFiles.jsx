@@ -13,6 +13,7 @@ import TextAreaWithCounter from '../../components/TextAreaWithCounter';
 import { toast } from 'react-toastify';
 import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import * as XLSX from 'xlsx';
 
 
 
@@ -63,7 +64,7 @@ const SuppresionFiles = () => {
                 const fileInput = currentForm.querySelector('#importList');
                 const file = fileInput.files[0];
              
-                handleFileUpload(file);
+                handleFileUpload(file, extension);
     
             }
         }
@@ -125,7 +126,6 @@ const SuppresionFiles = () => {
 
     const importListFileMapping =  () => {
    
-
         return (
             <form className='flex-inline w-[90%]'>
                 <div className='mt-5'>
@@ -161,22 +161,23 @@ const SuppresionFiles = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                            importFileData.map((v, i) => {
-                                                if(i > 0 && i < 6 ) {
-                                                    return (
-                                                        <tr>
-                                                            {
-                                                                v.map((vv, ii) => {
-                                                                    return (
-                                                                        <td  class="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </tr>
-                                                    )
-                                                }
-                                                
-                                            })
+                                        importFileData.map((v, i) => {
+                                        
+                                            if(i > 0 && i < 6 ) {
+                                                return (
+                                                    <tr>
+                                                        {
+                                                            v.map((vv, ii) => {
+                                                                return (
+                                                                    <td  class="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
+                                                                )
+                                                            })
+                                                        }
+                                                    </tr>
+                                                )
+                                            }
+                                            
+                                        })
                                     }
                                 </tbody>
                         </table>
@@ -198,12 +199,20 @@ const SuppresionFiles = () => {
       
     
 
-    const handleFileUpload = async (file) => {
-       
-
+    const handleFileUpload = async (file, extension) => {
+        
+        let parseResult = null;
         try {
+            
+            if(extension == 'xlsx'){
+                 const  xlsToCsv  = await convertToCsv(file);
+                 parseResult = await parseCSV(xlsToCsv);
 
-            const parseResult = await parseCSV(file);
+
+            } else {
+                 parseResult = await parseCSV(file);
+
+            }
             setTimeout(() => {
                 setImportFileData(parseResult); 
               }, 1000);
@@ -222,10 +231,28 @@ const SuppresionFiles = () => {
             });
         });
     };
+
+    const convertToCsv = async (file) => {
+        return new Promise((resolve, reject) => {
+           
+            const reader = new FileReader();
+        
+            reader.onload = (event) => {
+              const binaryString = event.target.result;
+              const workbook = XLSX.read(binaryString, { type: 'binary' });
+              const worksheetName = workbook.SheetNames[0];
+              const worksheet = workbook.Sheets[worksheetName];
+              resolve(XLSX.utils.sheet_to_csv(worksheet));
+        
+            };
+        
+            reader.readAsBinaryString(file);
+        });
+    };
     
     
 
-    
+
 
     const mockData = [
         {
