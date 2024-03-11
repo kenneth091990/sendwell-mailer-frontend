@@ -10,6 +10,8 @@ import Icon_DragAndDrop from "./../../images/nav/Icon_DragAndDrop.png"
 import InputWithCounter from '../../components/InputWithCounter';
 import Modal from '../../components/Modal';
 import TextAreaWithCounter from '../../components/TextAreaWithCounter';
+import SliceString from '../../common/components/SliceString';
+
 import { toast } from 'react-toastify';
 import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
@@ -242,7 +244,9 @@ const SuppresionFiles = () => {
                                                         {
                                                             v.map((vv, ii) => {
                                                                 return (
-                                                                    <td  className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
+                                                                    <td  className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">
+                                                                        <SliceString text={vv}></SliceString>
+                                                                    </td>
                                                                 )
                                                             })
                                                         }
