@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import * as XLSX from 'xlsx';
+import SliceString from '../../common/components/SliceString';
 
 
 
@@ -31,7 +32,7 @@ const SuppresionFiles = () => {
 
     const [formFieldOrder, setFormFieldOrder] = useState([]);
 
-    const importFields = [ 
+    const importFields = [
         {
             field: 'firstName',
             label: "FIRST NAME",
@@ -64,12 +65,22 @@ const SuppresionFiles = () => {
 
         },
         {
-            field: 'streetAddress',
-            label: "STREET ADDRESS",
+            field: 'streetAddress 1',
+            label: "STREET ADDRESS 1",
             stringRelated: [
-                'street address',
-                'street',
-                'street_address'
+                'street address 1',
+                'street 1',
+                'street_address_1'
+            ]
+
+        },
+        {
+            field: 'streetAddress 2',
+            label: "STREET ADDRESS 2",
+            stringRelated: [
+                'street address 2',
+                'street 2',
+                'street_address_2'
             ]
 
         },
@@ -77,9 +88,8 @@ const SuppresionFiles = () => {
             field: 'city',
             label: "CITY",
             stringRelated: [
-                'street address',
-                'street',
-                'street_address'
+                'city',
+                'City',
             ]
 
         },
@@ -87,7 +97,8 @@ const SuppresionFiles = () => {
             field: 'state',
             label: "STATE",
             stringRelated: [
-                'state'
+                'state',
+                'STATE',
             ]
 
         },
@@ -95,10 +106,198 @@ const SuppresionFiles = () => {
             field: 'zip',
             label: "ZIP",
             stringRelated: [
-                'zip'
+                'zip',
+                'ZIP'
             ]
 
-        }
+        },
+        {
+            field: 'phone',
+            label: "PHONE",
+            stringRelated: [
+                'phone',
+                'Phone',
+                'PHONE',
+            ]
+
+        },
+        {
+            field: 'gender',
+            label: "GENDER",
+            stringRelated: [
+                'gender',
+                'sex',
+                'Gender',
+                'GENDER',
+            ]
+        },
+        {
+            field: 'country',
+            label: "COUNTRY",
+            stringRelated: [
+                'country',
+                'Country',
+                'COUNTRY',
+            ]
+        },
+        {
+            field: 'military_service',
+            label: "MILITARY SERVICE",
+            stringRelated: [
+                'military_service',
+                'militaryService',
+                'Military service',
+                'MILITARY SERVICE',
+            ]
+        },
+        {
+            field: 'site_name',
+            label: "SITE NAME",
+            stringRelated: [
+                'site_name',
+                'siteName',
+                'Site name',
+                'SITE NAME',
+            ]
+        },
+        {
+            field: 'credit_rating',
+            label: "CREDIT RATING",
+            stringRelated: [
+                'credit_rating',
+                'creditRating',
+                'Credit rating',
+                'CREDIT RATING',
+            ]
+        },
+        {
+            field: 'sub_vertical_name',
+            label: "SUB VERTICAL NAME",
+            stringRelated: [
+                'sub_vertical_name',
+                'subVerticalName',
+                'Sub vertical name',
+                'SUB VERTICAL NAME',
+            ]
+        },
+        {
+            field: 'loan_purpose',
+            label: "LOAN PURPOSE",
+            stringRelated: [
+                'loan_purpose',
+                'loanPurpose',
+                'Loan purpose',
+                'LOAN PURPOSE',
+            ]
+        },
+        {
+            field: 'mortgage_loan_purpose',
+            label: "MORTGAGE LOAN PURPOSE",
+            stringRelated: [
+                'mortgage_loan_purpose',
+                'mortgageLoanPurpose',
+                'Mortgage loan purpose',
+                'MORTGAGE LOAN PURPOSE',
+            ]
+        },
+        {
+            field: 'total_loan_amount',
+            label: "TOTAL LOAN AMOUNT",
+            stringRelated: [
+                'total_loan_amount',
+                'totalLoanAmount',
+                'Total loan amount',
+                'TOTAL LOAN AMOUNT',
+            ]
+        },
+        {
+            field: 'total_loan_amount',
+            label: "TOTAL LOAN AMOUNT",
+            stringRelated: [
+                'total_loan_amount',
+                'totalLoanAmount',
+                'Total loan amount',
+                'TOTAL LOAN AMOUNT',
+            ]
+        },
+        {
+            field: 'vehicle_make',
+            label: "VEHICLE MAKE",
+            stringRelated: [
+                'vehicle_make',
+                'vehicleMake',
+                'Vehicle make',
+                'VEHICLE MAKE',
+            ]
+        },
+        {
+            field: 'vehicle_model',
+            label: "VEHICLE MODEL",
+            stringRelated: [
+                'vehicle_model',
+                'vehicleModel',
+                'Vehicle model',
+                'VEHICLE MODEL',
+            ]
+        },
+        {
+            field: 'own_or_rent',
+            label: "OWN OR RENT",
+            stringRelated: [
+                'own_or_rent',
+                'ownOrRent',
+                'Own or rent',
+                'OWN OR RENT',
+            ]
+        },
+        {
+            field: 'ip_address',
+            label: "IP ADDRESS",
+            stringRelated: [
+                'ip_address',
+                'ipAddress',
+                'Ip address',
+                'IP ADDRESS',
+            ]
+        },
+        {
+            field: 'birthday',
+            label: "BIRTHDAY",
+            stringRelated: [
+                'birthday',
+                'Birthday',
+                'BIRTHDAY',
+            ]
+        },
+        {
+            field: 'age',
+            label: "AGE",
+            stringRelated: [
+                'age',
+                'Age',
+                'AGE',
+            ]
+        },
+        {
+            field: 'electric_company',
+            label: "ELECTRIC COMPANY",
+            stringRelated: [
+                'electric_company',
+                'electricCompany',
+                'Electric company',
+                'ELECTRIC COMPANY',
+            ]
+        },
+        {
+            field: 'vehicle_year',
+            label: "VEHICLE YEAR",
+            stringRelated: [
+                'vehicle_year',
+                'vehicleYear',
+                'Vehicle year',
+                'VEHICLE YEAR',
+            ]
+        },
     ]
 
     useEffect(() => {
