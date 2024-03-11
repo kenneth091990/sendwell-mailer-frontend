@@ -18,7 +18,7 @@ import * as XLSX from 'xlsx';
 
 
 const SuppresionFiles = () => {
-   
+
     const [showModal, setShowModal] = useState(false);
     const [isDataLoad, setIsDataLoad] = useState(false);
 
@@ -31,7 +31,7 @@ const SuppresionFiles = () => {
 
     const [formFieldOrder, setFormFieldOrder] = useState([]);
 
-    const importFields = [ 
+    const importFields = [
         {
             field: 'firstName',
             label: "FIRST NAME",
@@ -64,12 +64,22 @@ const SuppresionFiles = () => {
 
         },
         {
-            field: 'streetAddress',
-            label: "STREET ADDRESS",
+            field: 'streetAddress 1',
+            label: "STREET ADDRESS 1",
             stringRelated: [
-                'street address',
-                'street',
-                'street_address'
+                'street address 1',
+                'street 1',
+                'street_address_1'
+            ]
+
+        },
+        {
+            field: 'streetAddress 2',
+            label: "STREET ADDRESS 2",
+            stringRelated: [
+                'street address 2',
+                'street 2',
+                'street_address_2'
             ]
 
         },
@@ -77,9 +87,8 @@ const SuppresionFiles = () => {
             field: 'city',
             label: "CITY",
             stringRelated: [
-                'street address',
-                'street',
-                'street_address'
+                'city',
+                'City',
             ]
 
         },
@@ -87,7 +96,8 @@ const SuppresionFiles = () => {
             field: 'state',
             label: "STATE",
             stringRelated: [
-                'state'
+                'state',
+                'STATE',
             ]
 
         },
@@ -95,23 +105,211 @@ const SuppresionFiles = () => {
             field: 'zip',
             label: "ZIP",
             stringRelated: [
-                'zip'
+                'zip',
+                'ZIP'
             ]
 
-        }
+        },
+        {
+            field: 'phone',
+            label: "PHONE",
+            stringRelated: [
+                'phone',
+                'Phone',
+                'PHONE',
+            ]
+
+        },
+        {
+            field: 'gender',
+            label: "GENDER",
+            stringRelated: [
+                'gender',
+                'sex',
+                'Gender',
+                'GENDER',
+            ]
+        },
+        {
+            field: 'country',
+            label: "COUNTRY",
+            stringRelated: [
+                'country',
+                'Country',
+                'COUNTRY',
+            ]
+        },
+        {
+            field: 'military_service',
+            label: "MILITARY SERVICE",
+            stringRelated: [
+                'military_service',
+                'militaryService',
+                'Military service',
+                'MILITARY SERVICE',
+            ]
+        },
+        {
+            field: 'site_name',
+            label: "SITE NAME",
+            stringRelated: [
+                'site_name',
+                'siteName',
+                'Site name',
+                'SITE NAME',
+            ]
+        },
+        {
+            field: 'credit_rating',
+            label: "CREDIT RATING",
+            stringRelated: [
+                'credit_rating',
+                'creditRating',
+                'Credit rating',
+                'CREDIT RATING',
+            ]
+        },
+        {
+            field: 'sub_vertical_name',
+            label: "SUB VERTICAL NAME",
+            stringRelated: [
+                'sub_vertical_name',
+                'subVerticalName',
+                'Sub vertical name',
+                'SUB VERTICAL NAME',
+            ]
+        },
+        {
+            field: 'loan_purpose',
+            label: "LOAN PURPOSE",
+            stringRelated: [
+                'loan_purpose',
+                'loanPurpose',
+                'Loan purpose',
+                'LOAN PURPOSE',
+            ]
+        },
+        {
+            field: 'mortgage_loan_purpose',
+            label: "MORTGAGE LOAN PURPOSE",
+            stringRelated: [
+                'mortgage_loan_purpose',
+                'mortgageLoanPurpose',
+                'Mortgage loan purpose',
+                'MORTGAGE LOAN PURPOSE',
+            ]
+        },
+        {
+            field: 'total_loan_amount',
+            label: "TOTAL LOAN AMOUNT",
+            stringRelated: [
+                'total_loan_amount',
+                'totalLoanAmount',
+                'Total loan amount',
+                'TOTAL LOAN AMOUNT',
+            ]
+        },
+        {
+            field: 'total_loan_amount',
+            label: "TOTAL LOAN AMOUNT",
+            stringRelated: [
+                'total_loan_amount',
+                'totalLoanAmount',
+                'Total loan amount',
+                'TOTAL LOAN AMOUNT',
+            ]
+        },
+        {
+            field: 'vehicle_make',
+            label: "VEHICLE MAKE",
+            stringRelated: [
+                'vehicle_make',
+                'vehicleMake',
+                'Vehicle make',
+                'VEHICLE MAKE',
+            ]
+        },
+        {
+            field: 'vehicle_model',
+            label: "VEHICLE MODEL",
+            stringRelated: [
+                'vehicle_model',
+                'vehicleModel',
+                'Vehicle model',
+                'VEHICLE MODEL',
+            ]
+        },
+        {
+            field: 'own_or_rent',
+            label: "OWN OR RENT",
+            stringRelated: [
+                'own_or_rent',
+                'ownOrRent',
+                'Own or rent',
+                'OWN OR RENT',
+            ]
+        },
+        {
+            field: 'ip_address',
+            label: "IP ADDRESS",
+            stringRelated: [
+                'ip_address',
+                'ipAddress',
+                'Ip address',
+                'IP ADDRESS',
+            ]
+        },
+        {
+            field: 'birthday',
+            label: "BIRTHDAY",
+            stringRelated: [
+                'birthday',
+                'Birthday',
+                'BIRTHDAY',
+            ]
+        },
+        {
+            field: 'age',
+            label: "AGE",
+            stringRelated: [
+                'age',
+                'Age',
+                'AGE',
+            ]
+        },
+        {
+            field: 'electric_company',
+            label: "ELECTRIC COMPANY",
+            stringRelated: [
+                'electric_company',
+                'electricCompany',
+                'Electric company',
+                'ELECTRIC COMPANY',
+            ]
+        },
+        {
+            field: 'vehicle_year',
+            label: "VEHICLE YEAR",
+            stringRelated: [
+                'vehicle_year',
+                'vehicleYear',
+                'Vehicle year',
+                'VEHICLE YEAR',
+            ]
+        },
     ]
 
     useEffect(() => {
-       
-         if(importFileData.length > 0){
+
+        if (importFileData.length > 0) {
             setForm(importListFileMapping())
-         }
+        }
 
-       
-         
-      }, [importFileData]);
 
-      
+
+    }, [importFileData]);
+
+
 
     const formView = (formName, action, id) => {
         switch (formName) {
@@ -134,14 +332,14 @@ const SuppresionFiles = () => {
             const extension = uploadedFile.name.split('.').pop().toLowerCase();
             if (!allowedExtensions.includes(extension)) {
                 toast.error(`Please upload a CSV or XLS/XLSX file.`);
-            }  else {
+            } else {
 
                 const currentForm = formRef.current;
                 const fileInput = currentForm.querySelector('#importList');
                 const file = fileInput.files[0];
-             
+
                 handleFileUpload(file, extension);
-    
+
             }
         }
     };
@@ -193,161 +391,161 @@ const SuppresionFiles = () => {
                         <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
+                        <button className='btn  bg-transparent  text-blue' onClick={(e) => { e.preventDefault(); setShowModal(false) }}>Cancel</button>
                     </div>
                 </div>
             </form>
         )
     }
 
-    const importListFileMapping =  () => {
+    const importListFileMapping = () => {
         return (
             <form ref={formRef} className='flex-inline w-[90%]'>
                 <div className='mt-5'>
                     <h2 className='text-blue'>MATCH LABEL TO IMPORT</h2>
                 </div>
-                
+
                 <div className='mt-5'>
-                    <p> <span className='font-semibold'>{ importFileData[0].length } columns </span> were recognized in this file</p>
+                    <p> <span className='font-semibold'>{importFileData[0].length} columns </span> were recognized in this file</p>
                 </div>
                 <div className='mt-5 import-table'>
-                    <Scrollbars style={{ width: '100%' }}  
-                         renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
-                         renderView={props => <div {...props} className="view"/>}>
+                    <Scrollbars style={{ width: '100%' }}
+                        renderTrackHorizontal={props => <div {...props} className="track-horizontal" />}
+                        renderView={props => <div {...props} className="view" />}>
                         <table className=" w-[100%]" >
-                                <thead>
-                                    <tr>
-                                        {
-                                            importFileData[0].map((object, i) => 
-                                                <th className="border border-slate-300 border-line-gray text-sm font-medium">
-                                                    <SelectDropdown className={'p-2'}>
-                                                            {Object.keys(importFields).map((k, ii) => {
-                                                               
-                                                            return(<option key={k} value={importFields[k].field} selected={  importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase())  !== -1 ? true : ( i === ii ? true : false)}>{importFields[k].label}</option>)
-                                                            }     
-                                                        )}
-                                                    </SelectDropdown>
-                                                </th>
+                            <thead>
+                                <tr>
+                                    {
+                                        importFileData[0].map((object, i) =>
+                                            <th className="border border-slate-300 border-line-gray text-sm font-medium">
+                                                <SelectDropdown className={'p-2'}>
+                                                    {Object.keys(importFields).map((k, ii) => {
+
+                                                        return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : (i === ii ? true : false)}>{importFields[k].label}</option>)
+                                                    }
+                                                    )}
+                                                </SelectDropdown>
+                                            </th>
+                                        )
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    importFileData.map((v, i) => {
+
+                                        if (i > 0 && i < 6) {
+                                            return (
+                                                <tr>
+                                                    {
+                                                        v.map((vv, ii) => {
+                                                            return (
+                                                                <td className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
+                                                            )
+                                                        })
+                                                    }
+                                                </tr>
                                             )
                                         }
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        importFileData.map((v, i) => {
-                                        
-                                            if(i > 0 && i < 6 ) {
-                                                return (
-                                                    <tr>
-                                                        {
-                                                            v.map((vv, ii) => {
-                                                                return (
-                                                                    <td  className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
-                                                                )
-                                                            })
-                                                        }
-                                                    </tr>
-                                                )
-                                            }
-                                            
-                                        })
-                                    }
-                                </tbody>
+
+                                    })
+                                }
+                            </tbody>
                         </table>
                     </Scrollbars>
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => {e.preventDefault(); finalizeImport(e);}}>Finalize import</button>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => { e.preventDefault(); finalizeImport(e); }}>Finalize import</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
+                        <button className='btn  bg-transparent  text-blue' onClick={(e) => { e.preventDefault(); setShowModal(false) }}>Cancel</button>
                     </div>
                 </div>
-             
+
             </form>
-            
+
         )
     }
 
-    const  finalizeImport = (e) => {
-      
+    const finalizeImport = (e) => {
+
         e.preventDefault();
         const importData = [];
-            importFileData.slice(1).map((ifd, i) => {
-                formData[i] = {};
-                Object.keys(formRef.current).map((kc,i3) => {
+        importFileData.slice(1).map((ifd, i) => {
+            formData[i] = {};
+            Object.keys(formRef.current).map((kc, i3) => {
 
-                    {
-                        ifd.map((ifdc, ii) => {
-                            if(formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT'){
+                {
+                    ifd.map((ifdc, ii) => {
+                        if (formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT') {
 
-                                const trt = formRef.current[i3].value;
-                                if(formData[i]){
-                                    formData[i][trt] = ifdc;
-                                }
+                            const trt = formRef.current[i3].value;
+                            if (formData[i]) {
+                                formData[i][trt] = ifdc;
                             }
+                        }
 
 
-                        })
-                    }
+                    })
+                }
 
             })
         });
     }
-      
+
     const handleFileUpload = async (file, extension) => {
-        
+
         let parseResult = null;
         try {
-            
-            if(extension == 'xlsx'){
-                 const  xlsToCsv  = await convertToCsv(file);
-                 parseResult = await parseCSV(xlsToCsv);
+
+            if (extension == 'xlsx') {
+                const xlsToCsv = await convertToCsv(file);
+                parseResult = await parseCSV(xlsToCsv);
 
 
             } else {
-                 parseResult = await parseCSV(file);
+                parseResult = await parseCSV(file);
 
             }
             setTimeout(() => {
-                setImportFileData(parseResult); 
-              }, 1000);
-          
+                setImportFileData(parseResult);
+            }, 1000);
+
         } catch (error) {
             console.error('Error parsing CSV:', error);
-        } 
+        }
     };
 
     const parseCSV = async (file) => {
         return new Promise((resolve, reject) => {
             Papa.parse(file, {
-            header: false,
-            complete: (results) => resolve(results.data),
-            error: (error) => reject(error)
+                header: false,
+                complete: (results) => resolve(results.data),
+                error: (error) => reject(error)
             });
         });
     };
 
     const convertToCsv = async (file) => {
         return new Promise((resolve, reject) => {
-           
+
             const reader = new FileReader();
-        
+
             reader.onload = (event) => {
-              const binaryString = event.target.result;
-              const workbook = XLSX.read(binaryString, { type: 'binary' });
-              const worksheetName = workbook.SheetNames[0];
-              const worksheet = workbook.Sheets[worksheetName];
-              resolve(XLSX.utils.sheet_to_csv(worksheet));
-        
+                const binaryString = event.target.result;
+                const workbook = XLSX.read(binaryString, { type: 'binary' });
+                const worksheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[worksheetName];
+                resolve(XLSX.utils.sheet_to_csv(worksheet));
+
             };
-        
+
             reader.readAsBinaryString(file);
         });
     };
-    
-    
+
+
 
 
 
