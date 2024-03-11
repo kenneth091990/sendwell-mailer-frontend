@@ -29,13 +29,89 @@ const SuppresionFiles = () => {
     const formListTitleRef = createRef(null);
     const formListDescRef = createRef(null);
 
+    const [formFieldOrder, setFormFieldOrder] = useState([]);
+
+    const importFields = [ 
+        {
+            field: 'firstName',
+            label: "FIRST NAME",
+            stringRelated: [
+                'first name',
+                'name',
+                'firstname',
+                'first_name'
+            ]
+
+        },
+        {
+            field: 'lastName',
+            label: "LAST NAME",
+            stringRelated: [
+                'last name',
+                'lastname',
+                'last_name'
+            ]
+
+        },
+        {
+            field: 'emailAddress',
+            label: "EMAIL ADDRESS",
+            stringRelated: [
+                'email address',
+                'email',
+                'email_address'
+            ]
+
+        },
+        {
+            field: 'streetAddress',
+            label: "STREET ADDRESS",
+            stringRelated: [
+                'street address',
+                'street',
+                'street_address'
+            ]
+
+        },
+        {
+            field: 'city',
+            label: "CITY",
+            stringRelated: [
+                'street address',
+                'street',
+                'street_address'
+            ]
+
+        },
+        {
+            field: 'state',
+            label: "STATE",
+            stringRelated: [
+                'state'
+            ]
+
+        },
+        {
+            field: 'zip',
+            label: "ZIP",
+            stringRelated: [
+                'zip'
+            ]
+
+        }
+    ]
+
     useEffect(() => {
        
          if(importFileData.length > 0){
             setForm(importListFileMapping())
          }
+
+       
          
       }, [importFileData]);
+
+      
 
     const formView = (formName, action, id) => {
         switch (formName) {
@@ -125,9 +201,8 @@ const SuppresionFiles = () => {
     }
 
     const importListFileMapping =  () => {
-   
         return (
-            <form className='flex-inline w-[90%]'>
+            <form ref={formRef} className='flex-inline w-[90%]'>
                 <div className='mt-5'>
                     <h2 className='text-blue'>MATCH LABEL TO IMPORT</h2>
                 </div>
@@ -139,20 +214,18 @@ const SuppresionFiles = () => {
                     <Scrollbars style={{ width: '100%' }}  
                          renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
                          renderView={props => <div {...props} className="view"/>}>
-                        <table class=" w-[100%]" >
+                        <table className=" w-[100%]" >
                                 <thead>
                                     <tr>
                                         {
                                             importFileData[0].map((object, i) => 
-                                                <th class="border border-slate-300 border-line-gray text-sm font-medium">
+                                                <th className="border border-slate-300 border-line-gray text-sm font-medium">
                                                     <SelectDropdown className={'p-2'}>
-                                                        <option value="firstName">FIRST NAME</option>
-                                                        <option value="lastName">LAST NAME</option>
-                                                        <option value="emailAddress">EMAIL ADDRESS</option>
-                                                        <option value="streetAddress">STREET ADDRESS</option>
-                                                        <option value="streetAddress">CITY</option>
-                                                        <option value="state">STATE</option>
-                                                        <option value="zip">zip</option>
+                                                            {Object.keys(importFields).map((k, ii) => {
+                                                               
+                                                            return(<option key={k} value={importFields[k].field} selected={  importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase())  !== -1 ? true : ( i === ii ? true : false)}>{importFields[k].label}</option>)
+                                                            }     
+                                                        )}
                                                     </SelectDropdown>
                                                 </th>
                                             )
@@ -169,7 +242,7 @@ const SuppresionFiles = () => {
                                                         {
                                                             v.map((vv, ii) => {
                                                                 return (
-                                                                    <td  class="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
+                                                                    <td  className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
                                                                 )
                                                             })
                                                         }
@@ -185,7 +258,7 @@ const SuppresionFiles = () => {
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Finalize import</button>
+                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => {e.preventDefault(); finalizeImport(e);}}>Finalize import</button>
                     </div>
                     <div className='mt-3'>
                         <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
@@ -196,9 +269,33 @@ const SuppresionFiles = () => {
             
         )
     }
-      
-    
 
+    const  finalizeImport = (e) => {
+      
+        e.preventDefault();
+        const importData = [];
+            importFileData.slice(1).map((ifd, i) => {
+                formData[i] = {};
+                Object.keys(formRef.current).map((kc,i3) => {
+
+                    {
+                        ifd.map((ifdc, ii) => {
+                            if(formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT'){
+
+                                const trt = formRef.current[i3].value;
+                                if(formData[i]){
+                                    formData[i][trt] = ifdc;
+                                }
+                            }
+
+
+                        })
+                    }
+
+            })
+        });
+    }
+      
     const handleFileUpload = async (file, extension) => {
         
         let parseResult = null;
