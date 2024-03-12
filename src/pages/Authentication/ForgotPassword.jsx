@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useRef, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { forgotPasswordThunk } from '../../modules/authThunks';
+import { forgotPasswordThunk } from '../../modules/authentication/authThunks';
 import { validateEmail } from '../../core/constants';
 import { toast } from 'react-toastify';
 

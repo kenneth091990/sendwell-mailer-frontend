@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useRef, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
-import { resetPasswordThunk } from '../../modules/authThunks';
+import { resetPasswordThunk } from '../../modules/authentication/authThunks';
 import useQueryParams from '../../hooks/useQueryParams';
 
 const ResetPassword = () => {

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import client from "../core/client";
-import { graphqlMutationThunk, graphqlQueryThunk } from "../core/constants";
-import { CONFIRM_USER, FORGOT_PASSWORD, GET_CURRENTUSER, LOGIN_USER, REGISTER_USER, RESET_PASSWORD } from "../graphql/auth.schema";
+import client from "../../core/client";
+import { graphqlMutationThunk, graphqlQueryThunk } from "../../core/constants";
+import { CONFIRM_USER, FORGOT_PASSWORD, GET_CURRENTUSER, LOGIN_USER, REGISTER_USER, RESET_PASSWORD } from "../../graphql/auth.schema";
 
 export const loginThunk = createAsyncThunk(
     'auth/login',
