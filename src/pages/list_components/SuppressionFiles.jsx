@@ -17,12 +17,15 @@ import * as XLSX from 'xlsx';
 import SliceString from '../../common/components/SliceString';
 import { csvToJson, formatFileSize } from '../../core/constants';
 import useToast from '../../hooks/useToast';
+import { useDispatch } from 'react-redux';
+import { createFromRecipientList } from '../../modules/recipients/recipientThunks';
 
 
 
 const SuppresionFiles = () => {
     const [showModal, setShowModal] = useState(false);
     const [getToast, setToast] = useToast();
+    const dispatch = useDispatch();
     const [form, setForm] = useState(null);
     const [importFileData, setImportFileData] = useState({});
     const [fileDetails, setFileDetails] = useState({
@@ -345,8 +348,6 @@ const SuppresionFiles = () => {
     };
 
     const uploadForm = () => {
-
-
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='mt-5'>
@@ -403,8 +404,8 @@ const SuppresionFiles = () => {
 
     const importListFileMapping = () => {
 
-        const  relatedFieldCtr = getRelatedFieldCtr(importFields);
-        
+        const relatedFieldCtr = getRelatedFieldCtr(importFields);
+
         return (
             <form ref={formRef} className='flex-inline w-[90%]'>
                 <div className='mt-5'>
@@ -485,19 +486,18 @@ const SuppresionFiles = () => {
         )
     }
 
-    const  getRelatedFieldCtr = (importFields) =>{
+    const getRelatedFieldCtr = (importFields) => {
 
-        let  ctr = 0;
-        importFileData[0].map((object, i) =>
-            {
-                Object.keys(importFields).map((k, ii) => {
-                    if(importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ){
-                        ctr+= 1;
-                    }
-                })
-            }
+        let ctr = 0;
+        importFileData[0].map((object, i) => {
+            Object.keys(importFields).map((k, ii) => {
+                if (importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1) {
+                    ctr += 1;
+                }
+            })
+        }
         )
-        
+
 
         return ctr;
     }
@@ -567,7 +567,7 @@ const SuppresionFiles = () => {
 
     const uploadList = () => {
         console.log(formListTitleRef.current.value, "formListTitleRef.current.value")
-         console.log(formListDescRef.current.value, Object.keys(importFileData).length, "formListDescRef.current.value")
+        console.log(formListDescRef.current.value, Object.keys(importFileData).length, "formListDescRef.current.value")
 
 
         if (!Object.keys(importFileData).length) {
@@ -580,7 +580,29 @@ const SuppresionFiles = () => {
             return;
         }
 
+        console.log({
+            recipientList: csvToJson(importFileData),
+            listTitle: formListTitleRef.current.value,
+            listDescription: formListDescRef.current.value,
+        })
+        var serializeJson = csvToJson(importFileData).map(csvJson => {
+            var newObj = { ...csvJson };
 
+            newObj['age'] = Number(newObj['age']);
+            newObj['total_loan_amount'] = Number(newObj['total_loan_amount']);
+            newObj['email_local_part'] = newObj['email'];
+
+            delete newObj['email'];
+
+            return newObj;
+        })
+
+        console.log(serializeJson)
+        dispatch(createFromRecipientList({
+            recipientList: serializeJson,
+            listTitle: formListTitleRef.current.value,
+            listDescription: formListDescRef.current.value,
+        }))
     }
 
 
