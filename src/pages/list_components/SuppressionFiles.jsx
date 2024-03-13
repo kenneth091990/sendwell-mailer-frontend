@@ -15,23 +15,24 @@ import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import * as XLSX from 'xlsx';
 import SliceString from '../../common/components/SliceString';
-import { csvToJson } from '../../core/constants';
+import { csvToJson, formatFileSize } from '../../core/constants';
+import useToast from '../../hooks/useToast';
 
 
 
 const SuppresionFiles = () => {
-
     const [showModal, setShowModal] = useState(false);
-    const [isDataLoad, setIsDataLoad] = useState(false);
-
+    const [getToast, setToast] = useToast();
     const [form, setForm] = useState(null);
     const [importFileData, setImportFileData] = useState({});
-    const [importFileDataCtr, setImportFileDataCtr] = useState(0);
+    const [fileDetails, setFileDetails] = useState({
+        name: "",
+        extension: "",
+        size: ""
+    });
     const formRef = useRef(null);
     const formListTitleRef = createRef(null);
     const formListDescRef = createRef(null);
-
-    const [formFieldOrder, setFormFieldOrder] = useState([]);
 
     const importFields = [
         {
@@ -306,14 +307,11 @@ const SuppresionFiles = () => {
         if (importFileData.length > 0) {
             setForm(importListFileMapping())
         }
-
-
-
     }, [importFileData]);
 
 
 
-    const formView = (formName, action, id) => {
+    const formView = (formName, action, id, data) => {
         switch (formName) {
             case 'uploadList':
                 setForm(uploadForm());
@@ -366,22 +364,22 @@ const SuppresionFiles = () => {
                         </div>
                     </div>
                 </div>
-                <div className='mt-5 text-left'>
+                {fileDetails?.name ? <div className='mt-5 text-left'>
                     <div>
                         <label className='text-blue'>SELECTED FILE</label>
                     </div>
                     <div className="grid grid-cols-12  gap-4">
                         <div className='col-span-2 tracking-tight'>
-                            XLSX
+                            {fileDetails?.extension.toLocaleUpperCase()}
                         </div>
                         <div className='col-span-6 tracking-tight'>
-                            testuploadlistfile.xlsx
+                            {fileDetails?.name}
                         </div>
                         <div className='col-span-4 tracking-tight'>
-                            73kb
+                            {formatFileSize(fileDetails?.size ?? 0)}
                         </div>
                     </div>
-                </div>
+                </div> : ""}
                 <div className='mt-5 text-left'>
                     <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
@@ -390,10 +388,13 @@ const SuppresionFiles = () => {
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
+                        <button type='button' onClick={uploadList} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={(e) => { e.preventDefault(); setShowModal(false) }}>Cancel</button>
+                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
+                            e.preventDefault();
+                            setShowModal(false)
+                        }}>Cancel</button>
                     </div>
                 </div>
             </form>
@@ -460,10 +461,19 @@ const SuppresionFiles = () => {
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => { e.preventDefault(); finalizeImport(e); }}>Finalize import</button>
+                        <button type='button' className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => {
+                            e.preventDefault();
+                            finalizeImport(e);
+                            // * Should show the supporession merge modal
+
+                        }}>Finalize import</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={(e) => { e.preventDefault(); setShowModal(false) }}>Cancel</button>
+                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
+                            e.preventDefault();
+                            setShowModal(true);
+                            formView('uploadList', 'n', 0);
+                        }}>Cancel</button>
                     </div>
                 </div>
 
@@ -474,15 +484,15 @@ const SuppresionFiles = () => {
 
     const finalizeImport = (e) => {
         e.preventDefault();
-
-        console.log("importData", csvToJson(importFileData))
+        setShowModal(true);
+        formView('uploadList', 'n', 0);
     }
 
     const handleFileUpload = async (file, extension) => {
 
         let parseResult = null;
         try {
-
+            console.log(file?.name, extension)
             if (extension == 'xlsx') {
                 const xlsToCsv = await convertToCsv(file);
                 parseResult = await parseCSV(xlsToCsv);
@@ -493,6 +503,11 @@ const SuppresionFiles = () => {
 
             }
             setTimeout(() => {
+                setFileDetails({
+                    extension,
+                    name: file?.name,
+                    size: file?.size
+                })
                 setImportFileData(parseResult);
             }, 1000);
 
@@ -530,7 +545,23 @@ const SuppresionFiles = () => {
     };
 
 
+    const uploadList = () => {
+        console.log(formListTitleRef.current.value, "formListTitleRef.current.value")
+         console.log(formListDescRef.current.value, Object.keys(importFileData).length, "formListDescRef.current.value")
 
+
+        if (!Object.keys(importFileData).length) {
+            toast.warning("CSV/XLXS file is required");
+            return;
+        }
+
+        if (!formListTitleRef.current.value.trim()) {
+            toast.warning("Title is required");
+            return;
+        }
+
+
+    }
 
 
     const mockData = [

@@ -224,3 +224,15 @@ export function csvToJson(csvArray) {
     return jsonArray;
 }
 
+export function formatFileSize(bytes) {
+    const kilobytes = bytes / 1024;
+    const megabytes = kilobytes / 1024;
+
+    // If it's over a thousand kilobytes, convert to megabytes
+    if (kilobytes > 1000) {
+        return `${megabytes.toFixed(2)} MB`;
+    } else {
+        return `${kilobytes.toFixed(2)} KB`;
+    }
+}
+
