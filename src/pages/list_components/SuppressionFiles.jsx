@@ -401,6 +401,9 @@ const SuppresionFiles = () => {
     }
 
     const importListFileMapping = () => {
+
+        const  relatedFieldCtr = getRelatedFieldCtr(importFields);
+        
         return (
             <form ref={formRef} className='flex-inline w-[90%]'>
                 <div className='mt-5'>
@@ -408,7 +411,7 @@ const SuppresionFiles = () => {
                 </div>
 
                 <div className='mt-5'>
-                    <p> <span className='font-semibold'>{importFileData[0].length} columns </span> were recognized in this file</p>
+                    <p> <span className='font-semibold'>{relatedFieldCtr} columns </span> were recognized in this file</p>
                 </div>
                 <div className='mt-5 import-table'>
                     <Scrollbars style={{ width: '100%' }}
@@ -470,6 +473,23 @@ const SuppresionFiles = () => {
             </form>
 
         )
+    }
+
+    const  getRelatedFieldCtr = (importFields) =>{
+
+        let  ctr = 0;
+        importFileData[0].map((object, i) =>
+            {
+                Object.keys(importFields).map((k, ii) => {
+                    if(importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ){
+                        ctr+= 1;
+                    }
+                })
+            }
+        )
+        
+
+        return ctr;
     }
 
     const finalizeImport = (e) => {
