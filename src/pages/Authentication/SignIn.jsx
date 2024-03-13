@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { loginThunk } from '../../modules/authThunks';
+import { loginThunk } from '../../modules/authentication/authThunks';
 
 const SignIn = () => {
   const form = useRef();

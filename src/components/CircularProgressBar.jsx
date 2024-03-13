@@ -3,7 +3,7 @@ import imageIcon from "./../images/nav/mailer-3d-icon.png"
 function CircularProgressBar(props) {
     return (
         <div className="flex justify-center items-center relative w-35 h-35 m-10">
-            <img src={imageIcon} alt="imageIcon" className="absolute w-[65%] h-[45%] " />
+            <img src={imageIcon} alt="imageIcon" className="absolute w-[75px] h-[55px] " />
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="absolute animate-spin w-full h-full"

@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import useQueryParams from '../../hooks/useQueryParams';
-import { confirmUserThunk } from '../../modules/authThunks';
+import { confirmUserThunk } from '../../modules/authentication/authThunks';
 
 const ConfirmUser = () => {
     const query = useQueryParams();

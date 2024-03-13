@@ -67,7 +67,10 @@ export default {
       ...defaultTheme.screens,
     },
     extend: {
-   
+      width: {
+        '35': '35%', // Adds a w-35 utility class
+        '10': '10%', // Adds a w-10 utility class
+      },
       fontSize: {
         'title-xxl': ['44px', '55px'],
         'title-xl': ['36px', '45px'],

@@ -14,30 +14,307 @@ import { toast } from 'react-toastify';
 import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import * as XLSX from 'xlsx';
+import SliceString from '../../common/components/SliceString';
+import { csvToJson, formatFileSize } from '../../core/constants';
+import useToast from '../../hooks/useToast';
+import { useDispatch } from 'react-redux';
+import { createFromRecipientList } from '../../modules/recipients/recipientThunks';
 
 
 
 const SuppresionFiles = () => {
-   
     const [showModal, setShowModal] = useState(false);
-    const [isDataLoad, setIsDataLoad] = useState(false);
-
+    const [getToast, setToast] = useToast();
+    const dispatch = useDispatch();
     const [form, setForm] = useState(null);
     const [importFileData, setImportFileData] = useState({});
-    const [importFileDataCtr, setImportFileDataCtr] = useState(0);
+    const [fileDetails, setFileDetails] = useState({
+        name: "",
+        extension: "",
+        size: ""
+    });
     const formRef = useRef(null);
     const formListTitleRef = createRef(null);
     const formListDescRef = createRef(null);
 
-    useEffect(() => {
-       
-         if(importFileData.length > 0){
-            setForm(importListFileMapping())
-         }
-         
-      }, [importFileData]);
+    const importFields = [
+        {
+            field: 'firstName',
+            label: "FIRST NAME",
+            stringRelated: [
+                'first name',
+                'name',
+                'firstname',
+                'first_name'
+            ]
 
-    const formView = (formName, action, id) => {
+        },
+        {
+            field: 'lastName',
+            label: "LAST NAME",
+            stringRelated: [
+                'last name',
+                'lastname',
+                'last_name'
+            ]
+
+        },
+        {
+            field: 'emailAddress',
+            label: "EMAIL ADDRESS",
+            stringRelated: [
+                'email address',
+                'email',
+                'email_address'
+            ]
+
+        },
+        {
+            field: 'streetAddress 1',
+            label: "STREET ADDRESS 1",
+            stringRelated: [
+                'street address 1',
+                'street 1',
+                'street_address_1'
+            ]
+
+        },
+        {
+            field: 'streetAddress 2',
+            label: "STREET ADDRESS 2",
+            stringRelated: [
+                'street address 2',
+                'street 2',
+                'street_address_2'
+            ]
+
+        },
+        {
+            field: 'city',
+            label: "CITY",
+            stringRelated: [
+                'city',
+                'City',
+            ]
+
+        },
+        {
+            field: 'state',
+            label: "STATE",
+            stringRelated: [
+                'state',
+                'STATE',
+            ]
+
+        },
+        {
+            field: 'zip',
+            label: "ZIP",
+            stringRelated: [
+                'zip',
+                'ZIP'
+            ]
+
+        },
+        {
+            field: 'phone',
+            label: "PHONE",
+            stringRelated: [
+                'phone',
+                'Phone',
+                'PHONE',
+            ]
+
+        },
+        {
+            field: 'gender',
+            label: "GENDER",
+            stringRelated: [
+                'gender',
+                'sex',
+                'Gender',
+                'GENDER',
+            ]
+        },
+        {
+            field: 'country',
+            label: "COUNTRY",
+            stringRelated: [
+                'country',
+                'Country',
+                'COUNTRY',
+            ]
+        },
+        {
+            field: 'military_service',
+            label: "MILITARY SERVICE",
+            stringRelated: [
+                'military_service',
+                'militaryService',
+                'Military service',
+                'MILITARY SERVICE',
+            ]
+        },
+        {
+            field: 'site_name',
+            label: "SITE NAME",
+            stringRelated: [
+                'site_name',
+                'siteName',
+                'Site name',
+                'SITE NAME',
+            ]
+        },
+        {
+            field: 'credit_rating',
+            label: "CREDIT RATING",
+            stringRelated: [
+                'credit_rating',
+                'creditRating',
+                'Credit rating',
+                'CREDIT RATING',
+            ]
+        },
+        {
+            field: 'sub_vertical_name',
+            label: "SUB VERTICAL NAME",
+            stringRelated: [
+                'sub_vertical_name',
+                'subVerticalName',
+                'Sub vertical name',
+                'SUB VERTICAL NAME',
+            ]
+        },
+        {
+            field: 'loan_purpose',
+            label: "LOAN PURPOSE",
+            stringRelated: [
+                'loan_purpose',
+                'loanPurpose',
+                'Loan purpose',
+                'LOAN PURPOSE',
+            ]
+        },
+        {
+            field: 'mortgage_loan_purpose',
+            label: "MORTGAGE LOAN PURPOSE",
+            stringRelated: [
+                'mortgage_loan_purpose',
+                'mortgageLoanPurpose',
+                'Mortgage loan purpose',
+                'MORTGAGE LOAN PURPOSE',
+            ]
+        },
+        {
+            field: 'total_loan_amount',
+            label: "TOTAL LOAN AMOUNT",
+            stringRelated: [
+                'total_loan_amount',
+                'totalLoanAmount',
+                'Total loan amount',
+                'TOTAL LOAN AMOUNT',
+            ]
+        },
+        {
+            field: 'total_loan_amount',
+            label: "TOTAL LOAN AMOUNT",
+            stringRelated: [
+                'total_loan_amount',
+                'totalLoanAmount',
+                'Total loan amount',
+                'TOTAL LOAN AMOUNT',
+            ]
+        },
+        {
+            field: 'vehicle_make',
+            label: "VEHICLE MAKE",
+            stringRelated: [
+                'vehicle_make',
+                'vehicleMake',
+                'Vehicle make',
+                'VEHICLE MAKE',
+            ]
+        },
+        {
+            field: 'vehicle_model',
+            label: "VEHICLE MODEL",
+            stringRelated: [
+                'vehicle_model',
+                'vehicleModel',
+                'Vehicle model',
+                'VEHICLE MODEL',
+            ]
+        },
+        {
+            field: 'own_or_rent',
+            label: "OWN OR RENT",
+            stringRelated: [
+                'own_or_rent',
+                'ownOrRent',
+                'Own or rent',
+                'OWN OR RENT',
+            ]
+        },
+        {
+            field: 'ip_address',
+            label: "IP ADDRESS",
+            stringRelated: [
+                'ip_address',
+                'ipAddress',
+                'Ip address',
+                'IP ADDRESS',
+            ]
+        },
+        {
+            field: 'birthday',
+            label: "BIRTHDAY",
+            stringRelated: [
+                'birthday',
+                'Birthday',
+                'BIRTHDAY',
+            ]
+        },
+        {
+            field: 'age',
+            label: "AGE",
+            stringRelated: [
+                'age',
+                'Age',
+                'AGE',
+            ]
+        },
+        {
+            field: 'electric_company',
+            label: "ELECTRIC COMPANY",
+            stringRelated: [
+                'electric_company',
+                'electricCompany',
+                'Electric company',
+                'ELECTRIC COMPANY',
+            ]
+        },
+        {
+            field: 'vehicle_year',
+            label: "VEHICLE YEAR",
+            stringRelated: [
+                'vehicle_year',
+                'vehicleYear',
+                'Vehicle year',
+                'VEHICLE YEAR',
+            ]
+        },
+    ]
+
+    useEffect(() => {
+
+        if (importFileData.length > 0) {
+            setForm(importListFileMapping())
+        }
+    }, [importFileData]);
+
+
+
+    const formView = (formName, action, id, data) => {
         switch (formName) {
             case 'uploadList':
                 setForm(uploadForm());
@@ -58,21 +335,19 @@ const SuppresionFiles = () => {
             const extension = uploadedFile.name.split('.').pop().toLowerCase();
             if (!allowedExtensions.includes(extension)) {
                 toast.error(`Please upload a CSV or XLS/XLSX file.`);
-            }  else {
+            } else {
 
                 const currentForm = formRef.current;
                 const fileInput = currentForm.querySelector('#importList');
                 const file = fileInput.files[0];
-             
+
                 handleFileUpload(file, extension);
-    
+
             }
         }
     };
 
     const uploadForm = () => {
-
-
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='mt-5'>
@@ -90,22 +365,22 @@ const SuppresionFiles = () => {
                         </div>
                     </div>
                 </div>
-                <div className='mt-5 text-left'>
+                {fileDetails?.name ? <div className='mt-5 text-left'>
                     <div>
                         <label className='text-blue'>SELECTED FILE</label>
                     </div>
                     <div className="grid grid-cols-12  gap-4">
                         <div className='col-span-2 tracking-tight'>
-                            XLSX
+                            {fileDetails?.extension.toLocaleUpperCase()}
                         </div>
                         <div className='col-span-6 tracking-tight'>
-                            testuploadlistfile.xlsx
+                            {fileDetails?.name}
                         </div>
                         <div className='col-span-4 tracking-tight'>
-                            73kb
+                            {formatFileSize(fileDetails?.size ?? 0)}
                         </div>
                     </div>
-                </div>
+                </div> : ""}
                 <div className='mt-5 text-left'>
                     <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
                 </div>
@@ -114,144 +389,221 @@ const SuppresionFiles = () => {
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
+                        <button type='button' onClick={uploadList} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
+                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
+                            e.preventDefault();
+                            setShowModal(false)
+                        }}>Cancel</button>
                     </div>
                 </div>
             </form>
         )
     }
 
-    const importListFileMapping =  () => {
-   
+    const importListFileMapping = () => {
+
+        const relatedFieldCtr = getRelatedFieldCtr(importFields);
+
         return (
-            <form className='flex-inline w-[90%]'>
+            <form ref={formRef} className='flex-inline w-[90%]'>
                 <div className='mt-5'>
                     <h2 className='text-blue'>MATCH LABEL TO IMPORT</h2>
                 </div>
-                
+
                 <div className='mt-5'>
-                    <p> <span className='font-semibold'>{ importFileData[0].length } columns </span> were recognized in this file</p>
+                    <p> <span className='font-semibold'>{relatedFieldCtr} columns </span> were recognized in this file</p>
                 </div>
                 <div className='mt-5 import-table'>
-                    <Scrollbars style={{ width: '100%' }}  
-                         renderTrackHorizontal={props => <div {...props} className="track-horizontal"/>}
-                         renderView={props => <div {...props} className="view"/>}>
-                        <table class=" w-[100%]" >
-                                <thead>
-                                    <tr>
-                                        {
-                                            importFileData[0].map((object, i) => 
-                                                <th class="border border-slate-300 border-line-gray text-sm font-medium">
-                                                    <SelectDropdown className={'p-2'}>
-                                                        <option value="firstName">FIRST NAME</option>
-                                                        <option value="lastName">LAST NAME</option>
-                                                        <option value="emailAddress">EMAIL ADDRESS</option>
-                                                        <option value="streetAddress">STREET ADDRESS</option>
-                                                        <option value="streetAddress">CITY</option>
-                                                        <option value="state">STATE</option>
-                                                        <option value="zip">zip</option>
-                                                    </SelectDropdown>
-                                                </th>
+                    <Scrollbars style={{ width: '100%' }}
+                        renderTrackHorizontal={props => <div {...props} className="track-horizontal" />}
+                        renderView={props => <div {...props} className="view" />}>
+                        <table className=" w-[100%]" >
+                            <thead>
+                                <tr>
+                                    {
+                                        importFileData[0].map((object, i) =>
+                                            <th key={i} className="border border-slate-300 border-line-gray text-sm font-medium">
+                                                <SelectDropdown className={'p-2'}>
+                                                    {Object.keys(importFields).map((k, ii) => {
+
+                                                        return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : (i === ii ? true : false)}>{importFields[k].label}</option>)
+                                                    }
+                                                    )}
+                                                </SelectDropdown>
+                                            </th>
+                                        )
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    importFileData.map((v, i) => {
+
+                                        if (i > 0 && i < 6) {
+                                            return (
+                                                <tr key={i}>
+                                                    {
+                                                        v.map((vv, ii) => {
+                                                            return (
+                                                                <td key={ii} className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">
+                                                                    <SliceString text={vv}></SliceString>
+                                                                </td>
+                                                            )
+                                                        })
+                                                    }
+                                                </tr>
                                             )
                                         }
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        importFileData.map((v, i) => {
-                                        
-                                            if(i > 0 && i < 6 ) {
-                                                return (
-                                                    <tr>
-                                                        {
-                                                            v.map((vv, ii) => {
-                                                                return (
-                                                                    <td  class="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">{vv}</td>
-                                                                )
-                                                            })
-                                                        }
-                                                    </tr>
-                                                )
-                                            }
-                                            
-                                        })
-                                    }
-                                </tbody>
+
+                                    })
+                                }
+                            </tbody>
                         </table>
                     </Scrollbars>
                 </div>
                 <div className='mt-5'>
                     <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Finalize import</button>
+                        <button type='button' className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => {
+                            e.preventDefault();
+                            finalizeImport(e);
+                            // * Should show the supporession merge modal
+
+                        }}>Finalize import</button>
                     </div>
                     <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={(e) => {e.preventDefault(); setShowModal(false)}}>Cancel</button>
+                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
+                            e.preventDefault();
+                            setShowModal(true);
+                            formView('uploadList', 'n', 0);
+                        }}>Cancel</button>
                     </div>
                 </div>
-             
+
             </form>
-            
+
         )
     }
-      
-    
+
+    const getRelatedFieldCtr = (importFields) => {
+
+        let ctr = 0;
+        importFileData[0].map((object, i) => {
+            Object.keys(importFields).map((k, ii) => {
+                if (importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1) {
+                    ctr += 1;
+                }
+            })
+        }
+        )
+
+
+        return ctr;
+    }
+
+    const finalizeImport = (e) => {
+        e.preventDefault();
+        setShowModal(true);
+        formView('uploadList', 'n', 0);
+    }
 
     const handleFileUpload = async (file, extension) => {
-        
+
         let parseResult = null;
         try {
-            
-            if(extension == 'xlsx'){
-                 const  xlsToCsv  = await convertToCsv(file);
-                 parseResult = await parseCSV(xlsToCsv);
+            console.log(file?.name, extension)
+            if (extension == 'xlsx') {
+                const xlsToCsv = await convertToCsv(file);
+                parseResult = await parseCSV(xlsToCsv);
 
 
             } else {
-                 parseResult = await parseCSV(file);
+                parseResult = await parseCSV(file);
 
             }
             setTimeout(() => {
-                setImportFileData(parseResult); 
-              }, 1000);
-          
+                setFileDetails({
+                    extension,
+                    name: file?.name,
+                    size: file?.size
+                })
+                setImportFileData(parseResult);
+            }, 1000);
+
         } catch (error) {
             console.error('Error parsing CSV:', error);
-        } 
+        }
     };
 
     const parseCSV = async (file) => {
         return new Promise((resolve, reject) => {
             Papa.parse(file, {
-            header: false,
-            complete: (results) => resolve(results.data),
-            error: (error) => reject(error)
+                header: false,
+                complete: (results) => resolve(results.data),
+                error: (error) => reject(error)
             });
         });
     };
 
     const convertToCsv = async (file) => {
         return new Promise((resolve, reject) => {
-           
+
             const reader = new FileReader();
-        
+
             reader.onload = (event) => {
-              const binaryString = event.target.result;
-              const workbook = XLSX.read(binaryString, { type: 'binary' });
-              const worksheetName = workbook.SheetNames[0];
-              const worksheet = workbook.Sheets[worksheetName];
-              resolve(XLSX.utils.sheet_to_csv(worksheet));
-        
+                const binaryString = event.target.result;
+                const workbook = XLSX.read(binaryString, { type: 'binary' });
+                const worksheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[worksheetName];
+                resolve(XLSX.utils.sheet_to_csv(worksheet));
+
             };
-        
+
             reader.readAsBinaryString(file);
         });
     };
-    
-    
 
+
+    const uploadList = () => {
+        console.log(formListTitleRef.current.value, "formListTitleRef.current.value")
+        console.log(formListDescRef.current.value, Object.keys(importFileData).length, "formListDescRef.current.value")
+
+
+        if (!Object.keys(importFileData).length) {
+            toast.warning("CSV/XLXS file is required");
+            return;
+        }
+
+        if (!formListTitleRef.current.value.trim()) {
+            toast.warning("Title is required");
+            return;
+        }
+
+        console.log({
+            recipientList: csvToJson(importFileData),
+            listTitle: formListTitleRef.current.value,
+            listDescription: formListDescRef.current.value,
+        })
+        var serializeJson = csvToJson(importFileData).map(csvJson => {
+            var newObj = { ...csvJson };
+
+            newObj['age'] = Number(newObj['age']);
+            newObj['total_loan_amount'] = Number(newObj['total_loan_amount']);
+            newObj['email_local_part'] = newObj['email'];
+
+            delete newObj['email'];
+
+            return newObj;
+        })
+
+        console.log(serializeJson)
+        dispatch(createFromRecipientList({
+            recipientList: serializeJson,
+            listTitle: formListTitleRef.current.value,
+            listDescription: formListDescRef.current.value,
+        }))
+    }
 
 
     const mockData = [

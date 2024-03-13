@@ -42,10 +42,10 @@ export function validatePassword(password) {
 
     const passwordPattern = {
         password_has_one_lowercase: false,
-        password_has_one_uppercase:false,
-        password_has_one_number:false,
-        password_has_one_special_character:false,
-        password_has_8_minimum:false,
+        password_has_one_uppercase: false,
+        password_has_one_number: false,
+        password_has_one_special_character: false,
+        password_has_8_minimum: false,
         password_has_pattern_error: false
     };
 
@@ -55,19 +55,19 @@ export function validatePassword(password) {
     const specialCharRegex = /[!@#$&^*~]/;
 
     // Check for minimum length of 8 characters
-    passwordPattern.password_has_one_lowercase =  (!lowercaseRegex.test(password)) ? false : true;
-    passwordPattern.password_has_one_uppercase =  (!uppercaseRegex.test(password)) ? false : true;
-    passwordPattern.password_has_one_number =  (!noRegex.test(password)) ? false : true;
-    passwordPattern.password_has_one_special_character =  (!specialCharRegex.test(password)) ? false : true;
-    passwordPattern.password_has_8_minimum =  (password.length < 8) ? false : true;
- 
+    passwordPattern.password_has_one_lowercase = (!lowercaseRegex.test(password)) ? false : true;
+    passwordPattern.password_has_one_uppercase = (!uppercaseRegex.test(password)) ? false : true;
+    passwordPattern.password_has_one_number = (!noRegex.test(password)) ? false : true;
+    passwordPattern.password_has_one_special_character = (!specialCharRegex.test(password)) ? false : true;
+    passwordPattern.password_has_8_minimum = (password.length < 8) ? false : true;
+
 
     for (const key in passwordPattern) {
         if (key != 'password_has_pattern_error' && passwordPattern[key] === false) {
             passwordPattern.password_has_pattern_error = true;
             break;
-        } 
-      }
+        }
+    }
 
     // // Check for at least one special character
     // if (!specialCharRegex.test(password)) {
@@ -75,7 +75,7 @@ export function validatePassword(password) {
     // }
 
     // // Check for at least one uppercase letter
-  
+
     // if (!uppercaseRegex.test(password)) {
     //     return 'Password should contain at least one uppercase letter.';
     // }
@@ -198,3 +198,41 @@ export const graphqlQueryThunk = async (client, documentNode, variables, operati
         }
     }
 }
+
+function validateRow(row) {
+    // Implement any validation logic here.
+    // For simplicity, we're just checking if the first cell is empty as an example.
+    return row[0] !== "";
+}
+
+export function csvToJson(csvArray) {
+    const [headers, ...rows] = csvArray;
+    const jsonArray = [];
+
+    rows.forEach(row => {
+        if (validateRow(row)) {
+            const obj = {};
+            headers.forEach((header, index) => {
+                if (row[index] !== undefined) { // Check to ensure there is a value for this header
+                    obj[header] = row[index];
+                }
+            });
+            jsonArray.push(obj);
+        }
+    });
+
+    return jsonArray;
+}
+
+export function formatFileSize(bytes) {
+    const kilobytes = bytes / 1024;
+    const megabytes = kilobytes / 1024;
+
+    // If it's over a thousand kilobytes, convert to megabytes
+    if (kilobytes > 1000) {
+        return `${megabytes.toFixed(2)} MB`;
+    } else {
+        return `${kilobytes.toFixed(2)} KB`;
+    }
+}
+
