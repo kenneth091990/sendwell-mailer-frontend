@@ -94,7 +94,7 @@ const CementedSuppressionList = () => {
                 <div className='col-span-3'>
                 </div>
             </div>
-            <div className="w-full mt-5">
+            <div className="w-full">
                 <DataTableV2
                     hideHeaderOnMobile={true}
                     keys={[{
@@ -132,7 +132,7 @@ const CementedSuppressionList = () => {
                             <SelectDropdown
                                 label={"SORT BY CAMPAIGN"}
                                 labelClassName="font-semibold text-black/40 text-sm uppercase"
-                                containerClassName={"w-1/5  max-sm:w-full"}>
+                                containerClassName={"w-1/5 max-sm:w-full"}>
                                 <option value="">All Campaigns</option>
                                 <option value="">Test Campaigns</option>
                             </SelectDropdown>

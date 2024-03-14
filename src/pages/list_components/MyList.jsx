@@ -383,13 +383,13 @@ const MyList = () => {
                 <div className='mt-5'>
                     <h2 className='text-blue'>UPLOAD NEW LIST</h2>
                 </div>
-                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
+                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7' style={{ cursor: 'pointer' }}>
                     <div>
                         <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
                         <div className=' tracking-tight text-gray'>Drag file here to upload </div>
                         <div className=' tracking-tight text-gray'>or </div>
                         <div className=' tracking-tight text-gray mt-3'>
-                            <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
+                            <label style={{ cursor: 'pointer' }} htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
                                 <input name="" type="file" id="importList" hidden onChange={handleFile} accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                             </label>
                         </div>
@@ -425,6 +425,7 @@ const MyList = () => {
                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
                             e.preventDefault();
                             setShowModal(false)
+                            
                         }}>Cancel</button>
                     </div>
                 </div>
@@ -886,7 +887,7 @@ const MyList = () => {
                             <div className="flex flex-col items-center w-full py-10">
                                 <img src={CircleIcon} alt="CircleIcon" className='h-[4rem] w-[4rem] mb-4' />
                                 <p className='text-black/60'>
-                                    {isError ? message : "It looks like you haven't uploaded any list record yet."}
+                                    {isError ? "No lists uploaded yet." : "It looks like you haven't uploaded any list record yet."}
                                 </p>
                             </div>
                         )}
