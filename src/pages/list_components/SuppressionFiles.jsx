@@ -348,6 +348,13 @@ const SuppresionFiles = () => {
     };
 
     const uploadForm = () => {
+
+       setFileDetails({
+            name: "",
+            extension: "",
+            size: ""
+        });
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='mt-5'>
@@ -426,9 +433,13 @@ const SuppresionFiles = () => {
                                         importFileData[0].map((object, i) =>
                                             <th key={i} className="border border-slate-300 border-line-gray text-sm font-medium">
                                                 <SelectDropdown className={'p-2'}>
+                                                    <option key="" ></option>
                                                     {Object.keys(importFields).map((k, ii) => {
+                                                        console.log(importFields[k].stringRelated);
+                                                        console.log(importFileData[0][i].toLowerCase());
 
-                                                        return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : (i === ii ? true : false)}>{importFields[k].label}</option>)
+
+                                                        return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : false}>{importFields[k].label}</option>)
                                                     }
                                                     )}
                                                 </SelectDropdown>
