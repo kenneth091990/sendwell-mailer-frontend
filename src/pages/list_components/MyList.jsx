@@ -48,6 +48,10 @@ const MyList = () => {
     // Initialize the checked state for each item in the list
     const [checkedItems, setCheckedItems] = useState([]);
 
+    // * Edit Form
+    const [editStatus, setEditStatus] = useState(false);
+    // * End of Edit Form
+
     const importFields = [
         {
             field: 'firstName',
@@ -772,11 +776,11 @@ const MyList = () => {
                         <label className='text-blue'>STATUS</label>
                     </div>
                     <div className="flex items-center">
-                        <input id="disabled-radio-1" type="radio" value="" name="status" className="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input id="disabled-radio-1" type="radio" value="true" name="status" className="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label for="disabled-radio-1" className="tracking-tight ms-2 text-sm font-medium text-success ">Active</label>
                     </div>
                     <div className="flex items-center">
-                        <input checked id="disabled-radio-2" type="radio" value="" name="status" className=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <input checked id="disabled-radio-2" type="radio" value="false" name="status" className=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                         <label for="disabled-radio-2" className="tracking-tight ms-2 text-sm font-medium text-danger ">Inactive</label>
                     </div>
                 </div>
