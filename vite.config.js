@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   base: "",
   // root: 'src',
-      build: {
-        outDir: '/var/www/html/staging-mailer',      
-        emptyOutDir: true,
-      },
+  build: {
+    outDir: '/var/www/html/staging-mailer',
+    emptyOutDir: true,
+  },
   server: {
     host: true,
     port: 3500
