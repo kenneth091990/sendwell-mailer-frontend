@@ -348,6 +348,13 @@ const SuppresionFiles = () => {
     };
 
     const uploadForm = () => {
+
+       setFileDetails({
+            name: "",
+            extension: "",
+            size: ""
+        });
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='mt-5'>
