@@ -10,12 +10,12 @@ services:
       image: mailer
       restart: always
       networks:
-        funnel_network:
+        sendwell_network:
       labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mailer.rule=Host(`mailer.newgenetesting.com`)"
+      - "traefik.http.routers.mailer.rule=Host(`mailer.earhealthendoscope.com`)"
       - "traefik.http.routers.mailer.entrypoints=web"
-      - "traefik.http.routers.backend.priority=21"
+      - "traefik.http.routers.backend.priority=3"
       
       # global redirect to https
       # - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
@@ -27,5 +27,5 @@ services:
     
 
 networks:
-  funnel_network:
+  sendwell_network:
     external: true
