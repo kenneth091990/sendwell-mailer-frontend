@@ -1,39 +1,43 @@
-import React, { useState, useEffect, forwardRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const TextAreaWithCounter = forwardRef((props, ref) => {
+function TextAreaWithCounter(props) {
+  const [text, setText] = useState(props?.value ?? "");
 
-    const [text, setText] = useState('');
-    const characterCount = text.length;
-   
-    const handleChange = (event) => {
-        
-        const inputValue = event.target.value;
-        ref.current.value = inputValue.slice(0, props.limit);
-        setText(ref.current.value)
-    };
+  useEffect(() => {
+    setText(props?.value ?? "");
+  }, [props?.value])
 
-    useEffect(() => {
-        setText(ref.current?  ref.current.value : '');
-    }, [ref]);
-      
-    return (
+  const handleChange = (event) => {
+    if (typeof props?.onChange === "function") {
+      props?.onChange(event);
+    }
+    const inputValue = event.target.value;
+    if (inputValue.length <= props.limit) {
+      setText(inputValue);
+    } else {
+      setText(inputValue.slice(0, props.limit));
+    }
+  };
+
+  return (
     <div>
-      
       <div>
-          <label className='text-blue'>{props.label}</label>
+        <label className='text-blue'>{props.label}</label>
       </div>
       <textarea
-        ref={ref}
+        value={text} // Control the textarea with state
         onChange={handleChange}
         rows={props.rows}
         cols={props.cols}
+        name={props.name}
+        ref={props?.ref}
         className={props.className}
       />
       <div className='text-right text-gray text-sm'>
-        {characterCount}/{props.limit} 
+        {text.length}/{props.limit}
       </div>
     </div>
   );
-});
+}
 
 export default TextAreaWithCounter;
