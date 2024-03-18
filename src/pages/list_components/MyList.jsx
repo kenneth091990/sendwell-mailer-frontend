@@ -1,4 +1,4 @@
-import React, { createRef, useRef, useState, useEffect } from 'react'
+import React, { createRef, useRef, useState, useEffect, useReducer } from 'react'
 import DataTable from '../../common/components/DataTable';
 import InputWithCounter from '../../components/InputWithCounter';
 import Modal from '../../components/Modal';
@@ -8,14 +8,12 @@ import Circle_Merge from "./../../images/nav/Circle_Merge.png"
 import CircleIcon from './../../images/nav/Circle_Caution.png'
 import Circle_Add from "./../../images/nav/Circle_Add.png"
 import Circle_Caution from "./../../images/nav/Circle_Caution.png"
-import Circle_Edit from "./../../images/nav/Circle_Edit.png"
 import Icon_DragAndDrop from "./../../images/nav/Icon_DragAndDrop.png"
 import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
 import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import DataTableV2 from '../../common/components/DataTableV2';
 import { useDispatch, useSelector } from 'react-redux';
-import { RECIPIENT_EVENT, selectRecipient } from '../../modules/recipients/recipientSlice';
 import useToast from '../../hooks/useToast';
 
 import Papa from 'papaparse';
@@ -25,8 +23,10 @@ import SliceString from '../../common/components/SliceString';
 import { csvToJson, formatFileSize } from '../../core/constants';
 import SelectDropdown from '../../components/SelectDropdown';
 import { Link } from 'react-router-dom';
-import { createFromRecipientList, getRecipientToList } from '../../modules/recipients/recipientThunks';
 import { toast } from 'react-toastify';
+import { LIST_EVENTS, selectListState } from '../../modules/lists/listSlice';
+import { createList, getLists, updateList } from '../../modules/lists/listThunk';
+import EditForm from './MyListForms/EditForm';
 
 
 const MyList = () => {
@@ -34,22 +34,36 @@ const MyList = () => {
     const [form, setForm] = useState(null);
     const formRef = useRef(null);
 
+    // * "upload" || "edit" || "imported_list" || "delete"
+    const [formType, setFormType] = useState("");
+
     const [getToast, setToast] = useToast();
     const dispatch = useDispatch();
-    const { status, event, message, data } = useSelector(selectRecipient);
+    const { status, event, message, data } = useSelector(selectListState);
     const [importFileData, setImportFileData] = useState({});
     const [fileDetails, setFileDetails] = useState({
         name: "",
         extension: "",
         size: ""
     });
-    const formListTitleRef = createRef(null);
-    const formListDescRef = createRef(null);
+    const formListTitleRef = useRef(null);
+    const formListDescRef = useRef(null);
     // Initialize the checked state for each item in the list
     const [checkedItems, setCheckedItems] = useState([]);
 
     // * Edit Form
-    const [editStatus, setEditStatus] = useState(false);
+    const [editList, setEditList] = useReducer(
+        (prev, next) => {
+            var newEvent = { ...prev, ...next };
+            return newEvent;
+        },
+        {
+            status: true,
+            name: "",
+            description: "",
+            list_id: null
+        }
+    )
     // * End of Edit Form
 
     const importFields = [
@@ -321,15 +335,15 @@ const MyList = () => {
     ];
 
     useEffect(() => {
-
         if (importFileData.length > 0) {
-            setForm(importListFileMapping())
+            setFormType("importListFileMapping")
+            setForm(ImportListFileMapping())
         }
     }, [importFileData]);
 
     useEffect(() => {
         if (status === "initial") {
-            dispatch(getRecipientToList({
+            dispatch(getLists({
                 // searchInput: "",
                 // status: "",
                 pageSize: 100,
@@ -337,7 +351,7 @@ const MyList = () => {
             }))
         }
 
-        if (event === RECIPIENT_EVENT.create_list) {
+        if (event === LIST_EVENTS.create) {
             if (status === "loading") {
                 setToast(toast.loading("Please wait loading", {
                     isLoading: true,
@@ -351,7 +365,7 @@ const MyList = () => {
                     autoClose: true,
                     type: "error"
                 })
-                dispatch(getRecipientToList({
+                dispatch(getLists({
                     // searchInput: "",
                     // status: "",
                     pageSize: 100,
@@ -368,7 +382,48 @@ const MyList = () => {
                     type: "success"
                 })
                 setShowModal(false);
-                dispatch(getRecipientToList({
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+        }
+
+        if (event === LIST_EVENTS.update) {
+            if (status === "loading") {
+                setToast(toast.loading("Please wait loading", {
+                    isLoading: true,
+                }))
+            }
+
+            if (status === "error") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "error"
+                })
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+
+            if (status === "success") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "success"
+                })
+                setShowModal(false);
+                dispatch(getLists({
                     // searchInput: "",
                     // status: "",
                     pageSize: 100,
@@ -381,7 +436,8 @@ const MyList = () => {
     }, [status, event])
 
 
-    const uploadForm = () => {
+    const UploadForm = () => {
+
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='mt-5'>
@@ -428,8 +484,12 @@ const MyList = () => {
                     <div className='mt-3'>
                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
                             e.preventDefault();
+                            setFileDetails({
+                                name: "",
+                                extension: "",
+                                size: ""
+                            })
                             setShowModal(false)
-                            
                         }}>Cancel</button>
                     </div>
                 </div>
@@ -437,7 +497,7 @@ const MyList = () => {
         )
     }
 
-    const importListFileMapping = () => {
+    const ImportListFileMapping = () => {
 
         const relatedFieldCtr = getRelatedFieldCtr(importFields);
 
@@ -510,7 +570,7 @@ const MyList = () => {
                     <div className='mt-3'>
                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
                             e.preventDefault();
-                            setShowModal(true);
+                            // setShowModal(true);
                             formView('uploadList', 'n', 0);
                         }}>Cancel</button>
                     </div>
@@ -539,7 +599,7 @@ const MyList = () => {
 
     const finalizeImport = (e) => {
         e.preventDefault();
-        setShowModal(true);
+        // setShowModal(true);
         formView('uploadList', 'n', 0);
     }
 
@@ -633,7 +693,7 @@ const MyList = () => {
         })
 
         console.log(serializeJson)
-        dispatch(createFromRecipientList({
+        dispatch(createList({
             recipientList: serializeJson,
             listTitle: formListTitleRef.current.value,
             listDescription: formListDescRef.current.value,
@@ -671,24 +731,12 @@ const MyList = () => {
     };
 
     const formView = (formName, action, id) => {
-        switch (formName) {
-            case 'mergeLists':
-                setForm(cementedSupressionForm());
-                break;
-            case 'editList':
-                setForm(editForm());
-                break;
-            case 'deleteList':
-                setForm(deleteForm());
-                break;
-            case 'uploadList':
-                setForm(uploadForm());
-                break;
-        }
+        setFormType(formName)
+
+        setShowModal(true);
 
         if (formRef.current) {
             formRef.current.reset();
-
         }
     }
 
@@ -696,9 +744,7 @@ const MyList = () => {
         return checkedItems.filter(ee => ee === true).length > 1;
     }
 
-    const cementedSupressionForm = () => {
-
-
+    const CementedSupressionForm = () => {
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
@@ -729,9 +775,7 @@ const MyList = () => {
         )
     }
 
-    const deleteForm = () => {
-
-
+    const DeleteForm = () => {
         return (
             <form ref={formRef} className='flex-inline'>
                 <div className='text-center'>
@@ -756,47 +800,6 @@ const MyList = () => {
         )
     }
 
-    const editForm = () => {
-        return (
-            <form ref={formRef} className='flex-inline'>
-                <div className='text-center'>
-                    <img src={Circle_Edit} height={70} width={70} className='mx-auto my-0' />
-                </div>
-                <div className='mt-5'>
-                    <h2 className='text-blue'>EDIT LISTS?</h2>
-                </div>
-                <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label='EDIT LIST TITLE' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
-                </div>
-                <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="EDIT LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                </div>
-
-                <div className='mt-5 text-left'>
-                    <div>
-                        <label className='text-blue'>STATUS</label>
-                    </div>
-                    <div className="flex items-center">
-                        <input id="disabled-radio-1" type="radio" value="true" name="status" className="radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label for="disabled-radio-1" className="tracking-tight ms-2 text-sm font-medium text-success ">Active</label>
-                    </div>
-                    <div className="flex items-center">
-                        <input checked id="disabled-radio-2" type="radio" value="false" name="status" className=" radio-button w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label for="disabled-radio-2" className="tracking-tight ms-2 text-sm font-medium text-danger ">Inactive</label>
-                    </div>
-                </div>
-                <div className='mt-5'>
-                    <div>
-                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Save Changes</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        )
-    }
-
 
     return (
         <div className='pb-11'>
@@ -805,7 +808,6 @@ const MyList = () => {
                     <button disabled={!checkList()} className={`btn ${!checkList() ? 'text-gray bg-gray border-none' : 'border text-blue-mailer bg-white'} px-3 py-2 rounded-md mb-3`} onClick={
                         () => {
                             if (checkList()) {
-                                setShowModal(true);
                                 formView('mergeLists', 'n', 0);
                             }
                         }
@@ -818,7 +820,6 @@ const MyList = () => {
                 <div className='text-right max-sm:hidden'>
                     <button className='btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
                         () => {
-                            setShowModal(true);
                             formView('uploadList', 'n', 0);
                         }
 
@@ -833,7 +834,7 @@ const MyList = () => {
                 var isError = false;
                 var myList = data?.lists ?? [];
 
-                if (event === RECIPIENT_EVENT.get_recipient_to_list) {
+                if (event === LIST_EVENTS.get_list) {
                     if (status === "loading") {
                         isLoading = true;
                     }
@@ -895,9 +896,9 @@ const MyList = () => {
                                 </p>
                             </div>
                         )}
-                        data={myList.map((mock, index) => {
-                            var data = { ...mock };
-                            data.mobileCellView = (
+                        data={myList.map((list, index) => {
+                            var listData = { ...list };
+                            listData.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
                                     <div className="flex flex-row justify-between">
                                         <span className="text-black/30 text-md uppercase font-semibold">
@@ -908,25 +909,25 @@ const MyList = () => {
                                         </button>
                                     </div>
                                     <span className='text-sm'>
-                                        {data?.name}
+                                        {listData?.name}
                                     </span>
                                     <span className="text-black/30 text-md uppercase font-semibold mt-3">
                                         description
                                     </span>
                                     <span className='text-sm'>
-                                        {data?.description}
+                                        {listData?.description}
                                     </span>
                                     <span className="text-black/30 text-md uppercase font-semibold mt-3">
                                         count
                                     </span>
                                     <span className='text-sm'>
-                                        {data?.count}
+                                        {listData?.count}
                                     </span>
                                     <span className="text-black/30 text-md uppercase font-semibold mt-3">
                                         status
                                     </span>
                                     <span className='text-sm mt-3'>
-                                        {data?.status === "active" ? (
+                                        {listData?.status === "active" ? (
                                             <span className='w-2/3 text-center border-none bg-success px-7 border rounded font-thin text-white py-2'>
                                                 Active
                                             </span>
@@ -939,14 +940,20 @@ const MyList = () => {
                                 </div>
                             )
 
-                            data.actions = (
+                            listData.actions = (
                                 <div className="h-full flex flex-row gap-3 justify-center items-center">
                                     <button className=''>
                                         <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                     </button>
                                     <button className='' onClick={
                                         () => {
-                                            setShowModal(true);
+                                            // setShowModal(true);
+                                            setEditList({
+                                                list_id: list?.list_id,
+                                                status: list?.status,
+                                                name: list?.name,
+                                                description: list?.description,
+                                            })
                                             formView('editList', 'n', 0);
                                         }
 
@@ -955,7 +962,7 @@ const MyList = () => {
                                     </button>
                                     <button className='' onClick={
                                         () => {
-                                            setShowModal(true);
+                                            // setShowModal(true);
                                             formView('deleteList', 'n', 0);
                                         }
 
@@ -965,10 +972,10 @@ const MyList = () => {
                                 </div>
                             )
 
-                            data.count = data?.recipient_to_list?.length ?? 0;
-                            // data.count = data?.recipient_to_list?.length ?? 0;
+                            listData.count = listData?.recipient_to_list?.length ?? 0;
+                            // listData.count = listData?.recipient_to_list?.length ?? 0;
 
-                            data.name = (
+                            listData.name = (
                                 <div className="h-full flex flex-row col-span-4 items-center">
                                     <input
                                         type="checkbox"
@@ -979,15 +986,15 @@ const MyList = () => {
                                         className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
                                     />
                                     <label htmlFor={`checkbox_${index}`} className='cursor-pointer text-xs'>
-                                        {data?.name}
+                                        {listData?.name}
                                     </label>
                                 </div>
                             )
 
 
-                            data.status = (
+                            listData.status = (
                                 <div className="h-full w-full flex items-center  text-xs justify-start">
-                                    {data?.status ? (
+                                    {listData?.status ? (
                                         <span className='w-full text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
                                             Active
                                         </span>
@@ -1000,16 +1007,50 @@ const MyList = () => {
                             )
 
 
-                            return data;
+                            return listData;
                         })}
                     />
                 )
             })()}
 
             <Modal onClose={() => {
+                if (formType === "uploadList") {
+                    setFileDetails({
+                        name: "",
+                        extension: "",
+                        size: ""
+                    })
+                }
                 setShowModal(false);
+
             }} showModal={showModal}>
-                {form}
+                {/* {form} */}
+                {(() => {
+                    switch (formType) {
+                        case 'mergeLists':
+                            return (
+                                <CementedSupressionForm />
+                            )
+                        case 'editList':
+                            return (
+                                <EditForm editList={editList} setEditList={setEditList} setShowModal={setShowModal} />
+                            )
+                        case 'deleteList':
+                            return (
+                                <DeleteForm />
+                            )
+                        case 'uploadList':
+                            return (
+                                <UploadForm />
+                            )
+                            break;
+                        case 'importListFileMapping':
+                            return (
+                                <ImportListFileMapping />
+                            )
+                            break;
+                    }
+                })()}
             </Modal>
         </div>
     )
