@@ -31,6 +31,7 @@ function InputWithCounter(props) {
         <input
           // value={text} // Control the input with state
           ref={props?.ref}
+          required={props?.required ?? false}
           onChange={handleChange}
           type="text"
           value={props?.value}

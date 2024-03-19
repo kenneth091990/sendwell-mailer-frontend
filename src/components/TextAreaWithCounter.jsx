@@ -28,6 +28,7 @@ function TextAreaWithCounter(props) {
         value={text} // Control the textarea with state
         onChange={handleChange}
         rows={props.rows}
+        required={props.required ?? false}
         cols={props.cols}
         name={props.name}
         ref={props?.ref}
