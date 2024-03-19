@@ -621,8 +621,7 @@ const MyList = () => {
         }))
     };
 
-
-    const ImportListFileMapping = () => {
+     const ImportListFileMapping = () => {
 
         const relatedFieldCtr = getRelatedFieldCtr(importFields);
 
