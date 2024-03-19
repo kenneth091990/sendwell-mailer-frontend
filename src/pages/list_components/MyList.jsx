@@ -1,14 +1,10 @@
 import React, { createRef, useRef, useState, useEffect, useReducer } from 'react'
-import DataTable from '../../common/components/DataTable';
 import InputWithCounter from '../../components/InputWithCounter';
 import Modal from '../../components/Modal';
 import TextAreaWithCounter from '../../components/TextAreaWithCounter';
 import BurgerMenu from './../../images/nav/Mobile hamburger.png';
 import Circle_Merge from "./../../images/nav/Circle_Merge.png"
 import CircleIcon from './../../images/nav/Circle_Caution.png'
-import Circle_Add from "./../../images/nav/Circle_Add.png"
-import Circle_Caution from "./../../images/nav/Circle_Caution.png"
-import Icon_DragAndDrop from "./../../images/nav/Icon_DragAndDrop.png"
 import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
 import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
 import Icon_Trash from "./../../images/nav/Icon_Trash-removebg-preview.png"
@@ -20,18 +16,19 @@ import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import * as XLSX from 'xlsx';
 import SliceString from '../../common/components/SliceString';
-import { csvToJson, formatFileSize } from '../../core/constants';
 import SelectDropdown from '../../components/SelectDropdown';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { LIST_EVENTS, selectListState } from '../../modules/lists/listSlice';
-import { createList, getLists, updateList } from '../../modules/lists/listThunk';
+import { downloadList, getLists } from '../../modules/lists/listThunk';
 import EditForm from './MyListForms/EditForm';
+import DeleteForm from './MyListForms/DeleteForm';
+import { format } from 'date-fns';
+import UploadForm from './MyListForms/UploadForm';
+import MergeListForm from './MyListForms/MergeListForm';
 
 
 const MyList = () => {
     const [showModal, setShowModal] = useState(false);
-    const [form, setForm] = useState(null);
     const formRef = useRef(null);
 
     // * "upload" || "edit" || "imported_list" || "delete"
@@ -337,7 +334,6 @@ const MyList = () => {
     useEffect(() => {
         if (importFileData.length > 0) {
             setFormType("importListFileMapping")
-            setForm(ImportListFileMapping())
         }
     }, [importFileData]);
 
@@ -433,71 +429,199 @@ const MyList = () => {
             }
         }
 
+        if (event === LIST_EVENTS.delete) {
+            if (status === "loading") {
+                setToast(toast.loading("Please wait loading", {
+                    isLoading: true,
+                }))
+            }
+
+            if (status === "error") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "error"
+                })
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+
+            if (status === "success") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "success"
+                })
+                setShowModal(false);
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+        }
+
+        if (event === LIST_EVENTS.merge) {
+            if (status === "loading") {
+                setToast(toast.loading("Please wait loading", {
+                    isLoading: true,
+                }))
+            }
+
+            if (status === "error") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "error"
+                })
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+
+            if (status === "success") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "success"
+                })
+                setShowModal(false);
+                setCheckedItems([])
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+        }
+
+        if (event === LIST_EVENTS.download) {
+            if (status === "loading") {
+                setToast(toast.loading("Please wait downloading and generating CSV File", {
+                    isLoading: true,
+                }))
+            }
+
+            if (status === "error") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "error"
+                })
+                dispatch(getLists({
+                    // searchInput: "",
+                    // status: "",
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+
+            if (status === "success") {
+                toast.update(getToast, {
+                    isLoading: false,
+                    render: message,
+                    autoClose: true,
+                    type: "success"
+                })
+                setShowModal(false);
+                handleDownloadCSV(data)
+            }
+        }
+
     }, [status, event])
 
+    // * Download CSV 
+    const handleDownloadCSV = ({ name, recipient_to_list: recipientToList }) => {
+        var jsonData = (recipientToList ?? []).map(lst => lst?.recipient ?? null).filter(ii => ii);
+        jsonData = jsonData.map(dat => {
+            var newData = { ...dat };
+            delete newData['__typename'];
+            newData['email'] = `${newData?.email_local_part}@${newData?.domain?.domain_name}`
+            delete newData['email_local_part'];
+            delete newData['domain'];
 
-    const UploadForm = () => {
+            return {
+                first_name: newData?.first_name,
+                last_name: newData?.last_name,
+                email: newData?.email,
+                street_1: newData?.street_1,
+                street_2: newData?.street_2,
+                city: newData?.city,
+                state: newData?.state,
+                zip: newData?.zip,
+                phone: newData?.phone,
+                gender: newData?.gender,
+                country: newData?.country,
+                military_service: newData?.military_service,
+                site_name: newData?.site_name,
+                credit_rating: newData?.credit_rating,
+                sub_vertical_name: newData?.sub_vertical_name,
+                loan_purpose: newData?.loan_purpose,
+                mortgage_loan_purpose: newData?.mortgage_loan_purpose,
+                total_loan_amount: newData?.total_loan_amount,
+                vehicle_make: newData?.vehicle_make,
+                vehicle_model: newData?.vehicle_model,
+                own_or_rent: newData?.own_or_rent,
+                ip_address: newData?.ip_address,
+                birthday: newData?.birthday,
+                age: newData?.age,
+                electric_company: newData?.electric_company,
+                vehicle_year: newData?.vehicle_year,
+            };
+        })
 
-        return (
-            <form ref={formRef} className='flex-inline'>
-                <div className='mt-5'>
-                    <h2 className='text-blue'>UPLOAD NEW LIST</h2>
-                </div>
-                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
-                    <div>
-                        <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
-                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
-                        <div className=' tracking-tight text-gray'>or </div>
-                        <div className=' tracking-tight text-gray mt-3'>
-                            <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue cursor-pointer'>  Select a file
-                                <input name="" type="file" id="importList" hidden onChange={handleFile} accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                {fileDetails?.name ? <div className='mt-5 text-left'>
-                    <div>
-                        <label className='text-blue'>SELECTED FILE</label>
-                    </div>
-                    <div className="grid grid-cols-12  gap-4">
-                        <div className='col-span-2 tracking-tight'>
-                            {fileDetails?.extension.toLocaleUpperCase()}
-                        </div>
-                        <div className='col-span-6 tracking-tight'>
-                            {fileDetails?.name}
-                        </div>
-                        <div className='col-span-4 tracking-tight'>
-                            {formatFileSize(fileDetails?.size ?? 0)}
-                        </div>
-                    </div>
-                </div> : ""}
-                <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
-                </div>
-                <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                </div>
-                <div className='mt-5'>
-                    <div>
-                        <button type='button' onClick={uploadList} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
-                            e.preventDefault();
-                            setFileDetails({
-                                name: "",
-                                extension: "",
-                                size: ""
-                            })
-                            setShowModal(false)
-                        }}>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        )
-    }
+        console.log({ name, jsonData })
+        // Convert JSON to workbook
+        const worksheet = XLSX.utils.json_to_sheet(jsonData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
 
-    const ImportListFileMapping = () => {
+        // Generate CSV file
+        const csvOutput = XLSX.write(workbook, { bookType: 'csv', type: 'string' });
+
+        // Generate a filename with current date-time
+        const dateTime = format(Date.now(), "MM-dd-yyyy_HH-mm");
+        const fileName = `export_${name}_${dateTime}.csv`;
+
+        // Create a Blob with the CSV data and include the BOM for UTF-8
+        const blob = new Blob([csvOutput], { type: 'text/csv;charset=utf-8;' });
+
+        // Create a link to download the blob
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        dispatch(getLists({
+            // searchInput: "",
+            // status: "",
+            pageSize: 100,
+            page: 1,
+            fetchPolicy: "network-only"
+        }))
+    };
+
+     const ImportListFileMapping = () => {
 
         const relatedFieldCtr = getRelatedFieldCtr(importFields);
 
@@ -660,74 +784,17 @@ const MyList = () => {
     };
 
 
-    const uploadList = () => {
-        console.log(formListTitleRef.current.value, "formListTitleRef.current.value")
-        console.log(formListDescRef.current.value, Object.keys(importFileData).length, "formListDescRef.current.value")
-
-
-        if (!Object.keys(importFileData).length) {
-            toast.warning("CSV/XLXS file is required");
-            return;
-        }
-
-        if (!formListTitleRef.current.value.trim()) {
-            toast.warning("Title is required");
-            return;
-        }
-
-        console.log({
-            recipientList: csvToJson(importFileData),
-            listTitle: formListTitleRef.current.value,
-            listDescription: formListDescRef.current.value,
-        })
-        var serializeJson = csvToJson(importFileData).map(csvJson => {
-            var newObj = { ...csvJson };
-
-            newObj['age'] = Number(newObj['age']);
-            newObj['total_loan_amount'] = Number(newObj['total_loan_amount']);
-            newObj['email_local_part'] = newObj['email'];
-
-            delete newObj['email'];
-
-            return newObj;
-        })
-
-        console.log(serializeJson)
-        dispatch(createList({
-            recipientList: serializeJson,
-            listTitle: formListTitleRef.current.value,
-            listDescription: formListDescRef.current.value,
-            // status: false,
-        }))
-    }
-
-    const handleFile = (event) => {
-        const uploadedFile = event.target.files[0];
-        const allowedExtensions = ['csv', 'xls', 'xlsx'];
-
-        if (uploadedFile) {
-            const extension = uploadedFile.name.split('.').pop().toLowerCase();
-            if (!allowedExtensions.includes(extension)) {
-                toast.error(`Please upload a CSV or XLS/XLSX file.`);
-            } else {
-
-                const currentForm = formRef.current;
-                const fileInput = currentForm.querySelector('#importList');
-                const file = fileInput.files[0];
-
-                handleFileUpload(file, extension);
-
-            }
-        }
-    };
-
-
     // Handle checkbox change
-    const handleCheckboxChange = (index) => {
-        // Update the checked state based on the toggled checkbox
-        const updatedCheckedItems = [...checkedItems];
-        updatedCheckedItems[index] = !updatedCheckedItems[index];
-        setCheckedItems(updatedCheckedItems);
+    const handleCheckboxChange = (id) => {
+        setCheckedItems(prev => {
+            if (prev.includes(id)) {
+                // If already selected, remove it
+                return prev.filter(item => item !== id);
+            } else {
+                // Otherwise, add it to the selection
+                return [...prev, id];
+            }
+        });
     };
 
     const formView = (formName, action, id) => {
@@ -741,65 +808,8 @@ const MyList = () => {
     }
 
     const checkList = () => {
-        return checkedItems.filter(ee => ee === true).length > 1;
+        return checkedItems.length > 1;
     }
-
-    const CementedSupressionForm = () => {
-        return (
-            <form ref={formRef} className='flex-inline'>
-                <div className='text-center'>
-                    <img src={Circle_Merge} height={70} width={70} className='mx-auto my-0' />
-                </div>
-                <div className='mt-3'>
-                    <h2 className='text-blue'>MERGE LISTS?</h2>
-                    <div className='mt-5'>
-                        <p className='text-sm'>The selected lists will be merged into one new list.</p>
-                        <p className='text-sm'>Please provide a new title and description for the merged list</p>
-                    </div>
-                </div>
-                <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label='MERGED LIST TITLE' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
-                </div>
-                <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="MERGED LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                </div>
-                <div className='mt-5 '>
-                    <div>
-                        <button className='btn  bg-blue p-2 border rounded-md text-white py-2 px-4'>Create Merged List</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button className='btn  bg-transparent  text-blue' onClick={() => setShowModal(false)}>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        )
-    }
-
-    const DeleteForm = () => {
-        return (
-            <form ref={formRef} className='flex-inline'>
-                <div className='text-center'>
-                    <img src={Circle_Caution} height={70} width={70} className='mx-auto my-0' />
-                </div>
-                <div className='mt-5'>
-                    <h2 className='text-blue'>DELETE LISTS?</h2>
-                    <div className='mt-5'>
-                        <p className='text-sm'>Are you sure you want to delete list “Solar A1”? This cannot</p>
-                        <p className='text-sm'>be undone and you will not be able to recover your list.</p>
-                    </div>
-                </div>
-                <div className='mt-5 '>
-                    <div>
-                        <button className='btn bg-blue p-2 border rounded-md text-white py-2 px-10'>Delete</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button className='btn bg-transparent text-blue px-10' onClick={() => setShowModal(false)}>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        )
-    }
-
 
     return (
         <div className='pb-11'>
@@ -942,10 +952,10 @@ const MyList = () => {
 
                             listData.actions = (
                                 <div className="h-full flex flex-row gap-3 justify-center items-center">
-                                    <button className=''>
+                                    <button onClick={() => dispatch(downloadList({ list_id: list?.list_id }))}>
                                         <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                     </button>
-                                    <button className='' onClick={
+                                    <button onClick={
                                         () => {
                                             // setShowModal(true);
                                             setEditList({
@@ -960,9 +970,15 @@ const MyList = () => {
                                     }>
                                         <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
                                     </button>
-                                    <button className='' onClick={
+                                    <button onClick={
                                         () => {
                                             // setShowModal(true);
+                                            setEditList({
+                                                list_id: list?.list_id,
+                                                status: list?.status,
+                                                name: list?.name,
+                                                description: list?.description,
+                                            })
                                             formView('deleteList', 'n', 0);
                                         }
 
@@ -981,8 +997,8 @@ const MyList = () => {
                                         type="checkbox"
                                         id={`checkbox_${index}`}
                                         name={`checkbox_${index}`}
-                                        checked={checkedItems[index]}
-                                        onChange={() => handleCheckboxChange(index)}
+                                        checked={checkedItems.includes(list?.list_id)}
+                                        onChange={() => handleCheckboxChange(list?.list_id)}
                                         className='mx-2 mr-4 accent-pink-500 checkbox  cursor-pointer'
                                     />
                                     <label htmlFor={`checkbox_${index}`} className='cursor-pointer text-xs'>
@@ -1029,7 +1045,7 @@ const MyList = () => {
                     switch (formType) {
                         case 'mergeLists':
                             return (
-                                <CementedSupressionForm />
+                                <MergeListForm checkedItems={checkedItems} showModal={showModal} />
                             )
                         case 'editList':
                             return (
@@ -1037,11 +1053,12 @@ const MyList = () => {
                             )
                         case 'deleteList':
                             return (
-                                <DeleteForm />
+                                <DeleteForm editList={editList}
+                                    setShowModal={setShowModal} />
                             )
                         case 'uploadList':
                             return (
-                                <UploadForm />
+                                <UploadForm importFileData={importFileData} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
                             )
                             break;
                         case 'importListFileMapping':

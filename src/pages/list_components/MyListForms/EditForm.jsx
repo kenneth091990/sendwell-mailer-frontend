@@ -83,7 +83,7 @@ const EditForm = ({ editList, setEditList, setShowModal }) => {
                     <button type='submit' className='btn bg-blue p-2 border rounded-md text-white py-2 px-6'>Save Changes</button>
                 </div>
                 <div className='mt-3'>
-                    <button className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
+                    <button type="button" className='btn bg-transparent text-blue px-6' onClick={() => setShowModal(false)}>Cancel</button>
                 </div>
             </div>
         </form>

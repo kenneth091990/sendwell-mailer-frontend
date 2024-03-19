@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { graphqlMutationThunk, graphqlQueryThunk } from "../../core/constants";
 import client from "../../core/client";
-import { CREATE_LIST, DELETE_LIST, GET_LISTS, UPDATE_LIST } from "../../graphql/list.schema";
+import { CREATE_LIST, DELETE_LIST, DOWNLOAD_LIST, GET_LISTS, MERGE_LIST, UPDATE_LIST } from "../../graphql/list.schema";
 
 export const createList = createAsyncThunk(
     'lists/create_list',
@@ -45,5 +45,27 @@ export const getLists = createAsyncThunk(
         'getLists',
         'getting lists data',
         payload?.fetchPolicy ?? "cache-first"
+    )
+)
+
+export const downloadList = createAsyncThunk(
+    'lists/download_list',
+    async (payload) => graphqlMutationThunk(
+        client,
+        DOWNLOAD_LIST,
+        payload,
+        'downloadList',
+        'downloading list'
+    )
+)
+
+export const mergeList = createAsyncThunk(
+    'lists/merge_list',
+    async (payload) => graphqlMutationThunk(
+        client,
+        MERGE_LIST,
+        payload,
+        'mergeList',
+        'merging new list'
     )
 )

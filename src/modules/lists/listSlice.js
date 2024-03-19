@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createList, deleteList, getLists, updateList } from "./listThunk";
+import { createList, deleteList, downloadList, getLists, mergeList, updateList } from "./listThunk";
 
 
 
@@ -107,7 +107,43 @@ const listSlice = createSlice({
             state.message = error?.message ?? "Something went wrong. Please try again";
         })
 
-        // TODO :: Merge List Mutation Here
+        builders.addCase(downloadList.pending, (state) => {
+            state.event = LIST_EVENTS.download
+            state.status = "loading";
+        }).addCase(downloadList.fulfilled, (state, { payload }) => {
+            state.event = LIST_EVENTS.download
+            if (payload?.message) {
+                state.status = "error";
+                state.message = payload?.message;
+            } else {
+                state.status = "success";
+                state.message = "Success exporting csv report file";
+                state.data = payload;
+            }
+        }).addCase(downloadList.rejected, (state, { error }) => {
+            state.event = LIST_EVENTS.download
+            state.status = "error";
+            state.message = error?.message ?? "Something went wrong. Please try again";
+        })
+
+        builders.addCase(mergeList.pending, (state) => {
+            state.event = LIST_EVENTS.merge
+            state.status = "loading";
+        }).addCase(mergeList.fulfilled, (state, { payload }) => {
+            state.event = LIST_EVENTS.merge
+            if (payload?.message) {
+                state.status = "error";
+                state.message = payload?.message;
+            } else {
+                state.status = "success";
+                state.message = "Success merging new List";
+                state.data = payload;
+            }
+        }).addCase(mergeList.rejected, (state, { error }) => {
+            state.event = LIST_EVENTS.merge
+            state.status = "error";
+            state.message = error?.message ?? "Something went wrong. Please try again";
+        })
     }
 })
 
