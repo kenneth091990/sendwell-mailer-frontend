@@ -99,13 +99,13 @@ const UploadForm = ({
             <div className='mt-5'>
                 <h2 className='text-blue'>UPLOAD NEW LIST</h2>
             </div>
-            <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7' style={{ cursor: 'pointer' }}>
+            <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
                 <div>
                     <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
                     <div className=' tracking-tight text-gray'>Drag file here to upload </div>
                     <div className=' tracking-tight text-gray'>or </div>
                     <div className=' tracking-tight text-gray mt-3'>
-                        <label style={{ cursor: 'pointer' }} htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
+                        <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue cursor-pointer'>  Select a file
                             <input name="" type="file" id="importList" hidden onChange={handleFile} accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                         </label>
                     </div>
