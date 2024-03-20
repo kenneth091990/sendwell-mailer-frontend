@@ -25,6 +25,8 @@ import DeleteForm from './MyListForms/DeleteForm';
 import { format } from 'date-fns';
 import UploadForm from './MyListForms/UploadForm';
 import MergeListForm from './MyListForms/MergeListForm';
+import { csvToJson } from '../../core/constants';
+import serialize from 'form-serialize';
 
 
 const MyList = () => {
@@ -38,6 +40,7 @@ const MyList = () => {
     const dispatch = useDispatch();
     const { status, event, message, data } = useSelector(selectListState);
     const [importFileData, setImportFileData] = useState({});
+    const [parseJson, setParseJson] = useState([]);
     const [fileDetails, setFileDetails] = useState({
         name: "",
         extension: "",
@@ -65,7 +68,7 @@ const MyList = () => {
 
     const importFields = [
         {
-            field: 'firstName',
+            field: 'first_name',
             label: "FIRST NAME",
             stringRelated: [
                 'first name',
@@ -76,7 +79,7 @@ const MyList = () => {
 
         },
         {
-            field: 'lastName',
+            field: 'last_name',
             label: "LAST NAME",
             stringRelated: [
                 'last name',
@@ -86,30 +89,35 @@ const MyList = () => {
 
         },
         {
-            field: 'emailAddress',
+            field: 'email',
             label: "EMAIL ADDRESS",
             stringRelated: [
                 'email address',
+                'emailAddress',
                 'email',
                 'email_address'
             ]
 
         },
         {
-            field: 'streetAddress 1',
+            field: 'street_1',
             label: "STREET ADDRESS 1",
             stringRelated: [
                 'street address 1',
                 'street 1',
+                'street_1',
+                'streetAddress 1',
                 'street_address_1'
             ]
 
         },
         {
-            field: 'streetAddress 2',
+            field: 'street_2',
             label: "STREET ADDRESS 2",
             stringRelated: [
                 'street address 2',
+                'streetAddress 2',
+                'street_2',
                 'street 2',
                 'street_address_2'
             ]
@@ -242,13 +250,22 @@ const MyList = () => {
             ]
         },
         {
-            field: 'total_loan_amount',
-            label: "TOTAL LOAN AMOUNT",
+            field: 'opt_in_date',
+            label: "OPT IN DATE",
             stringRelated: [
-                'total_loan_amount',
-                'totalLoanAmount',
-                'Total loan amount',
-                'TOTAL LOAN AMOUNT',
+                'opt_in_date',
+                'optInDate',
+                'Opt in date',
+                'OPT IN DATE',
+            ]
+        },
+        {
+            field: 'vertical',
+            label: "VERTICAL",
+            stringRelated: [
+                'vertical',
+                'Vertical',
+                'VERTICAL',
             ]
         },
         {
@@ -621,7 +638,7 @@ const MyList = () => {
         }))
     };
 
-     const ImportListFileMapping = () => {
+    const ImportListFileMapping = () => {
 
         const relatedFieldCtr = getRelatedFieldCtr(importFields);
 
@@ -641,19 +658,17 @@ const MyList = () => {
                         <table className=" w-[100%]" >
                             <thead>
                                 <tr>
-                                    {
-                                        importFileData[0].map((object, i) =>
-                                            <th key={i} className="border border-slate-300 border-line-gray text-sm font-medium">
-                                                <SelectDropdown className={'p-2'}>
-                                                    {Object.keys(importFields).map((k, ii) => {
-
-                                                        return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : (i === ii ? true : false)}>{importFields[k].label}</option>)
-                                                    }
-                                                    )}
-                                                </SelectDropdown>
-                                            </th>
-                                        )
-                                    }
+                                    {importFileData[0].map((object, i) =>
+                                        <th key={i} className="border border-slate-300 border-line-gray text-sm font-medium">
+                                            <SelectDropdown name={object} className={'p-2'}>
+                                                <option value="">Don't Include</option>
+                                                {Object.keys(importFields).map((k, ii) => {
+                                                    return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : false}>{importFields[k].label}</option>)
+                                                }
+                                                )}
+                                            </SelectDropdown>
+                                        </th>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody>
@@ -714,16 +729,32 @@ const MyList = () => {
                     ctr += 1;
                 }
             })
-        }
-        )
+        })
 
 
         return ctr;
     }
 
     const finalizeImport = (e) => {
-        e.preventDefault();
         // setShowModal(true);
+        e.preventDefault();
+
+        var headerList = serialize(formRef.current, { hash: true, empty: true });
+        headerList = Object.keys(headerList).map(ii => headerList[ii]);
+        var importingNewList = [...importFileData];
+        importingNewList[0] = headerList;
+        console.log({
+            importFileData: csvToJson(importingNewList).map(ii => {
+                delete ii[""];
+                return ii;
+            }),
+            headerList
+        })
+
+        setParseJson(csvToJson(importingNewList).map(ii => {
+            delete ii[""];
+            return ii;
+        }))
         formView('uploadList', 'n', 0);
     }
 
@@ -1058,7 +1089,7 @@ const MyList = () => {
                             )
                         case 'uploadList':
                             return (
-                                <UploadForm importFileData={importFileData} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
+                                <UploadForm importFileData={parseJson} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
                             )
                             break;
                         case 'importListFileMapping':

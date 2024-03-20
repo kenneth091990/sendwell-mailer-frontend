@@ -513,10 +513,33 @@ const SuppresionFiles = () => {
         return ctr;
     }
 
-    const finalizeImport = (e) => {
+    const  finalizeImport = (e) => {
+
+
+
         e.preventDefault();
-        setShowModal(true);
-        formView('uploadList', 'n', 0);
+        const importData = [];
+            importFileData.slice(1).map((ifd, i) => {
+                formData[i] = {};
+                Object.keys(formRef.current).map((kc,i3) => {
+
+                    {
+                        ifd.map((ifdc, ii) => {
+                            if(formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT'){
+
+                                const trt = formRef.current[i3].value;
+                                if(formData[i]){
+                                    formData[i][trt] = ifdc;
+                                }
+                            }
+
+
+
+                        })
+                    }
+
+            })
+        });
     }
 
     const handleFileUpload = async (file, extension) => {

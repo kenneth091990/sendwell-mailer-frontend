@@ -58,7 +58,7 @@ const UploadForm = ({
     const uploadList = (e) => {
         e.preventDefault();
 
-        if (!Object.keys(importFileData).length) {
+        if (!importFileData.length) {
             toast.warning("CSV/XLXS file is required");
             return;
         }
@@ -69,11 +69,11 @@ const UploadForm = ({
         }
 
         console.log({
-            recipientList: csvToJson(importFileData),
+            recipientList: importFileData,
             listTitle: body?.name,
             listDescription: body?.description,
         })
-        var serializeJson = csvToJson(importFileData).map(csvJson => {
+        var serializeJson = importFileData.map(csvJson => {
             var newObj = { ...csvJson };
 
             newObj['age'] = Number(newObj['age']);
