@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SelectDropdown = ({ label, children, containerClassName, labelClassName, value, defaultValue, onChange, className }) => {
+const SelectDropdown = ({ label, children, containerClassName, labelClassName, name, value, defaultValue, onChange, className }) => {
 
     return (
         <div className={containerClassName}>
@@ -10,7 +10,7 @@ const SelectDropdown = ({ label, children, containerClassName, labelClassName, v
                 </label>
             )}
             <div className="relative z-20 bg-white dark:bg-form-input w-maxContent">
-                <select value={value} defaultValue={defaultValue} onChange={onChange} className={`relative z-20 w-full text-blue  ${className ?? ' appearance-none rounded border border-strokedark/50 bg-transparent pr-10 pl-4 py-2 outline-none transition text-sm focus:border-primary active:border-primary'}`}>
+                <select value={value} defaultValue={defaultValue} name={name} onChange={onChange} className={`relative z-20 w-full text-blue  ${className ?? ' appearance-none rounded border border-strokedark/50 bg-transparent pr-10 pl-4 py-2 outline-none transition text-sm focus:border-primary active:border-primary'}`}>
                     {children}
                 </select>
                 <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">
