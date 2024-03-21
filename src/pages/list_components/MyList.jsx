@@ -710,6 +710,11 @@ const MyList = () => {
                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
                             e.preventDefault();
                             // setShowModal(true);
+                            setFileDetails({
+                                name: "",
+                                extension: "",
+                                size: ""
+                            })
                             formView('uploadList', 'n', 0);
                         }}>Cancel</button>
                     </div>
@@ -758,6 +763,22 @@ const MyList = () => {
         formView('uploadList', 'n', 0);
     }
 
+    const readTXTFile = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                resolve(event.target.result);
+            };
+
+            reader.onerror = (error) => {
+                reject(error);
+            };
+
+            reader.readAsText(file);
+        });
+    };
+
     const handleFileUpload = async (file, extension) => {
 
         let parseResult = null;
@@ -766,20 +787,46 @@ const MyList = () => {
             if (extension == 'xlsx') {
                 const xlsToCsv = await convertToCsv(file);
                 parseResult = await parseCSV(xlsToCsv);
+                setTimeout(() => {
+                    setFileDetails({
+                        extension,
+                        name: file?.name,
+                        size: file?.size
+                    })
+                    setImportFileData(parseResult);
+                }, 1000);
 
+            } else if (extension == 'txt') {
+
+                const fileContent = await readTXTFile(file);
+                const regex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+                var emails = fileContent.match(regex);
+                console.log(emails);
+
+                setTimeout(() => {
+                    console.log("Nagset ng bagong file")
+                    setFileDetails({
+                        extension,
+                        name: file?.name,
+                        size: file?.size
+                    })
+                    setParseJson(emails.map(email => ({
+                        email
+                    })));
+                }, 1000);
 
             } else {
                 parseResult = await parseCSV(file);
 
+                setTimeout(() => {
+                    setFileDetails({
+                        extension,
+                        name: file?.name,
+                        size: file?.size
+                    })
+                    setImportFileData(parseResult);
+                }, 1000);
             }
-            setTimeout(() => {
-                setFileDetails({
-                    extension,
-                    name: file?.name,
-                    size: file?.size
-                })
-                setImportFileData(parseResult);
-            }, 1000);
 
         } catch (error) {
             console.error('Error parsing CSV:', error);
@@ -1067,6 +1114,9 @@ const MyList = () => {
                         extension: "",
                         size: ""
                     })
+                    setParseJson([])
+                    setImportFileData({})
+                    formRef.current.reset();
                 }
                 setShowModal(false);
 
@@ -1089,7 +1139,7 @@ const MyList = () => {
                             )
                         case 'uploadList':
                             return (
-                                <UploadForm importFileData={parseJson} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
+                                <UploadForm formRef={formRef} importFileData={parseJson} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
                             )
                             break;
                         case 'importListFileMapping':

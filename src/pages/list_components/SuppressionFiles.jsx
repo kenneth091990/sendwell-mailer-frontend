@@ -336,7 +336,7 @@ const SuppresionFiles = () => {
         if (uploadedFile) {
             const extension = uploadedFile.name.split('.').pop().toLowerCase();
             if (!allowedExtensions.includes(extension)) {
-                toast.error(`Please upload a CSV or XLS/XLSX file.`);
+                toast.error(`Please upload a TXT, CSV or XLS/XLSX file.`);
             } else {
 
                 const currentForm = formRef.current;
@@ -370,68 +370,68 @@ const SuppresionFiles = () => {
     const uploadTXT = () => {
 
         setFileDetails({
-             name: "",
-             extension: "",
-             size: ""
-         });
- 
-         return (
-             <form ref={formRef} className='flex-inline'>
-                 <div className='mt-5'>
-                     <h2 className='text-blue'>UPLOAD TXT LIST</h2>
-                 </div>
-                 <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7' style={{ cursor: 'pointer' }}>
-                     <div>
-                         <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
-                         <div className=' tracking-tight text-gray'>Drag file here to upload </div>
-                         <div className=' tracking-tight text-gray'>or </div>
-                         <div className=' tracking-tight text-gray mt-3'>
-                             <label style={{ cursor: 'pointer' }} htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
-                                 <input name="" type="file" id="importList" hidden onChange={handleTXTFile} accept=".txt" />
-                             </label>
-                         </div>
-                     </div>
-                 </div>
-                 {fileDetails?.name ? <div className='mt-5 text-left'>
-                     <div>
-                         <label className='text-blue'>SELECTED FILE</label>
-                     </div>
-                     <div className="grid grid-cols-12  gap-4">
-                         <div className='col-span-2 tracking-tight'>
-                             {fileDetails?.extension.toLocaleUpperCase()}
-                         </div>
-                         <div className='col-span-6 tracking-tight'>
-                             {fileDetails?.name}
-                         </div>
-                         <div className='col-span-4 tracking-tight'>
-                             {formatFileSize(fileDetails?.size ?? 0)}
-                         </div>
-                     </div>
-                 </div> : ""}
-                 <div className='mt-5 text-left'>
-                     <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
-                 </div>
-                 <div className='mt-5 text-left'>
-                     <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                 </div>
-                 <div className='mt-5'>
-                     <div>
-                         <button type='button' onClick={uploadTXT} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
-                     </div>
-                     <div className='mt-3'>
-                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
-                             e.preventDefault();
-                             setShowModal(false)
-                         }}>Cancel</button>
-                     </div>
-                 </div>
-             </form>
-         )
-     }
+            name: "",
+            extension: "",
+            size: ""
+        });
+
+        return (
+            <form ref={formRef} className='flex-inline'>
+                <div className='mt-5'>
+                    <h2 className='text-blue'>UPLOAD TXT LIST</h2>
+                </div>
+                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7' style={{ cursor: 'pointer' }}>
+                    <div>
+                        <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
+                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
+                        <div className=' tracking-tight text-gray'>or </div>
+                        <div className=' tracking-tight text-gray mt-3'>
+                            <label style={{ cursor: 'pointer' }} htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
+                                <input name="" type="file" id="importList" hidden onChange={handleTXTFile} accept=".txt" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {fileDetails?.name ? <div className='mt-5 text-left'>
+                    <div>
+                        <label className='text-blue'>SELECTED FILE</label>
+                    </div>
+                    <div className="grid grid-cols-12  gap-4">
+                        <div className='col-span-2 tracking-tight'>
+                            {fileDetails?.extension.toLocaleUpperCase()}
+                        </div>
+                        <div className='col-span-6 tracking-tight'>
+                            {fileDetails?.name}
+                        </div>
+                        <div className='col-span-4 tracking-tight'>
+                            {formatFileSize(fileDetails?.size ?? 0)}
+                        </div>
+                    </div>
+                </div> : ""}
+                <div className='mt-5 text-left'>
+                    <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                </div>
+                <div className='mt-5 text-left'>
+                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                </div>
+                <div className='mt-5'>
+                    <div>
+                        <button type='button' onClick={uploadTXT} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
+                    </div>
+                    <div className='mt-3'>
+                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
+                            e.preventDefault();
+                            setShowModal(false)
+                        }}>Cancel</button>
+                    </div>
+                </div>
+            </form>
+        )
+    }
 
     const uploadForm = () => {
 
-       setFileDetails({
+        setFileDetails({
             name: "",
             extension: "",
             size: ""
@@ -449,7 +449,7 @@ const SuppresionFiles = () => {
                         <div className=' tracking-tight text-gray'>or </div>
                         <div className=' tracking-tight text-gray mt-3'>
                             <label style={{ cursor: 'pointer' }} htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
-                                <input name="" type="file" id="importList" hidden onChange={handleCSVFile} accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                                <input name="" type="file" id="importList" hidden onChange={handleCSVFile} accept=".csv, .txt, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                             </label>
                         </div>
                     </div>
@@ -595,38 +595,38 @@ const SuppresionFiles = () => {
         return ctr;
     }
 
-    const  finalizeImport = (e) => {
+    const finalizeImport = (e) => {
 
 
 
         e.preventDefault();
         const importData = [];
-            importFileData.slice(1).map((ifd, i) => {
-                formData[i] = {};
-                Object.keys(formRef.current).map((kc,i3) => {
+        importFileData.slice(1).map((ifd, i) => {
+            formData[i] = {};
+            Object.keys(formRef.current).map((kc, i3) => {
 
-                    {
-                        ifd.map((ifdc, ii) => {
-                            if(formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT'){
+                {
+                    ifd.map((ifdc, ii) => {
+                        if (formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT') {
 
-                                const trt = formRef.current[i3].value;
-                                if(formData[i]){
-                                    formData[i][trt] = ifdc;
-                                }
+                            const trt = formRef.current[i3].value;
+                            if (formData[i]) {
+                                formData[i][trt] = ifdc;
                             }
+                        }
 
 
 
-                        })
-                    }
+                    })
+                }
 
             })
         });
     }
 
     const handleFileUpload = async (file, extension) => {
-        
-        
+
+
         let parseResult = null;
         setFileDetails({
             extension,
@@ -639,9 +639,9 @@ const SuppresionFiles = () => {
                 const xlsToCsv = await convertToCsv(file);
                 parseResult = await parseCSV(xlsToCsv);
                 setImportFileData(parseResult);
-            }  
+            }
             if (extension == 'txt') {
-                
+
                 const fileContent = await readTXTFile(file);
                 const regex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
                 const emails = fileContent.match(regex);
@@ -661,15 +661,15 @@ const SuppresionFiles = () => {
     const readTXTFile = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-    
+
             reader.onload = (event) => {
                 resolve(event.target.result);
             };
-    
+
             reader.onerror = (error) => {
                 reject(error);
             };
-    
+
             reader.readAsText(file);
         });
     };
