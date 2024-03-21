@@ -5,6 +5,7 @@ import InputWithCounter from "../../../components/InputWithCounter";
 import TextAreaWithCounter from "../../../components/TextAreaWithCounter";
 import { createList } from "../../../modules/lists/listThunk";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 
 const UploadForm = ({
@@ -12,9 +13,9 @@ const UploadForm = ({
     setFileDetails,
     setShowModal,
     handleFileUpload,
-    importFileData
+    importFileData,
+    formRef
 }) => {
-    const formRef = useRef();
     const dispatch = useDispatch();
     const [body, setBody] = useReducer(
         (prev, next) => {
@@ -30,12 +31,12 @@ const UploadForm = ({
 
     const handleFile = (event) => {
         const uploadedFile = event.target.files[0];
-        const allowedExtensions = ['csv', 'xls', 'xlsx'];
+        const allowedExtensions = ['csv', 'xls', 'xlsx', 'txt'];
 
         if (uploadedFile) {
             const extension = uploadedFile.name.split('.').pop().toLowerCase();
             if (!allowedExtensions.includes(extension)) {
-                toast.error(`Please upload a CSV or XLS/XLSX file.`);
+                toast.error(`Please upload a TXT, CSV or XLS/XLSX file.`);
             } else {
 
                 const currentForm = formRef.current;
@@ -58,8 +59,8 @@ const UploadForm = ({
     const uploadList = (e) => {
         e.preventDefault();
 
-        if (!Object.keys(importFileData).length) {
-            toast.warning("CSV/XLXS file is required");
+        if (!importFileData.length) {
+            toast.warning("TXT or CSV/XLXS file is required");
             return;
         }
 
@@ -69,11 +70,11 @@ const UploadForm = ({
         }
 
         console.log({
-            recipientList: csvToJson(importFileData),
+            recipientList: importFileData,
             listTitle: body?.name,
             listDescription: body?.description,
         })
-        var serializeJson = csvToJson(importFileData).map(csvJson => {
+        var serializeJson = importFileData.map(csvJson => {
             var newObj = { ...csvJson };
 
             newObj['age'] = Number(newObj['age']);
@@ -97,16 +98,16 @@ const UploadForm = ({
     return (
         <form ref={formRef} className='flex-inline'>
             <div className='mt-5'>
-                <h2 className='text-blue'>UPLOAD NEW LIST</h2>
+                <h2 className='text-blue'>UPLOAD NEW TXT,CSV or XLXS LIST</h2>
             </div>
-            <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7' style={{ cursor: 'pointer' }}>
+            <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7'>
                 <div>
                     <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
                     <div className=' tracking-tight text-gray'>Drag file here to upload </div>
                     <div className=' tracking-tight text-gray'>or </div>
                     <div className=' tracking-tight text-gray mt-3'>
-                        <label style={{ cursor: 'pointer' }} htmlFor="importList" className='p-3 px-5 rounded-md bg-blue'>  Select a file
-                            <input name="" type="file" id="importList" hidden onChange={handleFile} accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+                        <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue cursor-pointer'>  Select a file
+                            <input name="" type="file" id="importList" hidden onChange={handleFile} accept=".csv, .txt, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
                         </label>
                     </div>
                 </div>
