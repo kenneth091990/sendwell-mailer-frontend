@@ -11,8 +11,7 @@ function AccordionItem({ title, content }) {
     <div className='flex w-full flex-col  border-black-2/10 border-solid border rounded-2xl px-6 max-sm:px-0 py-4 bg-white shadow-xl max-sm:shadow-none my-1'>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        style={{ cursor: 'pointer' }}
-        className='flex w-full'
+        className='flex w-full cursor-pointer'
       >
         <div className="flex-none w-12">
           {!isOpen ? <img src={arrow_downicon} width={'20px'} className='' /> : <img src={arrow_upicon} width={'20px'} className='' />}
