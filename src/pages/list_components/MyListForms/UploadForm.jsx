@@ -1,4 +1,4 @@
-import { useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { csvToJson, formatFileSize } from "../../../core/constants";
 import Icon_DragAndDrop from "./../../../images/nav/Icon_DragAndDrop.png"
 import InputWithCounter from "../../../components/InputWithCounter";
@@ -14,7 +14,9 @@ const UploadForm = ({
     setShowModal,
     handleFileUpload,
     importFileData,
-    formRef
+    formRef,
+    showModal,
+    formType
 }) => {
     const dispatch = useDispatch();
     const [body, setBody] = useReducer(
@@ -28,6 +30,16 @@ const UploadForm = ({
             description: "",
         }
     )
+
+    useEffect(() => {
+        if (!showModal && formType === "uploadList") {
+            setBody({
+                name: "",
+                description: "",
+            })
+        }
+    }, [showModal])
+
 
     const handleFile = (event) => {
         const uploadedFile = event.target.files[0];
@@ -93,10 +105,14 @@ const UploadForm = ({
             listDescription: body?.description,
             // status: false,
         }))
+        setBody({
+            name: "",
+            description: "",
+        })
     }
 
     return (
-        <form ref={formRef} className='flex-inline'>
+        <form ref={formRef} onSubmit={uploadList} className='flex-inline'>
             <div className='mt-5'>
                 <h2 className='text-blue'>UPLOAD NEW TXT,CSV or XLXS LIST</h2>
             </div>
@@ -140,7 +156,7 @@ const UploadForm = ({
             </div>
             <div className='mt-5'>
                 <div>
-                    <button type='button' onClick={uploadList} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
+                    <button type='submit' className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
                 </div>
                 <div className='mt-3'>
                     <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
@@ -149,6 +165,10 @@ const UploadForm = ({
                             name: "",
                             extension: "",
                             size: ""
+                        })
+                        setBody({
+                            name: "",
+                            description: "",
                         })
                         setShowModal(false)
                     }}>Cancel</button>

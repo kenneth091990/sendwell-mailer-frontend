@@ -1139,7 +1139,7 @@ const MyList = () => {
                             )
                         case 'uploadList':
                             return (
-                                <UploadForm formRef={formRef} importFileData={parseJson} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
+                                <UploadForm formType={formType} showModal={showModal} formRef={formRef} importFileData={parseJson} fileDetails={fileDetails} setFileDetails={setFileDetails} setShowModal={setShowModal} handleFileUpload={handleFileUpload} />
                             )
                             break;
                         case 'importListFileMapping':
