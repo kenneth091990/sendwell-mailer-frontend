@@ -31,7 +31,7 @@ const SuppresionFiles = () => {
     const [fileDetails, setFileDetails] = useState({
         name: "",
         extension: "",
-        size: ""
+        size: "",
     });
     const formRef = useRef(null);
     const formListTitleRef = createRef(null);
@@ -312,9 +312,23 @@ const SuppresionFiles = () => {
         }
     }, [importFileData]);
 
+    useEffect(() => {
+
+        if (fileDetails.isCancelled) {
+           
+            formView('uploadList', 'n', 0);
+            setShowModal(true); 
+        
+        }
+    }, [fileDetails]);
+
+
+   
 
 
     const formView = (formName, action, id, data) => {
+
+     
         switch (formName) {
             case 'uploadList':
                 setForm(uploadForm());
@@ -484,6 +498,7 @@ const SuppresionFiles = () => {
                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
                             e.preventDefault();
                             setShowModal(false)
+                        
                         }}>Cancel</button>
                     </div>
                 </div>
@@ -517,10 +532,6 @@ const SuppresionFiles = () => {
                                                 <SelectDropdown className={'p-2'}>
                                                     <option key="" ></option>
                                                     {Object.keys(importFields).map((k, ii) => {
-                                                        console.log(importFields[k].stringRelated);
-                                                        console.log(importFileData[0][i].toLowerCase());
-
-
                                                         return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : false}>{importFields[k].label}</option>)
                                                     }
                                                     )}
@@ -568,8 +579,15 @@ const SuppresionFiles = () => {
                     <div className='mt-3'>
                         <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
                             e.preventDefault();
-                            setShowModal(true);
-                            formView('uploadList', 'n', 0);
+                            setFileDetails({
+                                name: "",
+                                extension: "",
+                                size: "",
+                                isCancelled: true
+                            });
+                            
+                                                 
+
                         }}>Cancel</button>
                     </div>
                 </div>
@@ -588,10 +606,8 @@ const SuppresionFiles = () => {
                     ctr += 1;
                 }
             })
-        }
-        )
-
-
+        })
+        
         return ctr;
     }
 
@@ -935,6 +951,11 @@ const SuppresionFiles = () => {
             </div>
             <Modal onClose={() => {
                 setShowModal(false);
+                setFileDetails({
+                    name: "",
+                    extension: "",
+                    size: ""
+                });
             }} showModal={showModal}>
                 {form}
             </Modal>
