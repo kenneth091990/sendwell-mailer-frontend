@@ -658,7 +658,7 @@ const MyList = () => {
                         <table className=" w-[100%]" >
                             <thead>
                                 <tr>
-                                    {importFileData[0].map((object, i) =>
+                                    {Object.keys(importFileData).length ? importFileData[0].map((object, i) =>
                                         <th key={i} className="border border-slate-300 border-line-gray text-sm font-medium">
                                             <SelectDropdown name={object} className={'p-2'}>
                                                 <option value="">Don't Include</option>
@@ -668,12 +668,12 @@ const MyList = () => {
                                                 )}
                                             </SelectDropdown>
                                         </th>
-                                    )}
+                                    ) : ""}
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    importFileData.map((v, i) => {
+                                    Object.keys(importFileData).length ? importFileData.map((v, i) => {
 
                                         if (i > 0 && i < 6) {
                                             return (
@@ -691,7 +691,7 @@ const MyList = () => {
                                             )
                                         }
 
-                                    })
+                                    }) : ""
                                 }
                             </tbody>
                         </table>
@@ -728,13 +728,15 @@ const MyList = () => {
     const getRelatedFieldCtr = (importFields) => {
 
         let ctr = 0;
-        importFileData[0].map((object, i) => {
-            Object.keys(importFields).map((k, ii) => {
-                if (importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1) {
-                    ctr += 1;
-                }
+        if (Object.keys(importFileData).length) {
+            importFileData[0].map((object, i) => {
+                Object.keys(importFields).map((k, ii) => {
+                    if (importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1) {
+                        ctr += 1;
+                    }
+                })
             })
-        })
+        }
 
 
         return ctr;
@@ -1108,7 +1110,7 @@ const MyList = () => {
             })()}
 
             <Modal onClose={() => {
-                if (formType === "uploadList") {
+                if (["uploadList", 'importListFileMapping'].includes(formType)) {
                     setFileDetails({
                         name: "",
                         extension: "",
@@ -1116,9 +1118,13 @@ const MyList = () => {
                     })
                     setParseJson([])
                     setImportFileData({})
-                    formRef.current.reset();
+                    if (formType === "uploadList") {
+                        formRef.current.reset();
+                        setShowModal(false);
+                    } else { 
+                        setFormType("uploadList")
+                    }
                 }
-                setShowModal(false);
 
             }} showModal={showModal}>
                 {/* {form} */}
