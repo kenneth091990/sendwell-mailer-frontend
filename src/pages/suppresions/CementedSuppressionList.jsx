@@ -42,10 +42,7 @@ const CementedSuppressionList = () => {
                 </div>
                 <div className='mt-3'>
                     <h2 className='text-blue'>ADD CEMENTED LIST</h2>
-                    {/* <div className='mt-5'>
-                        <p className='text-sm'>The selected lists will be merged into one new list.</p>
-                        <p className='text-sm'>Please provide a new title and description for the merged list</p>
-                    </div> */}
+              
                 </div>
                 <div className='mt-5 text-left'>
                     <SelectDropdown
@@ -56,9 +53,7 @@ const CementedSuppressionList = () => {
                         <option value="">Test Campaign 2</option>
                     </SelectDropdown>
                 </div>
-                {/* <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="MERGE LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                </div> */}
+          
                 <div className='mt-5 '>
                     <div>
                         <button className='btn  bg-blue p-2 border rounded-md text-white py-2'>Cement List</button>
@@ -109,10 +104,7 @@ const CementedSuppressionList = () => {
                         "key": "description",
                         "col": "30%",
                     },
-                    {
-                        "key": "campaign",
-                        "col": "10%",
-                    },
+              
                     {
                         "key": "count",
                         "col": "10%",

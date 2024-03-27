@@ -19,6 +19,9 @@ import { csvToJson, formatFileSize } from '../../core/constants';
 import useToast from '../../hooks/useToast';
 import { useDispatch } from 'react-redux';
 import { createFromRecipientList } from '../../modules/recipients/recipientThunks';
+import SearchIcon from './../../images/nav/SearchIcon.png'
+import InputTextfield from '../../components/InputTextfield';
+
 
 
 
@@ -937,17 +940,31 @@ const SuppresionFiles = () => {
 
 
                         return data;
-                    })} headerChildren={(
-                        <div className='flex flex-row py-5'>
-                            <SelectDropdown
-                                label={"SORT BY CAMPAIGN"}
-                                labelClassName="font-semibold text-black/40 text-sm uppercase"
-                                containerClassName={"w-1/5 max-sm:w-full"}>
-                                <option value="">All Campaigns</option>
-                                <option value="">Test Campaigns</option>
-                            </SelectDropdown>
+                    })}
+                    // headerChildren={(
+                    //     <div className='flex flex-row py-5'>
+                    //         <SelectDropdown
+                    //             label={"SORT BY CAMPAIGN"}
+                    //             labelClassName="font-semibold text-black/40 text-sm uppercase"
+                    //             containerClassName={"w-1/5 max-sm:w-full"}>
+                    //             <option value="">All Campaigns</option>
+                    //             <option value="">Test Campaigns</option>
+                    //         </SelectDropdown>
+                    //     </div>
+                    // )}
+                    headerChildren={(
+                        <div className='w-full max-sm:items-center max-sm:flex-col flex flex-row mb-3'>
+                            <InputTextfield className={"rounded-md border focus:border-primary focus-visible:border-primary border-black/10 bg-transparent px-2 py-2"} inputProps={{
+                                placeholder: "Search...",
+                                type: "text",
+                            }} iconComponent={(
+                                <div className='px-3 py-2'>
+                                    <img src={SearchIcon} className="h-6 w-6" alt="SearchIcon" />
+                                </div>
+                            )} />
                         </div>
-                    )} />
+                    )}
+                 />
             </div>
             <Modal onClose={() => {
                 setShowModal(false);

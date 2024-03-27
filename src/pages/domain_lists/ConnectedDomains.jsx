@@ -8,7 +8,6 @@ import TrashIcon from "./../../images/nav/Icon_Trash-removebg-preview.png"
 import InputTextfield from '../../components/InputTextfield';
 import Modal from '../../components/Modal';
 import MultiSelectWithCheckboxes from '../../components/MultiSelectWithCheckboxes';
-
 import CircularProgressBar from '../../components/CircularProgressBar';
 
 
