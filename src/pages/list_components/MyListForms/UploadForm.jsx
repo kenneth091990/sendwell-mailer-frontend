@@ -4,8 +4,9 @@ import Icon_DragAndDrop from "./../../../images/nav/Icon_DragAndDrop.png"
 import InputWithCounter from "../../../components/InputWithCounter";
 import TextAreaWithCounter from "../../../components/TextAreaWithCounter";
 import { createList } from "../../../modules/lists/listThunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { LIST_EVENTS, selectListState } from "../../../modules/lists/listSlice";
 
 
 const UploadForm = ({
@@ -19,6 +20,7 @@ const UploadForm = ({
     formType
 }) => {
     const dispatch = useDispatch();
+    const { status, event } = useSelector(selectListState);
     const [body, setBody] = useReducer(
         (prev, next) => {
             var newEvent = { ...prev, ...next };
@@ -28,8 +30,22 @@ const UploadForm = ({
         {
             name: "",
             description: "",
+            fileType: "",
         }
     )
+
+    useEffect(() => {
+        if (event === LIST_EVENTS.create) {
+            if (status === "success") {
+                setBody({
+                    name: "",
+                    description: "",
+                    fileType: "",
+                })
+            }
+        }
+    }, [status, event])
+
 
     useEffect(() => {
         if (!showModal && formType === "uploadList") {
@@ -47,6 +63,9 @@ const UploadForm = ({
 
         if (uploadedFile) {
             const extension = uploadedFile.name.split('.').pop().toLowerCase();
+            setBody({
+                fileType: extension
+            })
             if (!allowedExtensions.includes(extension)) {
                 toast.error(`Please upload a TXT, CSV or XLS/XLSX file.`);
             } else {
@@ -98,17 +117,14 @@ const UploadForm = ({
             return newObj;
         })
 
-        console.log(serializeJson)
+        console.log(body)
         dispatch(createList({
             recipientList: serializeJson,
             listTitle: body?.name,
             listDescription: body?.description,
-            // status: false,
+            fileType: body?.fileType,
         }))
-        setBody({
-            name: "",
-            description: "",
-        })
+
     }
 
     return (

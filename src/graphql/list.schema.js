@@ -4,6 +4,7 @@ export const CREATE_LIST = gql`
 mutation createList(
     $recipientList: [RecipientInput],
     $listTitle: String!,
+    $fileType: String!,
     $listDescription: String,
     $status: Boolean,
 ) {
@@ -11,6 +12,7 @@ mutation createList(
         recipientList: $recipientList,
         listTitle: $listTitle,
         listDescription: $listDescription,
+        fileType: $fileType,
         status: $status,
     ) {
         list_id
