@@ -1121,11 +1121,12 @@ const MyList = () => {
                     if (formType === "uploadList") {
                         formRef.current.reset();
                         setShowModal(false);
-                    } else { 
+                    } else {
                         setFormType("uploadList")
                     }
+                } else {
+                    setShowModal(false);
                 }
-
             }} showModal={showModal}>
                 {/* {form} */}
                 {(() => {
