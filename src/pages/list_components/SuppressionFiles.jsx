@@ -827,10 +827,6 @@ const SuppresionFiles = () => {
                         "col": '30%',
 
                     }, {
-                        "key": "campaign",
-                        "col": '20%',
-
-                    }, {
                         "key": "count",
                         "col": '10%',
 
@@ -869,12 +865,7 @@ const SuppresionFiles = () => {
                                 <span className='text-sm'>
                                     {data?.description}
                                 </span>
-                                <span className="text-black/30 text-md uppercase font-semibold mt-3">
-                                    campaign
-                                </span>
-                                <span className='text-sm'>
-                                    {data?.campaign}
-                                </span>
+                            
                                 <span className="text-black/30 text-md uppercase font-semibold mt-3">
                                     count
                                 </span>

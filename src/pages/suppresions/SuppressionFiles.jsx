@@ -50,28 +50,24 @@ const SuppresionFiles = () => {
         {
             "list": "list/00000000-0713-e1.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Solar A1",
             "count": "4,019",
             "status": "inactive",
         },
         {
             "list": "list/0000000000_0808_verified_refi.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Global",
             "count": "1,223,009",
             "status": "active",
         },
         {
             "list": "list/00000000-0713-e1.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Roof Sytems",
             "count": "4,019",
             "status": "inactive",
         },
         {
             "list": "list/0000000000_0808_verified_refi.txt",
             "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Global",
             "count": "1,223,009",
             "status": "active",
         },
@@ -109,11 +105,7 @@ const SuppresionFiles = () => {
                         "key": "description",
                         "col": '30%',
 
-                    }, {
-                        "key": "campaign",
-                        "col": '20%',
-
-                    }, {
+                    },  {
                         "key": "count",
                         "col": '10%',
 
@@ -151,12 +143,6 @@ const SuppresionFiles = () => {
                                 </span>
                                 <span className='text-sm'>
                                     {data?.description}
-                                </span>
-                                <span className="text-black/30 text-md uppercase font-semibold mt-3">
-                                    campaign
-                                </span>
-                                <span className='text-sm'>
-                                    {data?.campaign}
                                 </span>
                                 <span className="text-black/30 text-md uppercase font-semibold mt-3">
                                     count

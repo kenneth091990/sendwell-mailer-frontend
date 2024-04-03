@@ -110,10 +110,6 @@ const CementedSuppressionList = () => {
                         "col": "30%",
                     },
                     {
-                        "key": "campaign",
-                        "col": "10%",
-                    },
-                    {
                         "key": "count",
                         "col": "10%",
                     },
