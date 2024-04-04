@@ -37,21 +37,25 @@ const DataTableV2 = ({ data, emptyDataComponent, headerChildren, isLoading, hide
                             //     {ii?.render}
                             // </div>;
 
-                            if (ii?.render) return <th  key={index} className={`font-semibold w-[${ii?.col}] px-2 py-2 text-sm font-medium text-black/40 uppercase`}>
+                            if (ii?.render) return <th key={index} className={`font-semibold px-2 py-2 text-sm text-black/40 uppercase`} style={{
+                                width: ii?.col,
+                            }}>
                                 {ii?.render}
                             </th>;
                             //     <span className="font-semibold text-black/40 text-sm uppercase">
                             //     </span>
                             // </div>
                             return (
-                                <th  key={index} className={`font-semibold w-[${ii?.col}] px-2 py-2 text-sm font-medium text-black/40 uppercase`}>
+                                <th key={index} className={`font-semibold px-2 py-2 text-sm text-black/40 uppercase`} style={{
+                                    width: ii?.col,
+                                }}>
                                     {ii?.label ?? ii?.key}
                                 </th>
                             )
                         })}
                     </tr>
                 </thead>
-                <tbody className='overflow-auto '>
+                <tbody className='overflow-auto'>
                     {(() => {
                         if (isLoading) {
                             return (

@@ -46,8 +46,6 @@ const MyList = () => {
         extension: "",
         size: ""
     });
-    const formListTitleRef = useRef(null);
-    const formListDescRef = useRef(null);
     // Initialize the checked state for each item in the list
     const [checkedItems, setCheckedItems] = useState([]);
 

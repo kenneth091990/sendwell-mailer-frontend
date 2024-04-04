@@ -1,6 +1,6 @@
 import React from 'react'
 import CementedSuppressionList from '../suppresions/CementedSuppressionList';
-import SuppresionFiles from '../suppresions/SuppressionFiles';
+import SuppresionFiles from '../list_components/SuppressionFiles';
 
 
 

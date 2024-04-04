@@ -236,3 +236,9 @@ export function formatFileSize(bytes) {
     }
 }
 
+export const handleInput = (event, setterObj) => {
+    const { name, value } = event.target;
+    setterObj({
+        [name]: value
+    })
+}

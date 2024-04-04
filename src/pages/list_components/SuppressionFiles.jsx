@@ -1,6 +1,7 @@
-import React, { createRef, useRef, useState, useEffect } from 'react'
+import React, { createRef, useRef, useState, useEffect, useReducer } from 'react'
 import DataTable from '../../common/components/DataTable';
 import SelectDropdown from '../../components/SelectDropdown';
+import CircleIcon from './../../images/nav/Circle_Caution.png'
 import BurgerMenu from './../../images/nav/Mobile hamburger.png';
 import Icon_Download from "./../../images/nav/Icon_Download-removebg-preview.png"
 import Icon_Edit from "./../../images/nav/Icon_Edit-removebg-preview.png"
@@ -15,356 +16,104 @@ import Papa from 'papaparse';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import * as XLSX from 'xlsx';
 import SliceString from '../../common/components/SliceString';
-import { csvToJson, formatFileSize } from '../../core/constants';
+import { csvToJson, formatFileSize, handleInput } from '../../core/constants';
 import useToast from '../../hooks/useToast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createFromRecipientList } from '../../modules/recipients/recipientThunks';
 import SearchIcon from './../../images/nav/SearchIcon.png'
 import InputTextfield from '../../components/InputTextfield';
-
-
+import { SUPRESSION_EVENTS, selectSupression } from '../../modules/supression/supressionSlice';
+import { getSupressionList, supressionFileUpload } from '../../modules/supression/supressionThunk';
 
 
 const SuppresionFiles = () => {
     const [showModal, setShowModal] = useState(false);
+    const [uploadModal, setUploadModal] = useState(false);
+    const closeUploadModal = () => {
+        setFileDetails({
+            name: "",
+            extension: "",
+            size: ""
+        });
+        setUploadForm({
+            name: "",
+            description: ""
+        })
+        setUploadModal(false)
+    }
     const [getToast, setToast] = useToast();
+
+    // * Redux
+    const { status, event, message, data } = useSelector(selectSupression);
     const dispatch = useDispatch();
-    const [form, setForm] = useState(null);
+
+    // * Redux Events
+    useEffect(() => {
+        if (status === "initial") {
+            dispatch(getSupressionList({
+                pageSize: 100,
+                page: 1,
+            }))
+        }
+
+        if (event === SUPRESSION_EVENTS.upload_files) {
+            if (status === "loading") {
+                setToast(toast.loading("Please wait uploading file and supression details", {
+                    isLoading: true
+                }))
+            }
+            if (status === "success") {
+                toast.update(getToast, {
+                    render: message,
+                    isLoading: false,
+                    autoClose: true,
+                    type: "success"
+                })
+                closeUploadModal();
+                dispatch(getSupressionList({
+                    pageSize: 100,
+                    page: 1,
+                    fetchPolicy: "network-only"
+                }))
+            }
+
+
+            if (status === "error") {
+                toast.update(getToast, {
+                    render: message,
+                    isLoading: false,
+                    autoClose: true,
+                    type: "error"
+                })
+                dispatch(getSupressionList({
+                    pageSize: 100,
+                    page: 1,
+                }))
+            }
+        }
+    }, [status, event])
+
+
+
+    const formUploadRef = useRef();
     const [importFileData, setImportFileData] = useState({});
     const [fileDetails, setFileDetails] = useState({
         name: "",
         extension: "",
         size: "",
     });
-    const formRef = useRef(null);
-    const formListTitleRef = createRef(null);
-    const formListDescRef = createRef(null);
+    const [uploadForm, setUploadForm] = useReducer(
+        (prev, next) => {
+            var newEvent = { ...prev, ...next };
 
-    const importFields = [
-        {
-            field: 'firstName',
-            label: "FIRST NAME",
-            stringRelated: [
-                'first name',
-                'name',
-                'firstname',
-                'first_name'
-            ]
-
+            return newEvent;
         },
         {
-            field: 'lastName',
-            label: "LAST NAME",
-            stringRelated: [
-                'last name',
-                'lastname',
-                'last_name'
-            ]
-
-        },
-        {
-            field: 'emailAddress',
-            label: "EMAIL ADDRESS",
-            stringRelated: [
-                'email address',
-                'email',
-                'email_address'
-            ]
-
-        },
-        {
-            field: 'streetAddress 1',
-            label: "STREET ADDRESS 1",
-            stringRelated: [
-                'street address 1',
-                'street 1',
-                'street_address_1'
-            ]
-
-        },
-        {
-            field: 'streetAddress 2',
-            label: "STREET ADDRESS 2",
-            stringRelated: [
-                'street address 2',
-                'street 2',
-                'street_address_2'
-            ]
-
-        },
-        {
-            field: 'city',
-            label: "CITY",
-            stringRelated: [
-                'city',
-                'City',
-            ]
-
-        },
-        {
-            field: 'state',
-            label: "STATE",
-            stringRelated: [
-                'state',
-                'STATE',
-            ]
-
-        },
-        {
-            field: 'zip',
-            label: "ZIP",
-            stringRelated: [
-                'zip',
-                'ZIP'
-            ]
-
-        },
-        {
-            field: 'phone',
-            label: "PHONE",
-            stringRelated: [
-                'phone',
-                'Phone',
-                'PHONE',
-            ]
-
-        },
-        {
-            field: 'gender',
-            label: "GENDER",
-            stringRelated: [
-                'gender',
-                'sex',
-                'Gender',
-                'GENDER',
-            ]
-        },
-        {
-            field: 'country',
-            label: "COUNTRY",
-            stringRelated: [
-                'country',
-                'Country',
-                'COUNTRY',
-            ]
-        },
-        {
-            field: 'military_service',
-            label: "MILITARY SERVICE",
-            stringRelated: [
-                'military_service',
-                'militaryService',
-                'Military service',
-                'MILITARY SERVICE',
-            ]
-        },
-        {
-            field: 'site_name',
-            label: "SITE NAME",
-            stringRelated: [
-                'site_name',
-                'siteName',
-                'Site name',
-                'SITE NAME',
-            ]
-        },
-        {
-            field: 'credit_rating',
-            label: "CREDIT RATING",
-            stringRelated: [
-                'credit_rating',
-                'creditRating',
-                'Credit rating',
-                'CREDIT RATING',
-            ]
-        },
-        {
-            field: 'sub_vertical_name',
-            label: "SUB VERTICAL NAME",
-            stringRelated: [
-                'sub_vertical_name',
-                'subVerticalName',
-                'Sub vertical name',
-                'SUB VERTICAL NAME',
-            ]
-        },
-        {
-            field: 'loan_purpose',
-            label: "LOAN PURPOSE",
-            stringRelated: [
-                'loan_purpose',
-                'loanPurpose',
-                'Loan purpose',
-                'LOAN PURPOSE',
-            ]
-        },
-        {
-            field: 'mortgage_loan_purpose',
-            label: "MORTGAGE LOAN PURPOSE",
-            stringRelated: [
-                'mortgage_loan_purpose',
-                'mortgageLoanPurpose',
-                'Mortgage loan purpose',
-                'MORTGAGE LOAN PURPOSE',
-            ]
-        },
-        {
-            field: 'total_loan_amount',
-            label: "TOTAL LOAN AMOUNT",
-            stringRelated: [
-                'total_loan_amount',
-                'totalLoanAmount',
-                'Total loan amount',
-                'TOTAL LOAN AMOUNT',
-            ]
-        },
-        {
-            field: 'total_loan_amount',
-            label: "TOTAL LOAN AMOUNT",
-            stringRelated: [
-                'total_loan_amount',
-                'totalLoanAmount',
-                'Total loan amount',
-                'TOTAL LOAN AMOUNT',
-            ]
-        },
-        {
-            field: 'vehicle_make',
-            label: "VEHICLE MAKE",
-            stringRelated: [
-                'vehicle_make',
-                'vehicleMake',
-                'Vehicle make',
-                'VEHICLE MAKE',
-            ]
-        },
-        {
-            field: 'vehicle_model',
-            label: "VEHICLE MODEL",
-            stringRelated: [
-                'vehicle_model',
-                'vehicleModel',
-                'Vehicle model',
-                'VEHICLE MODEL',
-            ]
-        },
-        {
-            field: 'own_or_rent',
-            label: "OWN OR RENT",
-            stringRelated: [
-                'own_or_rent',
-                'ownOrRent',
-                'Own or rent',
-                'OWN OR RENT',
-            ]
-        },
-        {
-            field: 'ip_address',
-            label: "IP ADDRESS",
-            stringRelated: [
-                'ip_address',
-                'ipAddress',
-                'Ip address',
-                'IP ADDRESS',
-            ]
-        },
-        {
-            field: 'birthday',
-            label: "BIRTHDAY",
-            stringRelated: [
-                'birthday',
-                'Birthday',
-                'BIRTHDAY',
-            ]
-        },
-        {
-            field: 'age',
-            label: "AGE",
-            stringRelated: [
-                'age',
-                'Age',
-                'AGE',
-            ]
-        },
-        {
-            field: 'electric_company',
-            label: "ELECTRIC COMPANY",
-            stringRelated: [
-                'electric_company',
-                'electricCompany',
-                'Electric company',
-                'ELECTRIC COMPANY',
-            ]
-        },
-        {
-            field: 'vehicle_year',
-            label: "VEHICLE YEAR",
-            stringRelated: [
-                'vehicle_year',
-                'vehicleYear',
-                'Vehicle year',
-                'VEHICLE YEAR',
-            ]
-        },
-    ]
-
-    useEffect(() => {
-
-        if (importFileData.length > 0) {
-            setForm(importListFileMapping())
+            name: "",
+            description: ""
         }
-    }, [importFileData]);
+    )
 
-    useEffect(() => {
-
-        if (fileDetails.isCancelled) {
-           
-            formView('uploadList', 'n', 0);
-            setShowModal(true); 
-        
-        }
-    }, [fileDetails]);
-
-
-   
-
-
-    const formView = (formName, action, id, data) => {
-
-     
-        switch (formName) {
-            case 'uploadList':
-                setForm(uploadForm());
-                break;
-            case 'uploadTXT':
-                setForm(uploadTXT());
-                break;
-        }
-
-        if (formRef.current) {
-            formRef.current.reset();
-        }
-    }
-
-    const handleCSVFile = (event) => {
-        const uploadedFile = event.target.files[0];
-        const allowedExtensions = ['csv', 'xls', 'xlsx'];
-
-        if (uploadedFile) {
-            const extension = uploadedFile.name.split('.').pop().toLowerCase();
-            if (!allowedExtensions.includes(extension)) {
-                toast.error(`Please upload a TXT, CSV or XLS/XLSX file.`);
-            } else {
-
-                const currentForm = formRef.current;
-                const fileInput = currentForm.querySelector('#importList');
-                const file = fileInput.files[0];
-
-                handleFileUpload(file, extension);
-
-            }
-        }
-    };
     const handleTXTFile = (event) => {
         const uploadedFile = event.target.files[0];
         const allowedExtensions = ['txt'];
@@ -375,424 +124,35 @@ const SuppresionFiles = () => {
                 toast.error(`Please upload a .txt file.`);
             } else {
 
-                const currentForm = formRef.current;
+                const currentForm = formUploadRef.current;
                 const fileInput = currentForm.querySelector('#importList');
                 const file = fileInput.files[0];
 
-                handleFileUpload(file, extension);
-
+                setFileDetails({
+                    extension,
+                    name: file?.name,
+                    size: file?.size
+                });
+                setImportFileData(file)
             }
         }
     };
-    const uploadTXT = () => {
 
-        setFileDetails({
-            name: "",
-            extension: "",
-            size: ""
-        });
-
-        return (
-            <form ref={formRef} className='flex-inline'>
-                <div className='mt-5'>
-                    <h2 className='text-blue'>UPLOAD TXT LIST</h2>
-                </div>
-                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7 cursor-pointer'>
-                    <div>
-                        <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
-                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
-                        <div className=' tracking-tight text-gray'>or </div>
-                        <div className=' tracking-tight text-gray mt-3'>
-                            <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue cursor-pointer'>  Select a file
-                                <input name="" type="file" id="importList" hidden onChange={handleTXTFile} accept=".txt" />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                {fileDetails?.name ? <div className='mt-5 text-left'>
-                    <div>
-                        <label className='text-blue'>SELECTED FILE</label>
-                    </div>
-                    <div className="grid grid-cols-12  gap-4">
-                        <div className='col-span-2 tracking-tight'>
-                            {fileDetails?.extension.toLocaleUpperCase()}
-                        </div>
-                        <div className='col-span-6 tracking-tight'>
-                            {fileDetails?.name}
-                        </div>
-                        <div className='col-span-4 tracking-tight'>
-                            {formatFileSize(fileDetails?.size ?? 0)}
-                        </div>
-                    </div>
-                </div> : ""}
-                <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
-                </div>
-                <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                </div>
-                <div className='mt-5'>
-                    <div>
-                        <button type='button' onClick={uploadTXT} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
-                            e.preventDefault();
-                            setShowModal(false)
-                        }}>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        )
-    }
-
-    const uploadForm = () => {
-
-        setFileDetails({
-            name: "",
-            extension: "",
-            size: ""
-        });
-
-        return (
-            <form ref={formRef} className='flex-inline'>
-                <div className='mt-5'>
-                    <h2 className='text-blue'>UPLOAD NEW LIST</h2>
-                </div>
-                <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7 cursor-pointer'>
-                    <div>
-                        <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
-                        <div className=' tracking-tight text-gray'>Drag file here to upload </div>
-                        <div className=' tracking-tight text-gray'>or </div>
-                        <div className=' tracking-tight text-gray mt-3'>
-                            <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue cursor-pointer'>  Select a file
-                                <input name="" type="file" id="importList" hidden onChange={handleCSVFile} accept=".csv, .txt, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                {fileDetails?.name ? <div className='mt-5 text-left'>
-                    <div>
-                        <label className='text-blue'>SELECTED FILE</label>
-                    </div>
-                    <div className="grid grid-cols-12  gap-4">
-                        <div className='col-span-2 tracking-tight'>
-                            {fileDetails?.extension.toLocaleUpperCase()}
-                        </div>
-                        <div className='col-span-6 tracking-tight'>
-                            {fileDetails?.name}
-                        </div>
-                        <div className='col-span-4 tracking-tight'>
-                            {formatFileSize(fileDetails?.size ?? 0)}
-                        </div>
-                    </div>
-                </div> : ""}
-                <div className='mt-5 text-left'>
-                    <InputWithCounter ref={formListTitleRef} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
-                </div>
-                <div className='mt-5 text-left'>
-                    <TextAreaWithCounter cols='50' rows='3' ref={formListDescRef} label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
-                </div>
-                <div className='mt-5'>
-                    <div>
-                        <button type='button' onClick={uploadList} className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
-                            e.preventDefault();
-                            setShowModal(false)
-                        
-                        }}>Cancel</button>
-                    </div>
-                </div>
-            </form>
-        )
-    }
-
-    const importListFileMapping = () => {
-
-        const relatedFieldCtr = getRelatedFieldCtr(importFields);
-
-        return (
-            <form ref={formRef} className='flex-inline w-[90%]'>
-                <div className='mt-5'>
-                    <h2 className='text-blue'>MATCH LABEL TO IMPORT</h2>
-                </div>
-
-                <div className='mt-5'>
-                    <p> <span className='font-semibold'>{relatedFieldCtr} columns </span> were recognized in this file</p>
-                </div>
-                <div className='mt-5 import-table'>
-                    <Scrollbars style={{ width: '100%' }}
-                        renderTrackHorizontal={props => <div {...props} className="track-horizontal" />}
-                        renderView={props => <div {...props} className="view" />}>
-                        <table className=" w-[100%]" >
-                            <thead>
-                                <tr>
-                                    {
-                                        importFileData[0].map((object, i) =>
-                                            <th key={i} className="border border-slate-300 border-line-gray text-sm font-medium">
-                                                <SelectDropdown className={'p-2'}>
-                                                    <option key="" ></option>
-                                                    {Object.keys(importFields).map((k, ii) => {
-                                                        return (<option key={k} value={importFields[k].field} selected={importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1 ? true : false}>{importFields[k].label}</option>)
-                                                    }
-                                                    )}
-                                                </SelectDropdown>
-                                            </th>
-                                        )
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    importFileData.map((v, i) => {
-
-                                        if (i > 0 && i < 6) {
-                                            return (
-                                                <tr key={i}>
-                                                    {
-                                                        v.map((vv, ii) => {
-                                                            return (
-                                                                <td key={ii} className="border border-slate-300 border-line-gray text-sm font-medium w-maxContent">
-                                                                    <SliceString text={vv}></SliceString>
-                                                                </td>
-                                                            )
-                                                        })
-                                                    }
-                                                </tr>
-                                            )
-                                        }
-
-                                    })
-                                }
-                            </tbody>
-                        </table>
-                    </Scrollbars>
-                </div>
-                <div className='mt-5'>
-                    <div>
-                        <button type='button' className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5' onClick={(e) => {
-                            e.preventDefault();
-                            finalizeImport(e);
-                            // * Should show the supporession merge modal
-
-                        }}>Finalize import</button>
-                    </div>
-                    <div className='mt-3'>
-                        <button type='button' className='btn  bg-transparent  text-blue' onClick={(e) => {
-                            e.preventDefault();
-                            setFileDetails({
-                                name: "",
-                                extension: "",
-                                size: "",
-                                isCancelled: true
-                            });
-                            
-                                                 
-
-                        }}>Cancel</button>
-                    </div>
-                </div>
-
-            </form>
-
-        )
-    }
-
-    const getRelatedFieldCtr = (importFields) => {
-
-        let ctr = 0;
-        importFileData[0].map((object, i) => {
-            Object.keys(importFields).map((k, ii) => {
-                if (importFields[k].stringRelated.indexOf(importFileData[0][i].toLowerCase()) !== -1) {
-                    ctr += 1;
-                }
-            })
-        })
-        
-        return ctr;
-    }
-
-    const finalizeImport = (e) => {
-
-
-
+    const uploadList = (e) => {
         e.preventDefault();
-        const importData = [];
-        importFileData.slice(1).map((ifd, i) => {
-            formData[i] = {};
-            Object.keys(formRef.current).map((kc, i3) => {
-
-                {
-                    ifd.map((ifdc, ii) => {
-                        if (formRef.current[i3] && formRef.current[i3].nodeName == 'SELECT') {
-
-                            const trt = formRef.current[i3].value;
-                            if (formData[i]) {
-                                formData[i][trt] = ifdc;
-                            }
-                        }
-
-
-
-                    })
-                }
-
-            })
-        });
-    }
-
-    const handleFileUpload = async (file, extension) => {
-
-
-        let parseResult = null;
-        setFileDetails({
-            extension,
-            name: file?.name,
-            size: file?.size
-        });
-        try {
-            console.log(file?.name, extension)
-            if (extension == 'xlsx') {
-                const xlsToCsv = await convertToCsv(file);
-                parseResult = await parseCSV(xlsToCsv);
-                setImportFileData(parseResult);
-            }
-            if (extension == 'txt') {
-
-                const fileContent = await readTXTFile(file);
-                const regex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
-                const emails = fileContent.match(regex);
-                console.log(emails);
-
-            } else {
-                parseResult = await parseCSV(file);
-                setImportFileData(parseResult);
-            }
-
-
-        } catch (error) {
-            console.error('Error parsing CSV:', error);
-        }
-    };
-
-    const readTXTFile = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-
-            reader.onload = (event) => {
-                resolve(event.target.result);
-            };
-
-            reader.onerror = (error) => {
-                reject(error);
-            };
-
-            reader.readAsText(file);
-        });
-    };
-
-    const parseCSV = async (file) => {
-        return new Promise((resolve, reject) => {
-            Papa.parse(file, {
-                header: false,
-                complete: (results) => resolve(results.data),
-                error: (error) => reject(error)
-            });
-        });
-    };
-
-    const convertToCsv = async (file) => {
-        return new Promise((resolve, reject) => {
-
-            const reader = new FileReader();
-
-            reader.onload = (event) => {
-                const binaryString = event.target.result;
-                const workbook = XLSX.read(binaryString, { type: 'binary' });
-                const worksheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[worksheetName];
-                resolve(XLSX.utils.sheet_to_csv(worksheet));
-
-            };
-
-            reader.readAsBinaryString(file);
-        });
-    };
-
-
-    const uploadList = () => {
-        console.log(formListTitleRef.current.value, "formListTitleRef.current.value")
-        console.log(formListDescRef.current.value, Object.keys(importFileData).length, "formListDescRef.current.value")
-
-
-        if (!Object.keys(importFileData).length) {
-            toast.warning("CSV/XLXS file is required");
+        console.log(uploadForm, "uploadFormuploadForm")
+        if (!uploadForm?.name) {
+            toast.warning("Name is required");
             return;
         }
 
-        if (!formListTitleRef.current.value.trim()) {
-            toast.warning("Title is required");
+        if (!importFileData) {
+            toast.warning("File is required");
             return;
         }
 
-        console.log({
-            recipientList: csvToJson(importFileData),
-            listTitle: formListTitleRef.current.value,
-            listDescription: formListDescRef.current.value,
-        })
-        var serializeJson = csvToJson(importFileData).map(csvJson => {
-            var newObj = { ...csvJson };
-
-            newObj['age'] = Number(newObj['age']);
-            newObj['total_loan_amount'] = Number(newObj['total_loan_amount']);
-            newObj['email_local_part'] = newObj['email'];
-
-            delete newObj['email'];
-
-            return newObj;
-        })
-
-        console.log(serializeJson)
-        dispatch(createFromRecipientList({
-            recipientList: serializeJson,
-            listTitle: formListTitleRef.current.value,
-            listDescription: formListDescRef.current.value,
-        }))
+        dispatch(supressionFileUpload({ ...uploadForm, filepath: importFileData }));
     }
-
-
-    const mockData = [
-        {
-            "list": "list/00000000-0713-e1.txt",
-            "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Solar A1",
-            "count": "4,019",
-            "status": "inactive",
-        },
-        {
-            "list": "list/0000000000_0808_verified_refi.txt",
-            "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Global",
-            "count": "1,223,009",
-            "status": "active",
-        },
-        {
-            "list": "list/00000000-0713-e1.txt",
-            "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Roof Sytems",
-            "count": "4,019",
-            "status": "inactive",
-        },
-        {
-            "list": "list/0000000000_0808_verified_refi.txt",
-            "description": "Lorem ipsum dolor sit amet lorem ipsum sit amet dolor sit amet lorem ipsum dolor sit amet ala",
-            "campaign": "Global",
-            "count": "1,223,009",
-            "status": "active",
-        },
-    ]
 
     return (
         <div className='pb-11'>
@@ -800,8 +160,7 @@ const SuppresionFiles = () => {
                 <div className='col-span-3 max-sm:col-span-12 text-left max-sm:hidden'>
                     <button className='flex flex-row gap-3 btn font-medium bg-white px-3 py-2 border border-line-blue-mailer text-blue-mailer rounded-md mb-3' onClick={
                         () => {
-                            setShowModal(true);
-                            formView('uploadTXT', 'n', 0);
+                            setUploadModal(true);
                         }
                     }>
                         Upload new list
@@ -809,163 +168,240 @@ const SuppresionFiles = () => {
                 </div>
                 <div className='col-span-6 max-sm:col-span-12 text-center'>
                     <h1 className='text-2xl mb-3 text-gray'>
-                        SUPPRESSION FILES XX
+                        SUPPRESSION FILES
                     </h1>
                 </div>
                 <div className='col-span-3'>
                 </div>
             </div>
             <div className="w-full">
-                <DataTableV2
-                    hideHeaderOnMobile={true}
-                    keys={[{
-                        "key": "list",
-                        "col": '20%',
+                {(() => {
+                    var isLoading = false;
+                    var isError = false;
+                    var myList = data?.supressions ?? [];
 
-                    }, {
-                        "key": "description",
-                        "col": '30%',
+                    if (event === SUPRESSION_EVENTS.get_list) {
+                        if (status === "loading") {
+                            isLoading = true;
+                        }
 
-                    }, {
-                        "key": "count",
-                        "col": '10%',
+                        if (status === "error") {
+                            isLoading = false;
+                            isError = true;
+                            myList = [];
+                        }
 
-                    }, {
-                        "key": "status",
-                        "col": '10%',
+                        if (status === "success") {
+                            isLoading = false;
+                            isError = false;
+                            myList = data?.supressions;
+                        }
+                    } else {
+                        isLoading = true;
+                    }
 
-                    }, {
-                        "key": "actions",
-                        "col": '10%',
-                        "render": (
-                            <div className="text-center flex flex-row gap-3 justify-center items-center">
-                                <span className="font-semibold text-black/40 uppercase xsm:text-base">
-                                    Actions
-                                </span>
-                            </div>
-                        )
-                    }]} data={mockData.map((mock, index) => {
-                        var data = { ...mock };
-                        data.mobileCellView = (
-                            <div className='flex flex-col mb-4 justify-between'>
-                                <div className="flex flex-row justify-between">
-                                    <span className="text-black/30 text-md uppercase font-semibold">
-                                        List
-                                    </span>
-                                    <button className=''>
-                                        <img src={BurgerMenu} height={20} width={20} className='mx-1'></img>
-                                    </button>
-                                </div>
-                                <span className='text-sm'>
-                                    {data?.list}
-                                </span>
-                                <span className="text-black/30 text-md uppercase font-semibold mt-3">
-                                    description
-                                </span>
-                                <span className='text-sm'>
-                                    {data?.description}
-                                </span>
-                            
-                                <span className="text-black/30 text-md uppercase font-semibold mt-3">
-                                    count
-                                </span>
-                                <span className='text-sm'>
-                                    {data?.count}
-                                </span>
-                                <span className="text-black/30 text-md uppercase font-semibold mt-3">
-                                    status
-                                </span>
-                                <span className='text-sm mt-3'>
-                                    {data?.status === "active" ? (
-                                        <span className='w-2/3 text-center border-none bg-success px-7 border rounded font-thin text-white py-2'>
-                                            Active
+                    return (
+                        <DataTableV2
+                            hideHeaderOnMobile={true}
+                            keys={[{
+                                "key": "name",
+                                "render": "list",
+                                "col": '35%',
+                            }, {
+                                "key": "description",
+                                "col": '35%',
+                            }, {
+                                "key": "status",
+                                "col": '10%',
+                            }, {
+                                "key": "actions",
+                                "col": '20%',
+                                "render": (
+                                    <div className="text-center flex flex-row gap-3 justify-center items-center">
+                                        <span className="font-semibold text-black/40 uppercase xsm:text-base">
+                                            Actions
                                         </span>
-                                    ) : (
-                                        <span className='w-2/3 text-center border-none bg-danger px-7 border rounded font-thin text-white py-2'>
-                                            Inactive
-                                        </span>
-                                    )}
-                                </span>
-                            </div>
-                        )
-
-                        data.actions = (
-                            <div className="h-full flex flex-row gap-3 justify-center items-center">
-                                <button className=''>
-                                    <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
-                                </button>
-                                <button className='' onClick={
-                                    () => {
-                                        setShowModal(true);
-                                        formView('editList', 'n', 0);
-                                    }
-
-                                }>
-                                    <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
-                                </button>
-                                <button className='' onClick={
-                                    () => {
-                                        setShowModal(true);
-                                        formView('deleteList', 'n', 0);
-                                    }
-
-                                }>
-                                    <img src={Icon_Trash} height={20} width={20} className='mx-1'></img>
-                                </button>
-                            </div>
-                        )
-
-                        data.status = (
-                            <div className="h-full w-full flex items-center  text-xs justify-start">
-                                {data?.status === "active" ? (
-                                    <span className='w-full text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
-                                        Active
-                                    </span>
-                                ) : (
-                                    <span className='w-full text-center border-none bg-danger px-5 border rounded font-thin text-white py-1'>
-                                        Inactive
-                                    </span>
-                                )}
-                            </div>
-                        )
-
-
-                        return data;
-                    })}
-                    // headerChildren={(
-                    //     <div className='flex flex-row py-5'>
-                    //         <SelectDropdown
-                    //             label={"SORT BY CAMPAIGN"}
-                    //             labelClassName="font-semibold text-black/40 text-sm uppercase"
-                    //             containerClassName={"w-1/5 max-sm:w-full"}>
-                    //             <option value="">All Campaigns</option>
-                    //             <option value="">Test Campaigns</option>
-                    //         </SelectDropdown>
-                    //     </div>
-                    // )}
-                    headerChildren={(
-                        <div className='w-full max-sm:items-center max-sm:flex-col flex flex-row mb-3'>
-                            <InputTextfield className={"rounded-md border focus:border-primary focus-visible:border-primary border-black/10 bg-transparent px-2 py-2"} inputProps={{
-                                placeholder: "Search...",
-                                type: "text",
-                            }} iconComponent={(
-                                <div className='px-3 py-2'>
-                                    <img src={SearchIcon} className="h-6 w-6" alt="SearchIcon" />
+                                    </div>
+                                )
+                            }]}
+                            hideCellOnMobile={true}
+                            isLoading={isLoading}
+                            emptyDataComponent={(
+                                <div className="flex flex-col items-center w-full py-10">
+                                    <img src={CircleIcon} alt="CircleIcon" className='h-[4rem] w-[4rem] mb-4' />
+                                    <p className='text-black/60'>
+                                        {isError ? "No supression files yet." : "It looks like you haven't uploaded any supression file yet."}
+                                    </p>
                                 </div>
-                            )} />
-                        </div>
-                    )}
-                 />
+                            )}
+                            data={myList.map((mock, index) => {
+                                var data = { ...mock };
+
+
+                                data.mobileCellView = (
+                                    <div className='flex flex-col mb-4 justify-between'>
+                                        <div className="flex flex-row justify-between">
+                                            <span className="text-black/30 text-md uppercase font-semibold">
+                                                List
+                                            </span>
+                                            <button className=''>
+                                                <img src={BurgerMenu} height={20} width={20} className='mx-1'></img>
+                                            </button>
+                                        </div>
+                                        <span className='text-sm'>
+                                            {data?.list}
+                                        </span>
+                                        <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                            description
+                                        </span>
+                                        <span className='text-sm'>
+                                            {data?.description ?? "No Description"}
+                                        </span>
+
+                                        <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                            count
+                                        </span>
+                                        <span className='text-sm'>
+                                            {data?.count}
+                                        </span>
+                                        <span className="text-black/30 text-md uppercase font-semibold mt-3">
+                                            status
+                                        </span>
+                                        <span className='text-sm mt-3'>
+                                            {data?.status === "active" ? (
+                                                <span className='w-2/3 text-center border-none bg-success px-7 border rounded font-thin text-white py-2'>
+                                                    Active
+                                                </span>
+                                            ) : (
+                                                <span className='w-2/3 text-center border-none bg-danger px-7 border rounded font-thin text-white py-2'>
+                                                    Inactive
+                                                </span>
+                                            )}
+                                        </span>
+                                    </div>
+                                )
+
+                                data.actions = (
+                                    <div className="h-full flex flex-row gap-3 justify-center items-center">
+                                        <button className=''>
+                                            <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
+                                        </button>
+                                        <button className='' onClick={
+                                            () => {
+                                                setShowModal(true);
+                                                formView('editList', 'n', 0);
+                                            }
+
+                                        }>
+                                            <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
+                                        </button>
+                                        <button className='' onClick={
+                                            () => {
+                                                setShowModal(true);
+                                                formView('deleteList', 'n', 0);
+                                            }
+
+                                        }>
+                                            <img src={Icon_Trash} height={20} width={20} className='mx-1'></img>
+                                        </button>
+                                    </div>
+                                )
+
+                                data.description = data?.description ? data?.description : "No Description"
+
+                                data.status = (
+                                    <div className="h-full w-full flex items-center  text-xs justify-start">
+                                        {data?.status ? (
+                                            <span className='w-full text-center border-none bg-success px-5 border rounded font-thin text-white py-1'>
+                                                Active
+                                            </span>
+                                        ) : (
+                                            <span className='w-full text-center border-none bg-danger px-5 border rounded font-thin text-white py-1'>
+                                                Inactive
+                                            </span>
+                                        )}
+                                    </div>
+                                )
+
+
+                                return data;
+                            })}
+                            // headerChildren={(
+                            //     <div className='flex flex-row py-5'>
+                            //         <SelectDropdown
+                            //             label={"SORT BY CAMPAIGN"}
+                            //             labelClassName="font-semibold text-black/40 text-sm uppercase"
+                            //             containerClassName={"w-1/5 max-sm:w-full"}>
+                            //             <option value="">All Campaigns</option>
+                            //             <option value="">Test Campaigns</option>
+                            //         </SelectDropdown>
+                            //     </div>
+                            // )}
+                            headerChildren={(
+                                <div className='w-full max-sm:items-center max-sm:flex-col flex flex-row mb-3'>
+                                    <InputTextfield className={"rounded-md border focus:border-primary focus-visible:border-primary border-black/10 bg-transparent px-2 py-2"} inputProps={{
+                                        placeholder: "Search...",
+                                        type: "text",
+                                    }} iconComponent={(
+                                        <div className='px-3 py-2'>
+                                            <img src={SearchIcon} className="h-6 w-6" alt="SearchIcon" />
+                                        </div>
+                                    )} />
+                                </div>
+                            )}
+                        />
+                    )
+                })()}
             </div>
-            <Modal onClose={() => {
-                setShowModal(false);
-                setFileDetails({
-                    name: "",
-                    extension: "",
-                    size: ""
-                });
-            }} showModal={showModal}>
-                {form}
+
+            <Modal showModal={uploadModal} onClose={closeUploadModal}>
+                <form ref={formUploadRef} onSubmit={uploadList} className='flex-inline'>
+                    <div className='mt-5'>
+                        <h2 className='text-blue'>UPLOAD TXT LIST</h2>
+                    </div>
+                    <div className='mt-5 text-center mb-10 rounded-lg border border-stroke p-7 cursor-pointer'>
+                        <div>
+                            <img src={Icon_DragAndDrop} height={70} width={70} className='mx-auto my-0' />
+                            <div className=' tracking-tight text-gray'>Drag file here to upload </div>
+                            <div className=' tracking-tight text-gray'>or </div>
+                            <div className=' tracking-tight text-gray mt-3'>
+                                <label htmlFor="importList" className='p-3 px-5 rounded-md bg-blue cursor-pointer'>  Select a file
+                                    <input name="" type="file" id="importList" hidden onChange={handleTXTFile} accept=".txt" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {fileDetails?.name ? <div className='mt-5 text-left'>
+                        <div>
+                            <label className='text-blue'>SELECTED FILE</label>
+                        </div>
+                        <div className="grid grid-cols-12  gap-4">
+                            <div className='col-span-2 tracking-tight'>
+                                {fileDetails?.extension.toLocaleUpperCase()}
+                            </div>
+                            <div className='col-span-6 tracking-tight'>
+                                {fileDetails?.name}
+                            </div>
+                            <div className='col-span-4 tracking-tight'>
+                                {formatFileSize(fileDetails?.size ?? 0)}
+                            </div>
+                        </div>
+                    </div> : ""}
+                    <div className='mt-5 text-left'>
+                        <InputWithCounter required={true} value={uploadForm?.name} name="name" onChange={(e) => handleInput(e, setUploadForm)} limit="30" label="NEW LIST TITLE" className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-2 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></InputWithCounter>
+                    </div>
+                    <div className='mt-5 text-left'>
+                        <TextAreaWithCounter cols='50' required={true} value={uploadForm?.description} name="description" onChange={(e) => handleInput(e, setUploadForm)} rows='3' label="NEW LIST DESCRIPTION" limit='150' className="w-full rounded-lg border border-stroke bg-transparent py-1 pl-2 pr-20 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"></TextAreaWithCounter>
+                    </div>
+                    <div className='mt-5'>
+                        <div>
+                            <button type='submit' className='btn  bg-blue p-2 border rounded-md text-white py-2 px-5'>Upload</button>
+                        </div>
+                        <div className='mt-3'>
+                            <button type='button' className='btn  bg-transparent  text-blue' onClick={closeUploadModal}>Cancel</button>
+                        </div>
+                    </div>
+                </form>
             </Modal>
         </div>
     )
