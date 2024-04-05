@@ -46,8 +46,9 @@ const CementedSuppressionList = () => {
                 </div>
                 <div className='mt-5 text-left'>
                     <SelectDropdown
+                        className={'text-black'}
                         label={"SUPPRESSION LIST"}
-                        labelClassName="font-normal text-primary text-sm uppercase"
+                        labelClassName="text-primary text-sm uppercase font-semibold"
                         containerClassName={"w-full max-sm:w-full"}>
                         <option value="">Test Campaign 1</option>
                         <option value="">Test Campaign 2</option>

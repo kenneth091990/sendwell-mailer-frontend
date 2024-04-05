@@ -9,8 +9,8 @@ const SelectDropdown = ({ label, children, containerClassName, labelClassName, n
                     {label}
                 </label>
             )}
-            <div className="relative z-20 bg-white dark:bg-form-input w-maxContent">
-                <select value={value} defaultValue={defaultValue} name={name} onChange={onChange} className={`relative z-20 w-full text-blue  ${className ?? ' appearance-none rounded border border-strokedark/50 bg-transparent pr-10 pl-4 py-2 outline-none transition text-sm focus:border-primary active:border-primary'}`}>
+            <div className="relative z-20 bg-white dark:bg-form-input w-full">
+                <select value={value} defaultValue={defaultValue} name={name} onChange={onChange} className={`relative z-20 appearance-none rounded border border-strokedark/50 bg-transparent pr-10 pl-4 py-2 outline-none transition text-sm focus:border-primary active:border-primary  w-full ${className ?? ' text-blue '}`}>
                     {children}
                 </select>
                 <span className="absolute top-1/2 right-4 z-10 -translate-y-1/2">

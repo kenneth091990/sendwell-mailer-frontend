@@ -286,7 +286,7 @@ const SuppresionFiles = () => {
                                         <button className=''>
                                             <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                         </button>
-                                        <button className='' onClick={
+                                        {/* <button className='' onClick={
                                             () => {
                                                 setShowModal(true);
                                                 formView('editList', 'n', 0);
@@ -294,7 +294,7 @@ const SuppresionFiles = () => {
 
                                         }>
                                             <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
-                                        </button>
+                                        </button> */}
                                         <button className='' onClick={
                                             () => {
                                                 setShowModal(true);
