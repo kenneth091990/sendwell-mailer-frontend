@@ -23,7 +23,8 @@ import { createFromRecipientList } from '../../modules/recipients/recipientThunk
 import SearchIcon from './../../images/nav/SearchIcon.png'
 import InputTextfield from '../../components/InputTextfield';
 import { SUPRESSION_EVENTS, selectSupression } from '../../modules/supression/supressionSlice';
-import { getSupressionList, supressionFileUpload } from '../../modules/supression/supressionThunk';
+import { getSupressionList, supressionDelete, supressionFileUpload } from '../../modules/supression/supressionThunk';
+import DeleteForm from './MyListForms/DeleteForm';
 
 
 const SuppresionFiles = () => {
@@ -45,6 +46,20 @@ const SuppresionFiles = () => {
         setUploadModal(false)
     }
 
+    const closeDeleteModal = () => {
+        setFileDetails({
+            name: "",
+            extension: "",
+            size: ""
+        });
+        setUploadForm({
+            suppression_id: "",
+            name: "",
+            description: ""
+        })
+        setDeleteModal(false)
+    }
+
 
     const [getToast, setToast] = useToast();
 
@@ -58,6 +73,7 @@ const SuppresionFiles = () => {
             dispatch(getSupressionList({
                 pageSize: 100,
                 page: 1,
+                cemented: false,
             }))
         }
 
@@ -75,6 +91,44 @@ const SuppresionFiles = () => {
                     type: "success"
                 })
                 closeUploadModal();
+                dispatch(getSupressionList({
+                    pageSize: 100,
+                    page: 1,
+                    cemented: false,
+                    fetchPolicy: "network-only"
+                }))
+            }
+
+
+            if (status === "error") {
+                toast.update(getToast, {
+                    render: message,
+                    isLoading: false,
+                    autoClose: true,
+                    type: "error"
+                })
+                dispatch(getSupressionList({
+                    pageSize: 100,
+                    page: 1,
+                    cemented: false,
+                }))
+            }
+        }
+
+        if (event === SUPRESSION_EVENTS.delete_files) {
+            if (status === "loading") {
+                setToast(toast.loading("Please wait loading.", {
+                    isLoading: true
+                }))
+            }
+            if (status === "success") {
+                toast.update(getToast, {
+                    render: message,
+                    isLoading: false,
+                    autoClose: true,
+                    type: "success"
+                })
+                closeDeleteModal();
                 dispatch(getSupressionList({
                     pageSize: 100,
                     page: 1,
@@ -114,6 +168,7 @@ const SuppresionFiles = () => {
             return newEvent;
         },
         {
+            suppression_id: "",
             name: "",
             description: ""
         }
@@ -156,7 +211,11 @@ const SuppresionFiles = () => {
             return;
         }
 
-        dispatch(supressionFileUpload({ ...uploadForm, filepath: importFileData }));
+        dispatch(supressionFileUpload({
+            name: uploadForm?.name,
+            description: uploadForm?.description,
+            filepath: importFileData
+        }));
     }
 
     return (
@@ -300,13 +359,10 @@ const SuppresionFiles = () => {
                                         }>
                                             <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
                                         </button> */}
-                                        <button className='' onClick={
-                                            () => {
-                                                setShowModal(true);
-                                                formView('deleteList', 'n', 0);
-                                            }
-
-                                        }>
+                                        <button className='' onClick={() => {
+                                            setUploadForm(data);
+                                            setDeleteModal(true);
+                                        }}>
                                             <img src={Icon_Trash} height={20} width={20} className='mx-1'></img>
                                         </button>
                                     </div>
@@ -407,6 +463,10 @@ const SuppresionFiles = () => {
                         </div>
                     </div>
                 </form>
+            </Modal>
+
+            <Modal showModal={deleteModal} onClose={closeDeleteModal}>
+                <DeleteForm dispatchFunction={() => dispatch(supressionDelete({ suppression_id: uploadForm?.suppression_id }))} setShowModal={closeDeleteModal} editList={uploadForm} />
             </Modal>
         </div>
     )
