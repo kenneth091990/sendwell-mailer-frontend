@@ -29,6 +29,9 @@ import { getSupressionList, supressionFileUpload } from '../../modules/supressio
 const SuppresionFiles = () => {
     const [showModal, setShowModal] = useState(false);
     const [uploadModal, setUploadModal] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+
+
     const closeUploadModal = () => {
         setFileDetails({
             name: "",
@@ -41,6 +44,8 @@ const SuppresionFiles = () => {
         })
         setUploadModal(false)
     }
+
+    
     const [getToast, setToast] = useToast();
 
     // * Redux
@@ -286,15 +291,7 @@ const SuppresionFiles = () => {
                                         <button className=''>
                                             <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                         </button>
-                                        <button className='' onClick={
-                                            () => {
-                                                setShowModal(true);
-                                                formView('editList', 'n', 0);
-                                            }
 
-                                        }>
-                                            <img src={Icon_Edit} height={20} width={20} className='mx-1'></img>
-                                        </button>
                                         <button className='' onClick={
                                             () => {
                                                 setShowModal(true);

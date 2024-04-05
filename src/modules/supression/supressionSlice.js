@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { getSupressionList, supressionFileUpload } from "./supressionThunk";
+import { getSupressionList, supressionDelete, supressionFileUpload } from "./supressionThunk";
 
 const initialState = {
     event: "",
@@ -11,6 +11,7 @@ const initialState = {
 
 export const SUPRESSION_EVENTS = {
     upload_files: "upload_supression_files",
+    delete_files: "delete_supression_files",
     get_list: "get_supression_list",
 
 }
@@ -62,6 +63,25 @@ const supressionSlice = createSlice({
             }
         }).addCase(supressionFileUpload.rejected, (state, { error }) => {
             state.event = SUPRESSION_EVENTS.upload_files;
+            state.status = 'error';
+            state.message = error?.message ?? "Something went wrong. Please try again";
+        })
+
+        builders.addCase(supressionDelete.pending, (state) => {
+            state.event = SUPRESSION_EVENTS.delete_files;
+            state.status = "loading";
+        }).addCase(supressionDelete.fulfilled, (state, { payload }) => {
+            state.event = SUPRESSION_EVENTS.delete_files;
+            if (payload?.message) {
+                state.status = "error";
+                state.message = payload?.message;
+            } else {
+                state.status = "success";
+                state.message = 'Successfully deleted Supression List';
+                state.data = payload;
+            }
+        }).addCase(supressionDelete.rejected, (state, { error }) => {
+            state.event = SUPRESSION_EVENTS.delete_files;
             state.status = 'error';
             state.message = error?.message ?? "Something went wrong. Please try again";
         })

@@ -66,3 +66,20 @@ mutation supressionFileUpload(
     }
 }
 `
+
+export const SUPRESSION_DELETE = gql`
+mutation supressionDelete($supression_id: String!) {
+    supressionDelete(supression_id: $supression_id) {
+        supression_id
+        name
+        description
+        filepath
+        status
+        cemented
+        is_domain_file
+        supression_type
+        created_at
+        updated_at
+    }
+}
+`;
