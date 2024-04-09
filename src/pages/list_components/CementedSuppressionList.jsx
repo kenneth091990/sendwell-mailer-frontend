@@ -131,8 +131,16 @@ const CementedSuppressionList = () => {
     }, [status, event])
 
 
-    const downloadFile = async (file) => {
+    const downloadFile = async (file, fileNameExt) => {
         try {
+            const getFileNameFromPath = (filePath) => {
+                // Split the filePath string by both forward slash (/) and backslash (\)
+                // The regular expression /[/\\]/ matches both / and \
+                const parts = filePath.split(/[/\\]/);
+                // The last element of the parts array is the file name
+                return parts[parts.length - 1];
+            };
+
             const response = await fetch(file);
             if (!response.ok) throw new Error('Network response was not ok.');
 
@@ -141,7 +149,7 @@ const CementedSuppressionList = () => {
             var fileName = file.split("\\")
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.setAttribute('download', fileName[fileName.length - 1]);
+            link.setAttribute('download', getFileNameFromPath(fileNameExt));
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -279,7 +287,7 @@ const CementedSuppressionList = () => {
 
                                 data.actions = (
                                     <div className="h-full flex flex-row gap-3 justify-center items-center">
-                                        <button onClick={() => downloadFile(`${import.meta.env.VITE_SERVER_HOST}/${data?.filepath}`)}>
+                                        <button onClick={() => downloadFile(`${import.meta.env.VITE_SERVER_HOST}/${data?.filepath}`, data?.filepath)}>
                                             <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                         </button>
                                         <button className='' onClick={() => {
