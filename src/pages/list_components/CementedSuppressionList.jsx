@@ -131,6 +131,27 @@ const CementedSuppressionList = () => {
     }, [status, event])
 
 
+    const downloadFile = async (file) => {
+        try {
+            const response = await fetch(file);
+            if (!response.ok) throw new Error('Network response was not ok.');
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            var fileName = file.split("\\")
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.setAttribute('download', fileName[fileName.length - 1]);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Clean up by revoking the Blob URL after a delay
+            setTimeout(() => window.URL.revokeObjectURL(downloadUrl), 100);
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    }
 
     return (
         <div className='pb-11'>
@@ -258,7 +279,7 @@ const CementedSuppressionList = () => {
 
                                 data.actions = (
                                     <div className="h-full flex flex-row gap-3 justify-center items-center">
-                                        <button className=''>
+                                        <button onClick={() => downloadFile(`${import.meta.env.VITE_SERVER_HOST}/${data?.filepath}`)}>
                                             <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                         </button>
                                         <button className='' onClick={() => {
