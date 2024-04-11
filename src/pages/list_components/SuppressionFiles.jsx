@@ -163,7 +163,10 @@ const SuppresionFiles = () => {
             };
 
             const response = await fetch(file);
-            if (!response.ok) throw new Error('Network response was not ok.');
+            if (!response.ok) {
+                toast.error("File not found.")
+                return;
+            }
 
             const blob = await response.blob();
             const downloadUrl = window.URL.createObjectURL(blob);
@@ -375,7 +378,7 @@ const SuppresionFiles = () => {
 
                                 data.actions = (
                                     <div className="h-full flex flex-row gap-3 justify-center items-center">
-                                        <button onClick={() => downloadFile(`${import.meta.env.VITE_SERVER_HOST}/${data?.filepath}`, data?.filepath)}>
+                                        <button onClick={() => downloadFile(`${import.meta.env.VITE_SERVER_HOST}/${data?.filepath}?enc=true`, data?.filepath)}>
                                             <img src={Icon_Download} height={20} width={20} className='mx-1'></img>
                                         </button>
                                         {/* <button className='' onClick={
