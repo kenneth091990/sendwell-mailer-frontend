@@ -801,7 +801,7 @@ const MyList = () => {
                 const fileContent = await readTXTFile(file);
                 const regex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
                 var emails = fileContent.match(regex);
-                console.log(emails);
+                console.log(emails, "extension == 'txt'");
 
                 setTimeout(() => {
                     console.log("Nagset ng bagong file")
@@ -986,6 +986,7 @@ const MyList = () => {
                         )}
                         data={myList.map((list, index) => {
                             var listData = { ...list };
+                            console.log({ listData });
                             listData.mobileCellView = (
                                 <div className='flex flex-col mb-4 justify-between'>
                                     <div className="flex flex-row justify-between">

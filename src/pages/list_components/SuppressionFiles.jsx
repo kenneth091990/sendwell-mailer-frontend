@@ -207,7 +207,7 @@ const SuppresionFiles = () => {
 
     const handleTXTFile = (event) => {
         const uploadedFile = event.target.files[0];
-        const allowedExtensions = ['txt'];
+        const allowedExtensions = ['txt', 'md5'];
 
         if (uploadedFile) {
             const extension = uploadedFile.name.split('.').pop().toLowerCase();
