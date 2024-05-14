@@ -76,10 +76,7 @@ query getLists(
         description
         status
         recipient_to_list {
-            recipient_id
-                recipient {
-                    email_local_part
-                }
+                recipient_id
             }
         }
     }
