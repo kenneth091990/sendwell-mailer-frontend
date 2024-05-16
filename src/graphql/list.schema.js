@@ -73,9 +73,13 @@ query getLists(
         lists{
         list_id
         name
-        recipient_count
         description
         status
+        recipient_count
+        recipient_to_list {
+                recipient_id
+            }
+        }
     }
 }
 `;
