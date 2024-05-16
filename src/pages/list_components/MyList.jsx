@@ -1010,7 +1010,7 @@ const MyList = () => {
                                         count
                                     </span>
                                     <span className='text-sm'>
-                                        {listData?.count}
+                                        {listData?.recipient_count}
                                     </span>
                                     <span className="text-black/30 text-md uppercase font-semibold mt-3">
                                         status
@@ -1067,7 +1067,7 @@ const MyList = () => {
                                 </div>
                             )
 
-                            listData.count = listData?.recipient_to_list?.length ?? 0;
+                            listData.count = listData?.recipient_count ?? 0;
                             // listData.count = listData?.recipient_to_list?.length ?? 0;
 
                             listData.name = (
